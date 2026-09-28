@@ -1,87 +1,62 @@
 #!/usr/bin/env python
 """
-Cluster ligand conformers on symmetry-folded torsion features.
+Cluster ligand conformers on torsions, respecting the molecule's symmetry.
 
-Features: each torsion phi_j with symmetry number k_j -> cos(k_j phi_j), sin(k_j phi_j),
-all scaled by 1/sqrt(n_torsions). The Euclidean distance between two conformers is then
+Features: each torsion phi -> cos(phi), sin(phi), scaled by 1/sqrt(n_torsions).
+Symmetry: two conformers are compared under every symmetry operation of the
+molecule (from torsions_symops.txt, written by select_torsions.py) and the
+SMALLEST distance is used:
+      d(A, B) = min_g || x(A) - x(g B) ||
+Operations act on all torsions jointly (e.g. a ring flip shifts both torsions of
+R1-ring-R2 by 180 deg together), so syn/anti-type conformations stay distinct
+while relabelled copies of the same conformation merge.
+Distance scale (one torsion): d = 0.5 <-> ~29 deg, d = 1.0 <-> 60 deg.
 
-    d_AB = sqrt( (1/n) * sum_j 2 * (1 - cos(k_j * dphi_j)) )
-
-i.e. exactly the symmetry-corrected dihedral distance of Zivanovic et al. 2020 (their eq 1).
-Rough scale for one torsion: d = 0.5 <-> ~29 deg of k*phi, d = 1.0 <-> 60 deg.
-
-Methods:
-  hdbscan (default)  density-based; finds the number of clusters itself, any shape;
-                     sparse frames (e.g. barrier crossings) get label -1 = noise.
-                     Afterwards clusters closer than --merge-gap are merged, because
-                     HDBSCAN can fragment one smooth basin into pieces.
-  daura              Daura et al. (GROMOS) algorithm as used in Zivanovic 2020: frame with
-                     most neighbours within --cutoff = centre, remove it + neighbours,
-                     repeat until --coverage of frames is assigned or --max-clusters.
-
-Input (either):
-  --traj + --top : dihedrals computed here (needed for representative PDBs)
-  --dihedrals    : dihedrals.npy from torsion_analysis.py (no PDBs written)
-Symmetry numbers: --torsions torsions.txt (5th column, from select_torsions.py) or --symmetry.
+Methods (on the precomputed best-match distances):
+  hdbscan (default)  density-based: finds the dense core of each basin (number of
+                     clusters not preset); then lower-density frames are assigned to the basin they are
+                     connected to by steps < --assign-radius. Only frames cut off by
+                     an empty gap (e.g. isolated barrier crossings) stay noise (-1).
+  daura              Daura/GROMOS algorithm with a distance --cutoff.
 
 Example:
   python cluster.py --traj whole_state0_prod1.nc --top ../build/built.pdb \
-      --torsions torsions.txt --select "resname PAR" --out clusters
+      --torsions torsions.txt --symops torsions_symops.txt --select "resname PAR" --out clusters
 
-Outputs (in --out):
-  clusters.csv        per cluster: frames, population, dG (kcal/mol, vs largest cluster),
-                      circular mean of each torsion, representative frame
-  labels.npy          cluster label per frame (-1 = noise / unassigned)
-  clusters_pc.png     PC1 vs PC2 coloured by cluster (noise grey)
-  clusters_torsions.png  torsion distributions per cluster
-  cluster_<c>.pdb     representative conformer of each cluster (ligand only, if --traj)
+Outputs (in --out): clusters.csv, labels.npy, aligned_dihedrals.npy, clusters_pc.png, clusters_torsions.png,
+cluster_<c>.pdb (representative = cluster medoid, ligand only if --select).
+Torsion means in clusters.csv are circular means after aligning every member to
+the cluster representative (so symmetry-related copies don't average out).
 """
 import argparse
 import os
+import warnings
 
 import numpy as np
+import mdtraj as md
 import matplotlib
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from sklearn.decomposition import PCA
-from sklearn.neighbors import NearestNeighbors
+
+import symtools as st
 
 KB_KCAL = 0.0019872041  # kcal/(mol K)
 
 
-# ------------------------------------------------------------------ helpers
-def features(phi_deg, k):
-    r = np.radians(phi_deg) * k[None, :]
-    X = np.empty((phi_deg.shape[0], 2 * phi_deg.shape[1]))
-    X[:, 0::2] = np.cos(r)
-    X[:, 1::2] = np.sin(r)
-    return X / np.sqrt(phi_deg.shape[1])
-
-
-def folded_circ_mean(phi_deg, k):
-    """circular mean of k*phi, mapped back to phi in [0, 360/k)"""
-    r = np.radians(phi_deg) * k[None, :]
-    m = np.degrees(np.arctan2(np.sin(r).mean(0), np.cos(r).mean(0)))
-    return (m % 360.0) / k
-
-
-def run_hdbscan(X, min_cluster_size, min_samples):
+def run_hdbscan(D, mcs, ms):
     try:
         from sklearn.cluster import HDBSCAN
     except ImportError:
         raise SystemExit("HDBSCAN needs scikit-learn >= 1.3 (pip install -U scikit-learn)")
-    import warnings
     with warnings.catch_warnings():
         warnings.simplefilter("ignore", FutureWarning)
-        return HDBSCAN(min_cluster_size=min_cluster_size, min_samples=min_samples,
-                       allow_single_cluster=True).fit_predict(X)
+        return HDBSCAN(min_cluster_size=mcs, min_samples=ms, metric="precomputed",
+                       allow_single_cluster=True).fit_predict(D)
 
 
-def merge_close_clusters(X, labels, gap):
-    """Merge clusters whose closest members are nearer than `gap` (single linkage
-    between clusters). HDBSCAN can split one smooth, continuous basin into pieces;
-    pieces not separated by an empty gap are the same conformation."""
+def merge_close_clusters(D, labels, gap):
     ids = [c for c in np.unique(labels) if c >= 0]
     if len(ids) < 2 or gap <= 0:
         return labels
@@ -93,11 +68,10 @@ def merge_close_clusters(X, labels, gap):
             c = parent[c]
         return c
 
-    nn = {c: NearestNeighbors(n_neighbors=1).fit(X[labels == c]) for c in ids}
+    members = {c: np.where(labels == c)[0] for c in ids}
     for a_i, a in enumerate(ids):
         for b in ids[a_i + 1:]:
-            d, _ = nn[b].kneighbors(X[labels == a])
-            if d.min() < gap:
+            if D[np.ix_(members[a], members[b])].min() < gap:
                 parent[find(a)] = find(b)
     out = labels.copy()
     for c in ids:
@@ -105,164 +79,189 @@ def merge_close_clusters(X, labels, gap):
     return out
 
 
-def run_daura(X, cutoff, max_clusters, coverage):
-    n = len(X)
-    G = NearestNeighbors(radius=cutoff).fit(X).radius_neighbors_graph(X, mode="connectivity").tocsr()
+def assign_to_cores(D, labels, radius):
+    """Give noise frames the label of their nearest assigned frame if it is closer
+    than `radius`, repeatedly, so labels spread outwards from each dense core along
+    continuous paths of frames (closest first). Frames separated from every cluster
+    by a gap > radius stay noise. HDBSCAN on its own labels only the dense core of a
+    basin; its lower-density edges are still part of that basin."""
+    labels = labels.copy()
+    assigned = labels >= 0
+    if not assigned.any() or radius <= 0:
+        return labels, 0
+    Da = D[:, assigned]
+    best_d = Da.min(1)
+    best_l = labels[assigned][Da.argmin(1)]
+    n_new = 0
+    while True:
+        cand = np.where(~assigned & (best_d < radius))[0]
+        if len(cand) == 0:
+            break
+        # assign only the closest layer this round, so labels grow outward in order
+        layer = cand[best_d[cand] <= best_d[cand].min() + 0.25 * radius]
+        labels[layer] = best_l[layer]
+        assigned[layer] = True
+        n_new += len(layer)
+        dn = D[:, layer]
+        j = dn.argmin(1)
+        closer = dn[np.arange(len(D)), j] < best_d
+        best_d = np.where(closer, dn[np.arange(len(D)), j], best_d)
+        best_l = np.where(closer, labels[layer][j], best_l)
+    return labels, n_new
+
+
+def run_daura(D, cutoff, max_clusters, coverage):
+    n = len(D)
+    nb = D < cutoff
     labels = np.full(n, -1)
     alive = np.ones(n, dtype=bool)
     for c in range(max_clusters):
         if (~alive).sum() >= coverage * n or not alive.any():
             break
-        counts = G.dot(alive.astype(float))            # neighbours among remaining frames
+        counts = (nb[:, alive]).sum(1).astype(float)
         counts[~alive] = -1
         centre = int(np.argmax(counts))
-        members = G[centre].indices
-        members = members[alive[members]]
-        members = np.union1d(members, [centre])
-        labels[members] = c
-        alive[members] = False
+        mem = np.where(nb[centre] & alive)[0]
+        labels[np.union1d(mem, [centre])] = c
+        alive[labels == c] = False
     return labels
 
 
 def relabel_by_size(labels):
-    """cluster 0 = largest; noise stays -1"""
-    ids = [c for c in np.unique(labels) if c >= 0]
-    order = sorted(ids, key=lambda c: -(labels == c).sum())
+    ids = sorted([c for c in np.unique(labels) if c >= 0], key=lambda c: -(labels == c).sum())
     new = np.full_like(labels, -1)
-    for i, c in enumerate(order):
+    for i, c in enumerate(ids):
         new[labels == c] = i
     return new
 
 
-# --------------------------------------------------------------------- main
 def main():
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    src = ap.add_mutually_exclusive_group(required=True)
-    src.add_argument("--traj", nargs="+", help="trajectory file(s) of ONE state (lambda=1)")
-    src.add_argument("--dihedrals", help="dihedrals.npy (degrees) instead of --traj")
-    ap.add_argument("--top", help="topology (needed with --traj)")
-    ap.add_argument("--torsions", help="torsions.txt (indices; 5th column = symmetry)")
-    ap.add_argument("--symmetry", type=int, nargs="+", help="symmetry numbers if not in --torsions")
+    ap.add_argument("--traj", required=True, nargs="+", help="trajectory file(s) of ONE state (lambda=1)")
+    ap.add_argument("--top", required=True)
+    ap.add_argument("--torsions", required=True, help="torsions.txt from select_torsions.py")
+    ap.add_argument("--symops", default=None,
+                    help="torsions_symops.txt from select_torsions.py (omit = no symmetry)")
     ap.add_argument("--select", default=None, help='atoms for representative PDBs, e.g. "resname PAR"')
     ap.add_argument("--skip", type=int, default=0, help="frames to drop from start of each file")
     ap.add_argument("--stride", type=int, default=1)
     ap.add_argument("--method", choices=["hdbscan", "daura"], default="hdbscan")
     ap.add_argument("--min-cluster-size", type=float, default=0.02,
-                    help="hdbscan: <1 = fraction of frames, >=1 = number of frames "
-                         "(default 0.02, but never below 10 frames)")
-    ap.add_argument("--min-samples", type=int, default=5,
-                    help="hdbscan: neighbours defining a dense point (default 5); larger = more noise")
-    ap.add_argument("--merge-gap", type=float, default=0.2,
-                    help="hdbscan: merge clusters whose closest frames are nearer than this d (0 = off)")
-    ap.add_argument("--cutoff", type=float, default=0.5, help="daura: distance cutoff d (default 0.5)")
+                    help="hdbscan: <1 = fraction of frames, >=1 = frames (default 0.02, min 10)")
+    ap.add_argument("--min-samples", type=float, default=0.01,
+                    help="hdbscan: density smoothing; <1 = fraction of frames, >=1 = frames "
+                         "(default 0.01, min 5). Too small -> one basin splits into fragments")
+    ap.add_argument("--merge-gap", type=float, default=0.0,
+                    help="hdbscan: merge clusters whose closest frames are nearer than this "
+                         "(default 0 = off; can wrongly merge basins joined by barrier crossings)")
+    ap.add_argument("--assign-radius", type=float, default=0.2,
+                    help="hdbscan: noise frames connected to a cluster by steps shorter than this are "
+                         "assigned to it (0 = off, keep HDBSCAN's noise)")
+    ap.add_argument("--cutoff", type=float, default=0.5, help="daura: distance cutoff (default 0.5)")
     ap.add_argument("--max-clusters", type=int, default=10, help="daura (default 10)")
-    ap.add_argument("--coverage", type=float, default=0.95, help="daura: stop at this fraction (0.95)")
+    ap.add_argument("--coverage", type=float, default=0.95, help="daura (default 0.95)")
     ap.add_argument("--temp", type=float, default=298.0)
     ap.add_argument("--out", default="clusters")
     args = ap.parse_args()
     os.makedirs(args.out, exist_ok=True)
 
-    # ---- torsions + symmetry
-    tors = np.loadtxt(args.torsions, dtype=int, ndmin=2, comments="#") if args.torsions else None
-    if args.symmetry:
-        k = np.array(args.symmetry, dtype=int)
-    elif tors is not None and tors.shape[1] >= 5:
-        k = tors[:, 4]
-    else:
-        raise SystemExit("symmetry numbers needed: --torsions with 5th column, or --symmetry")
+    tors = np.loadtxt(args.torsions, dtype=int, ndmin=2, comments="#")
+    ops = st.load_ops(args.symops, tors)
+    if args.symops is None:
+        print("NOTE: no --symops given - symmetry-equivalent conformations will NOT be merged.")
 
-    # ---- dihedrals
-    traj = None
-    if args.traj:
-        import mdtraj as md
-        if args.top is None or tors is None:
-            raise SystemExit("--traj needs --top and --torsions")
-        parts, phis = [], []
-        for f in args.traj:
-            t = md.load(f, top=args.top, stride=args.stride)[args.skip:]
-            phis.append(np.degrees(md.compute_dihedrals(t, tors[:, :4])) % 360.0)
-            parts.append(t)
-            print(f"  {f}: {t.n_frames} frames")
-        traj = md.join(parts) if len(parts) > 1 else parts[0]
-        phi = np.concatenate(phis)
-    else:
-        phi = np.load(args.dihedrals)[args.skip:]
-    n_frames, n_tor = phi.shape
-    if len(k) != n_tor:
-        raise SystemExit(f"{len(k)} symmetry numbers for {n_tor} torsions")
-    print(f"{n_frames} frames, {n_tor} torsions, symmetry {k.tolist()}, method {args.method}")
+    parts = []
+    for f in args.traj:
+        t = md.load(f, top=args.top, stride=args.stride)[args.skip:]
+        print(f"  {f}: {t.n_frames} frames")
+        parts.append(t)
+    traj = md.join(parts) if len(parts) > 1 else parts[0]
 
-    # ---- cluster
-    X = features(phi, k)
+    phiops = st.phi_all_ops(traj, ops)                 # (n_ops, frames, n_tor)
+    Xops = st.features(phiops)
+    n_ops, n_frames, n_tor = phiops.shape
+    print(f"{n_frames} frames, {n_tor} torsions, {n_ops} symmetry operation(s), method {args.method}")
+
+    D = st.best_match_distances(Xops)
+
     if args.method == "hdbscan":
         mcs = int(round(args.min_cluster_size * n_frames)) if args.min_cluster_size < 1 else int(args.min_cluster_size)
         mcs = min(max(mcs, 10), n_frames)
-        ms = min(args.min_samples, mcs)
-        labels = run_hdbscan(X, mcs, ms)
+        ms = int(round(args.min_samples * n_frames)) if args.min_samples < 1 else int(args.min_samples)
+        ms = min(max(ms, 5), mcs)
+        labels = run_hdbscan(D, mcs, ms)
         n_raw = len([c for c in np.unique(labels) if c >= 0])
-        labels = merge_close_clusters(X, labels, args.merge_gap)
+        labels = merge_close_clusters(D, labels, args.merge_gap)
         n_new = len([c for c in np.unique(labels) if c >= 0])
-        print(f"HDBSCAN min_cluster_size = {mcs}, min_samples = {ms}; {n_raw} raw clusters -> {n_new} after merging "
-              f"clusters closer than gap {args.merge_gap}")
+        n_core = int((labels >= 0).sum())
+        labels, n_ass = assign_to_cores(D, labels, args.assign_radius)
+        msg = f"HDBSCAN min_cluster_size = {mcs}, min_samples = {ms}; {n_raw} cluster(s)"
+        if args.merge_gap > 0:
+            msg += f" -> {n_new} after merging clusters closer than {args.merge_gap}"
+        print(msg)
+        print(f"  {n_core} frames in dense cores; {n_ass} lower-density frames assigned to their basin "
+              f"(path of frames closer than {args.assign_radius})")
     else:
-        labels = run_daura(X, args.cutoff, args.max_clusters, args.coverage)
+        labels = run_daura(D, args.cutoff, args.max_clusters, args.coverage)
         print(f"Daura cutoff d = {args.cutoff}")
     labels = relabel_by_size(labels)
     np.save(os.path.join(args.out, "labels.npy"), labels)
 
     ids = [c for c in np.unique(labels) if c >= 0]
+    if not ids:
+        raise SystemExit("No clusters found (all noise) - lower --min-cluster-size or raise --cutoff.")
     noise = (labels == -1).mean()
     kT = KB_KCAL * args.temp
-    if not ids:
-        raise SystemExit("No clusters found (all frames noise) - lower --min-cluster-size or raise --cutoff.")
-
-    # ---- per-cluster statistics + representatives
     counts = {c: int((labels == c).sum()) for c in ids}
     pmax = max(counts.values())
+
     rows = []
     for c in ids:
-        m = labels == c
-        centre = X[m].mean(0)
-        members = np.where(m)[0]
-        rep = int(members[np.argmin(((X[m] - centre) ** 2).sum(1))])
-        mean_t = folded_circ_mean(phi[m], k)
-        rows.append((c, counts[c], counts[c] / n_frames, -kT * np.log(counts[c] / pmax), rep, mean_t, phi[rep]))
+        mem = np.where(labels == c)[0]
+        rep = int(mem[D[np.ix_(mem, mem)].sum(1).argmin()])        # medoid
+        _, phi_al, _ = st.align(Xops[:, mem], phiops[:, mem], Xops[0, rep])
+        rows.append(dict(c=c, n=counts[c], p=counts[c] / n_frames,
+                         dG=-kT * np.log(counts[c] / pmax) + 0.0, rep=rep,
+                         mean=st.circ_mean(phi_al), rep_phi=phiops[0, rep]))
 
-    tor_cols = ",".join(f"mean_phi{j}(k={k[j]})" for j in range(n_tor))
-    rep_cols = ",".join(f"rep_phi{j}" for j in range(n_tor))
     with open(os.path.join(args.out, "clusters.csv"), "w") as f:
-        f.write(f"cluster,frames,population,dG_kcal_mol,rep_frame,{tor_cols},{rep_cols}\n")
-        for c, n, p, g, rep, mt, rp in rows:
-            f.write(f"{c},{n},{p:.4f},{g:.3f},{rep}," + ",".join(f"{v:.1f}" for v in mt) + ","
-                    + ",".join(f"{v:.1f}" for v in rp) + "\n")
+        f.write("cluster,frames,population,dG_kcal_mol,rep_frame,"
+                + ",".join(f"mean_phi{j}" for j in range(n_tor)) + ","
+                + ",".join(f"rep_phi{j}" for j in range(n_tor)) + "\n")
+        for r in rows:
+            f.write(f"{r['c']},{r['n']},{r['p']:.4f},{r['dG']:.3f},{r['rep']},"
+                    + ",".join(f"{v:.1f}" for v in r["mean"]) + ","
+                    + ",".join(f"{v:.1f}" for v in r["rep_phi"]) + "\n")
         f.write(f"noise,{int((labels == -1).sum())},{noise:.4f},,,\n")
 
     print(f"\n{'cluster':>7s} {'frames':>7s} {'pop':>7s} {'dG(kcal/mol)':>13s} {'rep':>6s}  mean torsions (deg)")
-    for c, n, p, g, rep, mt, rp in rows:
-        print(f"{c:>7d} {n:>7d} {p:>7.1%} {g:>13.2f} {rep:>6d}  {np.round(mt, 1).tolist()}")
+    for r in rows:
+        print(f"{r['c']:>7d} {r['n']:>7d} {r['p']:>7.1%} {r['dG']:>13.2f} {r['rep']:>6d}  "
+              f"{[round(float(v), 1) for v in r['mean']]}")
     print(f"{'noise':>7s} {int((labels == -1).sum()):>7d} {noise:>7.1%}")
     if noise > 0.2:
         print("WARNING: >20% noise frames - sampling may be too sparse or min_cluster_size too large.")
 
-    if traj is not None:
-        sub = traj.atom_slice(traj.topology.select(args.select)) if args.select else traj
-        for c, n, p, g, rep, mt, rp in rows:
-            sub[rep].save_pdb(os.path.join(args.out, f"cluster_{c}.pdb"))
-        print(f"Representative PDBs written (cluster_<c>.pdb).")
+    sub = traj.atom_slice(traj.topology.select(args.select)) if args.select else traj
+    for r in rows:
+        sub[r["rep"]].save_pdb(os.path.join(args.out, f"cluster_{r['c']}.pdb"))
+    print("Representative PDBs written (cluster_<c>.pdb).")
 
-    # ---- plots
+    # ---- plots: each cluster aligned to its own medoid, medoids aligned to the largest cluster's
+    Xal, phial = st.align_by_clusters(Xops, phiops, labels, {r["c"]: r["rep"] for r in rows}, rows[0]["rep"])
+    np.save(os.path.join(args.out, "aligned_dihedrals.npy"), phial)
+    Y = PCA(n_components=min(2, Xal.shape[1])).fit_transform(Xal)
     cmap = plt.get_cmap("tab10")
-    colors = np.array([cmap(c % 10) if c >= 0 else (0.7, 0.7, 0.7, 0.5) for c in labels])
-    Y = PCA(n_components=min(2, X.shape[1])).fit_transform(X)
+    colors = [cmap(c % 10) if c >= 0 else (0.7, 0.7, 0.7, 0.5) for c in labels]
     fig, ax = plt.subplots(figsize=(5.5, 4.5))
     ax.scatter(Y[:, 0], Y[:, 1], c=colors, s=8)
     for c in ids:
         ax.scatter([], [], color=cmap(c % 10), label=f"cluster {c} ({counts[c] / n_frames:.0%})")
     if noise > 0:
         ax.scatter([], [], color=(0.7, 0.7, 0.7), label=f"noise ({noise:.0%})")
-    ax.set_xlabel("PC1")
-    ax.set_ylabel("PC2")
-    ax.set_title(f"{args.method} clusters on torsion features")
+    ax.set_xlabel("PC1 (symmetry-aligned)")
+    ax.set_ylabel("PC2 (symmetry-aligned)")
+    ax.set_title(f"{args.method} clusters")
     ax.legend(fontsize=8)
     fig.tight_layout()
     fig.savefig(os.path.join(args.out, "clusters_pc.png"), dpi=150)
@@ -270,11 +269,10 @@ def main():
     edges = np.arange(0, 370, 10)
     fig, axes = plt.subplots(n_tor, 1, figsize=(6, 2.3 * n_tor), squeeze=False)
     for j in range(n_tor):
-        data = [phi[labels == c, j] for c in ids] + [phi[labels == -1, j]]
-        cols = [cmap(c % 10) for c in ids] + [(0.7, 0.7, 0.7)]
-        axes[j, 0].hist(data, bins=edges, stacked=True, color=cols)
+        data = [phial[labels == c, j] for c in ids] + [phial[labels == -1, j]]
+        axes[j, 0].hist(data, bins=edges, stacked=True, color=[cmap(c % 10) for c in ids] + [(0.7, 0.7, 0.7)])
         axes[j, 0].set_ylabel(f"torsion {j}\ncount")
-    axes[-1, 0].set_xlabel("dihedral (deg)")
+    axes[-1, 0].set_xlabel("dihedral (deg), symmetry-aligned")
     fig.tight_layout()
     fig.savefig(os.path.join(args.out, "clusters_torsions.png"), dpi=150)
     print(f"Results written to {args.out}/")

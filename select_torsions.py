@@ -20,7 +20,12 @@ another heavy neighbour, plus non-aromatic ring bonds) is classified as:
                                        NOT included in torsions.txt)
 Aromatic ring bonds are ignored.
 
-Symmetry number k of a torsion j-k: for each end, if ALL other neighbours of
+SYMMETRY: the molecule's symmetry operations (graph automorphisms) are written to
+<out>_symops.txt, each as the relabelled torsion list. They act on ALL torsions
+jointly (e.g. a ring flip shifts both torsions of R1-ring-R2 at once), which
+cluster.py / dpca.py use. The per-bond number below is kept only as information.
+
+Per-bond number k_local of a torsion j-k: for each end, if ALL other neighbours of
 that atom (hydrogens included) are topologically equivalent, the end has
 symmetry = their number (phenyl ipso -> 2, CF3 -> 3), else 1. k = lcm of the
 two ends. Equivalence = RDKit canonical ranks with ties kept, computed on the
@@ -31,8 +36,8 @@ Only topological symmetry is detected (same limitation as TABS).
 Output file format (torsions.txt etc.):
   i j k l symmetry   # atom names | class
 Indices are in the numbering of --top (whole system) unless --ligand-indices.
-torsion_analysis.py reads columns 1-4; dpca.py can read the symmetry column
-with --torsions torsions.txt.
+torsion_analysis.py reads columns 1-4. cluster.py and dpca.py read torsions.txt
+together with torsions_symops.txt.
 
 Example:
   python select_torsions.py --sdf ../build/PAR.sdf --top ../build/built.pdb \
@@ -44,6 +49,8 @@ from math import gcd
 
 import numpy as np
 import mdtraj as md
+import networkx as nx
+from networkx.algorithms.isomorphism import GraphMatcher
 from rdkit import Chem
 
 RIGID_PATTERNS = {
@@ -90,6 +97,42 @@ def next_to_triple(mol, a):
 def smallest_ring(mol, bond_idx):
     sizes = [len(r) for r in mol.GetRingInfo().BondRings() if bond_idx in r]
     return min(sizes) if sizes else 0
+
+
+def symmetry_ops(mol, torsions, max_iter=50000):
+    """Graph automorphisms of the heavy-atom graph (atoms matched by element and
+    number of attached H; bond orders ignored so resonance partners are
+    equivalent), restricted to those preserving R/S labels. Returned as the
+    relabelled torsion quadruples, duplicates removed, identity first."""
+    heavy = [a.GetIdx() for a in mol.GetAtoms() if a.GetAtomicNum() > 1]
+    G = nx.Graph()
+    for a in heavy:
+        at = mol.GetAtomWithIdx(a)
+        G.add_node(a, key=(at.GetAtomicNum(), at.GetTotalNumHs(includeNeighbors=True)))
+    for b in mol.GetBonds():
+        i, j = b.GetBeginAtomIdx(), b.GetEndAtomIdx()
+        if i in G and j in G:
+            G.add_edge(i, j)
+
+    if mol.GetNumConformers() and mol.GetConformer().Is3D():
+        Chem.AssignStereochemistryFrom3D(mol)
+    cip = {a.GetIdx(): a.GetProp("_CIPCode") for a in mol.GetAtoms() if a.HasProp("_CIPCode")}
+
+    identity = tuple(tuple(t) for t in torsions)
+    ops, seen, n = [identity], {identity}, 0
+    gm = GraphMatcher(G, G, node_match=lambda x, y: x["key"] == y["key"])
+    for m in gm.isomorphisms_iter():
+        n += 1
+        if n > max_iter:
+            print(f"WARNING: stopped after {max_iter} automorphisms - symmetry list may be incomplete.")
+            break
+        if any(cip.get(m[a]) != c for a, c in cip.items()):
+            continue                                   # would map R onto S: not a real symmetry
+        img = tuple(tuple(m[x] for x in t) for t in torsions)
+        if img not in seen:
+            seen.add(img)
+            ops.append(img)
+    return ops
 
 
 def classify(mol):
@@ -169,13 +212,14 @@ def main():
     files = {"rotatable": f"{args.out}.txt", "rigid": f"{args.out}_rigid.txt", "ring": f"{args.out}_ring.txt"}
     handles = {c: open(p, "w") for c, p in files.items()}
     for h in handles.values():
-        h.write("# i j k l symmetry   # atom names | class\n")
+        h.write("# i j k l k_local   # atom names | class   (k_local: per-bond symmetry, info only;"
+                " symmetry is handled by the _symops.txt file)\n")
 
-    print(f"\n{'class':10s} {'sym':>3s}  torsion (atom names)                         note")
+    print(f"\n{'class':10s} {'k_loc':>5s}  torsion (atom names)                         note")
     for r in rows:
         ijkl = [to_out(x) for x in r["ijkl"]]
         label = " ".join(names[x] for x in r["ijkl"])
-        print(f"{r['cls']:10s} {r['sym']:>3d}  {label:45s} {r['note']}")
+        print(f"{r['cls']:10s} {r['sym']:>5d}  {label:45s} {r['note']}")
         if r["cls"] in handles:
             handles[r["cls"]].write(f"{ijkl[0]} {ijkl[1]} {ijkl[2]} {ijkl[3]} {r['sym']}   "
                                     f"# {label} | {r['cls']} {r['note']}\n")
@@ -188,6 +232,21 @@ def main():
           f"{n['trivial']} trivial dropped")
     if n["ring"]:
         print("NOTE: non-aromatic ring bonds found - ring conformations are NOT in torsions.txt.")
+
+    # symmetry operations acting on the rotatable torsions (whole molecule, all torsions jointly)
+    rot = [r["ijkl"] for r in rows if r["cls"] == "rotatable"]
+    symfile = f"{args.out}_symops.txt"
+    if rot:
+        ops = symmetry_ops(mol, rot)
+        with open(symfile, "w") as f:
+            f.write(f"# {len(ops)} symmetry operations; each line = the {len(rot)} torsion quadruples "
+                    "after relabelling; first line = identity\n")
+            for op in ops:
+                f.write(" ".join(str(to_out(x)) for q in op for x in q) + "\n")
+        print(f"{len(ops)} symmetry operation(s) on the rotatable torsions -> {symfile}")
+        for g, op in enumerate(ops[1:], 1):
+            moved = [f"t{t}->" + " ".join(names[x] for x in q) for t, q in enumerate(op) if q != tuple(rot[t])]
+            print(f"  op {g}: " + "; ".join(moved))
 
 
 if __name__ == "__main__":

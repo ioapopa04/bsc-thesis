@@ -108,12 +108,3 @@ python "$SCRIPTS/dpca.py" --traj "$TRAJ" --top "$TOP" \
 
 Outputs in `pca/` include `pc1_pc2.png`, `pc1_pc2_free_energy.png`, `explained_variance.png`, `loadings.csv`, `pcs.npy`, and `aligned_dihedrals.npy`. The PCA uses the `clusters/labels.npy` labels to align symmetry-equivalent conformations within each cluster. If using non-default `--skip` or `--stride`, pass the same values to both `cluster.py` and `dpca.py` so the labels correspond to the same frames.
 
-## 5. Review results locally
-
-From your laptop, copy the generated analysis folders from the remote run directory (adjust the host if needed):
-
-```bash
-scp -r popa0002@pharma-jay:~/PARA-REST2-long/REST2-run1/{results,clusters,pca} .
-```
-
-Open the PNGs and load `clusters/cluster_*.pdb` in PyMOL to verify that each cluster represents a sensible conformation. The scripts remain in `~/bsc-thesis`; only generated data and analysis results belong in the simulation run directory.

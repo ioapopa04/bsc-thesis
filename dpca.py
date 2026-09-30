@@ -47,6 +47,15 @@ def main():
                          "to its own medoid - recommended, see note below")
     ap.add_argument("--skip", type=int, default=0)
     ap.add_argument("--stride", type=int, default=1)
+    ap.add_argument("--drop-free", action=argparse.BooleanOptionalAction, default=True,
+                    help="drop near-free rotors (same selection as cluster.py; default on so the PCA uses "
+                         "the same subspace as the clustering)")
+    ap.add_argument("--min-barrier", type=float, default=2.0,
+                    help="--drop-free threshold in kcal/mol (default 2.0; must match cluster.py)")
+    ap.add_argument("--torsions-keep", default=None,
+                    help="comma-separated torsion indices to use (must match cluster.py)")
+    ap.add_argument("--torsions-drop", default=None,
+                    help="comma-separated torsion indices to drop (must match cluster.py)")
     ap.add_argument("--n-components", type=int, default=5)
     ap.add_argument("--temp", type=float, default=298.0)
     ap.add_argument("--bins", type=int, default=40)
@@ -60,6 +69,18 @@ def main():
     traj = md.join(parts) if len(parts) > 1 else parts[0]
 
     phiops = st.phi_all_ops(traj, ops)
+    n_tor_all = phiops.shape[2]
+    dropped = np.zeros(n_tor_all, dtype=bool)
+    if args.torsions_drop:
+        dropped[[int(x) for x in args.torsions_drop.split(",")]] = True
+    if args.drop_free:
+        dropped |= st.free_rotor_mask(phiops[0], args.min_barrier, temp=args.temp)
+    keep = (np.array([int(x) for x in args.torsions_keep.split(",")]) if args.torsions_keep is not None
+            else np.array([j for j in range(n_tor_all) if not dropped[j]]))
+    if len(keep) == 0:
+        raise SystemExit("No torsions left after selection - lower --min-barrier or drop fewer.")
+    phiops = phiops[:, :, keep]
+    print(f"using {len(keep)} torsion(s) {list(int(j) for j in keep)} of {n_tor_all}")
     Xops = st.features(phiops)
     if args.labels:
         labels = np.load(args.labels)
@@ -89,7 +110,7 @@ def main():
     np.savetxt(os.path.join(args.out, "explained_variance.csv"),
                np.column_stack([np.arange(1, ncomp + 1), evr, np.cumsum(evr)]),
                delimiter=",", header="PC,fraction,cumulative", fmt=["%d", "%.5f", "%.5f"])
-    names = [f"{fn}(phi{j})" for j in range(n_tor) for fn in ("cos", "sin")]
+    names = [f"{fn}(phi{int(keep[j])})" for j in range(n_tor) for fn in ("cos", "sin")]
     with open(os.path.join(args.out, "loadings.csv"), "w") as f:
         f.write("feature," + ",".join(f"PC{i+1}" for i in range(ncomp)) + "\n")
         for fi, nm in enumerate(names):

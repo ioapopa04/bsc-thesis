@@ -12,6 +12,8 @@ one line per operation = the torsion atom quadruples after relabelling
 """
 import numpy as np
 
+KB_KCAL = 0.0019872041
+
 
 def load_ops(path, torsions):
     """(n_ops, n_tor, 4) array. Without a file: identity only."""
@@ -48,8 +50,96 @@ def features(phi_deg):
     return X / np.sqrt(n)
 
 
+def torsion_pmf(phi_deg, nbins=36, smooth=1, temp=298.0):
+    """1D circular free-energy profile of one torsion. Returns (G, centres), both
+    length nbins, G in kcal/mol with its minimum subtracted. `smooth` is a
+    half-width in bins of a circular boxcar applied to the counts."""
+    edges = np.linspace(0.0, 360.0, nbins + 1)
+    c, _ = np.histogram(phi_deg, edges)
+    c = c + 1.0                                    # keep the log finite
+    k = np.ones(2 * smooth + 1) / (2 * smooth + 1)
+    cs = np.convolve(np.r_[c[-smooth:], c, c[:smooth]], k, "same")[smooth:-smooth]
+    G = -KB_KCAL * temp * np.log(cs)
+    return G - G.min(), (edges[:-1] + edges[1:]) / 2
+
+
+def free_rotor_mask(phi_deg, min_barrier=2.0, nbins=36, smooth=1, temp=298.0):
+    """Boolean mask, True for a *near-free rotor*: a torsion whose free-energy
+    profile never rises `min_barrier` kcal/mol above its most stable value, so
+    every angle is thermally accessible and the torsion defines no metastable
+    state. Such torsions only add dimensions (and thermal smear) to the
+    distance without separating conformations - see cluster.py --drop-free.
+
+    phi_deg is (n_frames, n_tor); the test is per column."""
+    phi = np.asarray(phi_deg, dtype=float)
+    if phi.ndim == 1:
+        phi = phi[:, None]
+    out = np.zeros(phi.shape[1], dtype=bool)
+    for j in range(phi.shape[1]):
+        G, _ = torsion_pmf(phi[:, j], nbins, smooth, temp)
+        out[j] = (G.max() - G.min()) < min_barrier
+    return out
+
+
+def _chord(a, b):
+    """Chord length between two sets of angles (deg): 2|sin(dphi/2)|, in [0, 2].
+    Equals the Euclidean distance between the (cos, sin) points."""
+    from scipy.spatial.distance import cdist
+    ca = np.stack([np.cos(np.radians(a)), np.sin(np.radians(a))], axis=-1)
+    cb = np.stack([np.cos(np.radians(b)), np.sin(np.radians(b))], axis=-1)
+    return cdist(ca, cb)
+
+
+def pairwise_distances(phiops, metric="max", max_frames=25000):
+    """Symmetry-aware distance between conformers, combining the torsions with
+    `metric` AFTER choosing the best symmetry operation (the minimum is taken
+    over operations on the combined distance, never per torsion - otherwise the
+    two frames could be compared under different relabellings).
+
+        d(a, b) = min_g  combine_j  chord(phi_j(a), phi_j(g b))
+
+    metric "max": combine = max over torsions. A single flipped torsion is the
+                  whole distance, so a real conformational change is not diluted
+                  by thermal jitter in the other torsions. Resilience to noise
+                  in one torsion is lower - good for sharp rotamer states.
+    metric "rms": combine = sqrt(sum of squares). Each torsion contributes 1/n
+                  of the squared distance, so one 180 deg flip is only worth
+                  ~uniform small jitter everywhere (this is the old behaviour,
+                  kept for comparison).
+
+    Scale (both metrics, one torsion changing by dphi): d = 2|sin(dphi/2)|, so
+    d = 0.5 <-> 29 deg, d = 1.0 <-> 60 deg, d = 2.0 <-> 180 deg. Distances are
+    in [0, 2] regardless of how many torsions are used.
+
+    phiops is (n_ops, n_frames, n_tor) from phi_all_ops.
+    """
+    n_ops, n, n_tor = phiops.shape
+    if n > max_frames:
+        raise SystemExit(f"{n} frames -> distance matrix too large; use --stride to subsample.")
+    D = None
+    for g in range(n_ops):
+        acc = None
+        for j in range(n_tor):
+            c = _chord(phiops[0, :, j], phiops[g, :, j])
+            if metric == "max":
+                acc = c if acc is None else np.maximum(acc, c)
+            elif metric == "rms":
+                acc = c * c if acc is None else acc + c * c
+            else:
+                raise SystemExit(f"unknown metric {metric!r} (use 'max' or 'rms')")
+        if metric == "rms":
+            np.sqrt(acc, out=acc)
+        D = acc if D is None else np.minimum(D, acc)
+    np.minimum(D, D.T, out=D)                       # exact symmetry up to small geometric noise
+    np.fill_diagonal(D, 0.0)
+    return D
+
+
 def best_match_distances(Xops, max_frames=25000):
-    """D[a, b] = min over operations g of || X(a) - X_g(b) ||   (n_frames x n_frames)."""
+    """Deprecated: kept so older callers still import. This is the old
+    Euclidean-on-features (= `rms`) metric; prefer pairwise_distances(phiops, ...),
+    which also offers the `max` metric and takes the symmetry minimum on the
+    combined distance."""
     from scipy.spatial.distance import cdist
     n = Xops.shape[1]
     if n > max_frames:

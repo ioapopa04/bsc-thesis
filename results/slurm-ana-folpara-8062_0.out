@@ -1,0 +1,4 @@
+== folic-acid cluster_prune.py  Thu Oct  8 15:51:12 CEST 2026
+== folic-acid cluster_convergence.py  Thu Oct  8 15:51:27 CEST 2026
+== folic-acid done  Thu Oct  8 15:51:49 CEST 2026
+converged at 50 ns (3 groups over 40-50 ns)

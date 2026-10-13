@@ -1,0 +1,48 @@
+loading trajectory
+  REST2-run1/solute_state0_prod1.nc: 10000 frames, 0.002-99.992 ns
+10000 frames, 12 torsions, 100 ns -> 20 windows
+atom mapping: identity verified: elements and the full bond graph agree under this mapping
+  0-5 ns:    500 frames   13 clusters  ->   3 merged groups  noise 87.2%
+  0-10 ns:   1000 frames    5 clusters  ->   4 merged groups  noise 58.1%
+  0-15 ns:   1500 frames    2 clusters  ->   2 merged groups  noise 68.8%
+  0-20 ns:   2000 frames    4 clusters  ->   4 merged groups  noise 79.5%
+  0-25 ns:   2500 frames    3 clusters  ->   3 merged groups  noise 76.1%
+  0-30 ns:   3000 frames    2 clusters  ->   2 merged groups  noise 69.9%
+  0-35 ns:   3500 frames    4 clusters  ->   4 merged groups  noise 83.9%
+  0-40 ns:   4000 frames    3 clusters  ->   3 merged groups  noise 79.5%
+  0-45 ns:   4500 frames    3 clusters  ->   3 merged groups  noise 80.5%
+  0-50 ns:   5000 frames    3 clusters  ->   3 merged groups  noise 84.1%
+  0-55 ns:   5500 frames    3 clusters  ->   3 merged groups  noise 84.6%
+  0-60 ns:   6000 frames    3 clusters  ->   3 merged groups  noise 84.3%
+  0-65 ns:   6500 frames    2 clusters  ->   2 merged groups  noise 81.9%
+  0-70 ns:   7000 frames    2 clusters  ->   2 merged groups  noise 85.4%
+  0-75 ns:   7500 frames    2 clusters  ->   2 merged groups  noise 86.4%
+  0-80 ns:   8000 frames    2 clusters  ->   2 merged groups  noise 84.7%
+  0-85 ns:   8500 frames    2 clusters  ->   2 merged groups  noise 84.7%
+  0-90 ns:   9000 frames    2 clusters  ->   2 merged groups  noise 85.1%
+  0-95 ns:   9500 frames    2 clusters  ->   2 merged groups  noise 86.2%
+  0-100 ns:  10000 frames    2 clusters  ->   2 merged groups  noise 87.5%
+ t_ns  n_frames  n_clusters_hdbscan    noise  n_groups  converged
+  5.0       500                  13 0.872000         3      False
+ 10.0      1000                   5 0.581000         4      False
+ 15.0      1500                   2 0.688000         2      False
+ 20.0      2000                   4 0.794500         4      False
+ 25.0      2500                   3 0.761200         3      False
+ 30.0      3000                   2 0.699000         2      False
+ 35.0      3500                   4 0.838857         4      False
+ 40.0      4000                   3 0.795000         3      False
+ 45.0      4500                   3 0.805333         3      False
+ 50.0      5000                   3 0.840800         3       True
+ 55.0      5500                   3 0.845636         3       True
+ 60.0      6000                   3 0.842667         3       True
+ 65.0      6500                   2 0.819385         2       True
+ 70.0      7000                   2 0.854286         2       True
+ 75.0      7500                   2 0.863867         2       True
+ 80.0      8000                   2 0.847250         2       True
+ 85.0      8500                   2 0.847294         2       True
+ 90.0      9000                   2 0.851222         2       True
+ 95.0      9500                   2 0.861789         2       True
+100.0     10000                   2 0.874700         2       True
+converged at 50 ns (3 groups over 40-50 ns)
+
+All outputs in /scratch/ipopa/FOLn-REST2-50ns/folic-acid-convergence/

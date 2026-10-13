@@ -1,0 +1,21 @@
+{
+  "checkpoint": "generation_000003.chk",
+  "checkpoint_bytes": 1197374,
+  "checkpoint_sha256": "3e3957263686a78d4cb4ac786bf82c24cf8a302d8216a6b7fb6030d064ec42ac",
+  "generation": 3,
+  "state": {
+    "cv_prefix": null,
+    "ensemble": "NPT",
+    "fingerprint": "871ecfa71f83003893ccb922dec2e0b66a11a962fb0f938244d845028e3f1a03",
+    "platform": "CUDA",
+    "precision": "mixed",
+    "seed": 1449149064,
+    "stage": "eq_npt_free",
+    "steps_done": 100000,
+    "streams": {
+      "state_csv": 20,
+      "trajectory": 100
+    },
+    "timestep_fs": 2.0
+  }
+}

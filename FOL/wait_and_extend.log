@@ -1,0 +1,7 @@
+=== 2026-10-05T12:14:08+02:00 extension watcher started; waiting for all 8 GPUs to be idle ===
+    (busy: another user's training job; will extend REST2 by +50 ns when free)
+    2026-10-05T12:14:09+02:00 free check 1/2 (8/8 idle)
+    2026-10-05T12:15:10+02:00 free check 2/2 (8/8 idle)
+=== 2026-10-05T12:15:10+02:00 all 8 GPUs free -> launching REST2 +50 ns extension ===
+checkpoint step before launch: 25000000 (target after extension: 50000000)
+=== 2026-10-05T13:25:38+02:00 extension exited rc=0 after 70 min ===

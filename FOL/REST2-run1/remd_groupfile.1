@@ -1,0 +1,19 @@
+# REST2: 8 states, tau 0.0 to 0.4.
+# Segment 1 of 1; this segment's outputs are the `_prod1` set.
+# One group per line, INPUTS only -- run-level outputs go on the executor call,
+# because they describe the coordinated run rather than one replica.
+# Paths are relative to THIS FILE, which is how they are read back.
+#
+# -s is this state's SAVED scaled System, build/REST2/system_state<n>.xml, written by
+# `md-openmm build-top --rest2-scaler` with scaler.yaml beside it. It is NOT scaled
+# again at run time: that would take solute-solute to (1-tau)^4 and produce
+# entirely plausible numbers.
+
+-i _protocol.py -p ../build/built.pdb -s ../build/REST2/system_state0.xml -c eq/eq_3.xml --group-index 0
+-i _protocol.py -p ../build/built.pdb -s ../build/REST2/system_state1.xml -c eq/eq_3.xml --group-index 1
+-i _protocol.py -p ../build/built.pdb -s ../build/REST2/system_state2.xml -c eq/eq_3.xml --group-index 2
+-i _protocol.py -p ../build/built.pdb -s ../build/REST2/system_state3.xml -c eq/eq_3.xml --group-index 3
+-i _protocol.py -p ../build/built.pdb -s ../build/REST2/system_state4.xml -c eq/eq_3.xml --group-index 4
+-i _protocol.py -p ../build/built.pdb -s ../build/REST2/system_state5.xml -c eq/eq_3.xml --group-index 5
+-i _protocol.py -p ../build/built.pdb -s ../build/REST2/system_state6.xml -c eq/eq_3.xml --group-index 6
+-i _protocol.py -p ../build/built.pdb -s ../build/REST2/system_state7.xml -c eq/eq_3.xml --group-index 7

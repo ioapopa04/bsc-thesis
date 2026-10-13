@@ -1,0 +1,224 @@
+md-openmm REST2
+====================================================================
+
+Ladder
+------
+  states                      8
+  tau                         [0.0, 0.057143, 0.114286, 0.171429, 0.228571, 0.285714, 0.342857, 0.4]
+  exchange every              1000 steps = 2 ps
+  attempts                    25000
+  temperature                 300.0 K (every state, NVT)
+
+Summary
+-------
+  REST2: 8 states, 25000 exchanges
+  status: completed
+
+# ===== BEGIN md-tools machine record =====
+# schema_version: md-tools-record/2.0
+# record_type: md-replica:REST2
+# status: completed
+# started_utc: '2026-09-30T15:27:28+00:00'
+# finished_utc: '2026-09-30T16:21:20+00:00'
+# command:
+# - /scratch/ipopa/software/md-stack/envs/openmm-env/bin/md-openmm
+# - md-run
+# - -ng
+# - '8'
+# - -i
+# - ../input/REST2.in
+# - -p
+# - /scratch/ipopa/FOLn-REST2-50ns/REST2-run1/../build/built.pdb
+# - --groupfile
+# - remd_groupfile.1
+# - -odir
+# - .
+# - -o
+# - remd_records/REST2_prod1.out
+# - -log
+# - remd_records/REST2_prod1.log
+# - -r
+# - remd_records/restart_prod1.json
+# environment:
+#   hostname: sbrinz
+#   platform: Linux-5.14.0-503.40.1.el9_5.x86_64-x86_64-with-glibc2.34
+#   machine: x86_64
+#   user: ipopa
+#   packages:
+#     python: 3.12.14
+#     md-tools: 0.6.2
+#     openmm: '8.6'
+#     openff-toolkit: 0.19.0
+#     openmmforcefields: 0.16.0
+#     parmed: 4.3.1
+#     rdkit: 2026.3.1
+#     ambertools: null
+#     numpy: 2.4.6
+#     pyyaml: 6.0.3
+#     openmm_build: 8.6.0.dev-c6173db
+#   md_tools_commit: 2e1aa6cf99503bb7e8b3d7a79fcb330e4b6c55ac
+# ladder:
+#   protocol: REST2
+#   solvent: explicit
+#   n_states: 8
+#   tau_max: 0.4
+#   exchange_interval_steps: 1000
+#   number_of_exchanges: 25000
+#   equilibration_steps: 50000
+#   state_trajectory: true
+#   rem_log: true
+#   neighbour_acceptance_report: true
+#   dynamics:
+#     timestep_fs: 2.0
+#     temperature_K: 300.0
+#     pressure_bar: 1.0
+#     friction_per_ps: 1.0
+#     barostat_interval_steps: 25
+#     restraint_kcal_per_mol_A2: 1.0
+#     tau: 0.0
+#     phase_space_printout: 0
+#     seed: 1
+#   collective_variables:
+#     file: null
+#     generate: null
+#     interval_steps: 0
+#   reporting:
+#     crd_printout_solute: 1000
+#     crd_printout_whole: 50000
+#     info_printout: 5000
+#     checkpoint_printout: 50000
+#   resolved_config: resolved.config
+# tau:
+# - 0.0
+# - 0.057143
+# - 0.114286
+# - 0.171429
+# - 0.228571
+# - 0.285714
+# - 0.342857
+# - 0.4
+# exchange_interval_ps: 2.0
+# inputs:
+#   topology:
+#     path: built.pdb
+#     bytes: 209192
+#     sha256: de0a643887fc86c017195838aab5c63bdd61bbd2e5fe242f49c291b949113221
+#   group_file:
+#     path: remd_groupfile.1
+#     bytes: 1434
+#     sha256: 6aa50136dba788ca405fbb420fb806894c76a672488a7d3c0d0ad2ca61e6c708
+#   system_state0:
+#     path: system_state0.xml
+#     bytes: 530124
+#     sha256: a46505b05a28b6ebf81292717fdfb70412c14ee1b0131af66f760d33fd348915
+#   system_state1:
+#     path: system_state1.xml
+#     bytes: 530180
+#     sha256: 55203968fa07a7d16a40b8238749bfed12215fb7696faf2a736003e302f6c681
+#   system_state2:
+#     path: system_state2.xml
+#     bytes: 530161
+#     sha256: 05c34d5f3404b5c5d8b9ae4eaa2bee9509e16c9c61d564d3df1a614e2cfc6c9a
+#   system_state3:
+#     path: system_state3.xml
+#     bytes: 530222
+#     sha256: 238ad031db18adaa59239988132c53e1725dd3c7bbeea553f3d3a9fa3074c8f0
+#   system_state4:
+#     path: system_state4.xml
+#     bytes: 530205
+#     sha256: 877b4b1e912cd88b2123795689f899a384a7cc9da319ed423c31e5403a8fe462
+#   system_state5:
+#     path: system_state5.xml
+#     bytes: 530310
+#     sha256: 7d0f728b72862375cb2669a9ef36acecc67df1b078abfc26b33792ce74745153
+#   system_state6:
+#     path: system_state6.xml
+#     bytes: 530248
+#     sha256: c8d5ecf50fcf2f001974e36b7795517a8fa04bd9f1721c1c5d7fc4156f82dabd
+#   system_state7:
+#     path: system_state7.xml
+#     bytes: 530278
+#     sha256: e503e38db5e4f5db9e30dbdd6c7bc09a197a69a137a724665f12e18300d4938e
+# outputs:
+#   restart_json:
+#     path: remd_records/restart_prod1.json
+#     bytes: 27372
+#     sha256: 353354a381ecee29d3ca27771d87f7afff34e5f5ee97d1c396be4c51ed620247
+#   whole_state0_prod1.nc:
+#     path: whole_state0_prod1.nc
+#     bytes: 15422900
+#     sha256: cbb48d76a8e5540b8eaacf8988ca404ae0f1317285e510225b52a6469e561401
+#   whole_state1_prod1.nc:
+#     path: whole_state1_prod1.nc
+#     bytes: 15422900
+#     sha256: 8dead4c6d8d0eee3ed78a452a6c72c028fd4600018c6ec7dac508591e9ee7614
+#   whole_state2_prod1.nc:
+#     path: whole_state2_prod1.nc
+#     bytes: 15422900
+#     sha256: 7e373c9b456058b74793596d832b05e683c15b08efffe2057de8136713dece11
+#   whole_state3_prod1.nc:
+#     path: whole_state3_prod1.nc
+#     bytes: 15422900
+#     sha256: a65492c800c97a4749f465069fc9cd40dacbf5b6bad7d0b63fcc39e43796927a
+#   whole_state4_prod1.nc:
+#     path: whole_state4_prod1.nc
+#     bytes: 15422900
+#     sha256: 16dd43e3f9e6b3f3150d60c9a0e9406791c0ab144acb026d001894451c2a71bb
+#   whole_state5_prod1.nc:
+#     path: whole_state5_prod1.nc
+#     bytes: 15422900
+#     sha256: 72dd626473eb5215aa0b0bed2323f62553400682ec0e7db3718251cdbd12afe9
+#   whole_state6_prod1.nc:
+#     path: whole_state6_prod1.nc
+#     bytes: 15422900
+#     sha256: 49e6535b3e7951b2a204710f90e7a07e69abb616dea94935f8a4768cb7e98a24
+#   whole_state7_prod1.nc:
+#     path: whole_state7_prod1.nc
+#     bytes: 15422900
+#     sha256: 158c72f2cac831ea09b013b06bb7322374f7211d5c05bca609c70e98f91a9ecc
+#   solute_state0_prod1.nc:
+#     path: solute_state0_prod1.nc
+#     bytes: 16600900
+#     sha256: b92df0848ff6d1188e42268e5d00805696e3b358e66d63d20b05a2c6747da750
+#   solute_state1_prod1.nc:
+#     path: solute_state1_prod1.nc
+#     bytes: 16600900
+#     sha256: 0379b53c682e83ba92c77b728f392f9078be31e76feca77c2fe4b86d09d2e515
+#   solute_state2_prod1.nc:
+#     path: solute_state2_prod1.nc
+#     bytes: 16600900
+#     sha256: 7c601aca15ed9f613e4c7341cfdc768a3100e312b57ecf4ddacaa94207f4d627
+#   solute_state3_prod1.nc:
+#     path: solute_state3_prod1.nc
+#     bytes: 16600900
+#     sha256: 248b2049fc6fbf97be2066ab7d18028fe2671106bddb95e30578846ef8252770
+#   solute_state4_prod1.nc:
+#     path: solute_state4_prod1.nc
+#     bytes: 16600900
+#     sha256: 6ef1fca302fe5ccbec442a28e0a23bc01934373953810075c6ffe9f5215f2039
+#   solute_state5_prod1.nc:
+#     path: solute_state5_prod1.nc
+#     bytes: 16600900
+#     sha256: 047db0a1caaa757c0e3a3679104d017bc17fe8c4c6efb16ddb63d2f693a0ee01
+#   solute_state6_prod1.nc:
+#     path: solute_state6_prod1.nc
+#     bytes: 16600900
+#     sha256: 82b53f6563e622582f5fd46a3cc62eda4b86b4a13cf8ca7cb8708a910c2e1e61
+#   solute_state7_prod1.nc:
+#     path: solute_state7_prod1.nc
+#     bytes: 16600900
+#     sha256: ddc2e1933b038b6ef4e95ab43dbfe7cd7b2258077aad6a97f5b21d4d16baa3c3
+#   REST2.nc:
+#     path: REST2.nc
+#     bytes: 48692041
+#     sha256: 9ae4f9a114cbd868857bb249ca5169dd4537ae9428bd45a6901067502eb234f4
+#   REST2_checkpoint.nc:
+#     path: REST2_checkpoint.nc
+#     bytes: 10573436
+#     sha256: 6509145c2bb9acfb691a491e71132e2e153a5b8ee6eab3d8b1faeb309785d8df
+#   rem.log:
+#     path: rem.log
+#     bytes: 16500207
+#     sha256: 6d24be7009208e178fd1271975810ee3c63b8aa2e454e469a388dbdf35aa230b
+# state_trajectories: 8
+# ===== END md-tools machine record =====

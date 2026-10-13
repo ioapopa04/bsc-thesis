@@ -1,0 +1,551 @@
+md-openmm stage: eq_npt_posres
+====================================================================
+
+Inputs
+------
+  topology                    /scratch/ipopa/FOLn-REST2-50ns/REST2-run1/../build/built.pdb
+  system                      /scratch/ipopa/FOLn-REST2-50ns/REST2-run1/../build/built.xml
+  continue from               eq/eq_1.xml
+
+System
+------
+  atoms                       2566
+  residues                    842 (HOH 837, CL 2, NA 2, FOL 1)
+  net charge                  -0.000 e
+  degrees of freedom          5165
+  box                         3.423 x 3.423 x 2.420 nm  volume 28.348 nm^3
+
+Method
+------
+  nonbonded                   PME, cutoff 1.0 nm, Ewald tolerance 0.0005, grid chosen per Context from the tolerance
+  dispersion correction       on
+  switching                   off
+  exceptions (1-4 pairs)      2765
+  constraints                 2530 bond(s)
+  barostat in system          MonteCarloBarostat
+  forces                      HarmonicBondForce, NonbondedForce, PeriodicTorsionForce, CMMotionRemover, HarmonicAngleForce, CustomExternalForce, MonteCarloBarostat
+
+Resolved settings
+-----------------
+  ensemble                    NPT
+  steps                       50000
+  timestep_fs                 auto
+  temperature_K               300.0
+  pressure_bar                1.0
+  friction_per_ps             1.0
+  barostat_interval_steps     25
+  restraint_kcal_per_mol_A2   1.0
+  trajectory_interval_steps   1000
+  state_interval_steps        5000
+  checkpoint_interval_steps   50000
+  timestep                    2.0 fs (requested 'auto', ordinary_masses; heaviest hydrogen 1.007947 amu)
+  derived time                50000 steps x 2.0 fs = 100 ps (0.1 ns)
+  solvent                     explicit
+
+Selections
+----------
+  solute                      51 atom(s) (restraint and REST2 region)
+  unscaled central bonds      not applicable at tau = 0 (nothing is scaled, so nothing is exempted)
+  acceleration                CUDA (default-cuda)
+  started from                eq/eq_1.xml  (sha256 41460c431371...)
+  platform                    CUDA
+  barostat                    1 in system, 1 active, every 25 steps (0.05 ps)
+
+Run
+---
+  integrating 50000 steps
+
+Outputs
+-------
+  checkpoint                  eq/eq_2.checkpoints generation 2
+  eq_2.xml                    eq/eq_2.xml  (re-read OK)
+  solute_eq_2.nc              eq/solute_eq_2.nc
+  mdout_eq_2.csv              eq/mdout_eq_2.csv  (state table)
+
+Summary
+-------
+  eq_npt_posres: 50000 steps completed, 100 ps
+  status: completed
+
+# ===== BEGIN md-tools machine record =====
+# schema_version: md-tools-record/2.0
+# record_type: md-stage:eq_npt_posres
+# status: completed
+# started_utc: '2026-09-30T15:25:22+00:00'
+# finished_utc: '2026-09-30T15:25:35+00:00'
+# command:
+# - /scratch/ipopa/software/md-stack/envs/openmm-env/bin/md-openmm
+# - md-run
+# - -i
+# - ../input/eq_2.in
+# - -p
+# - /scratch/ipopa/FOLn-REST2-50ns/REST2-run1/../build/built.pdb
+# - -s
+# - /scratch/ipopa/FOLn-REST2-50ns/REST2-run1/../build/built.xml
+# - -c
+# - eq/eq_1.xml
+# - -odir
+# - eq
+# environment:
+#   hostname: sbrinz
+#   platform: Linux-5.14.0-503.40.1.el9_5.x86_64-x86_64-with-glibc2.34
+#   machine: x86_64
+#   user: ipopa
+#   packages:
+#     python: 3.12.14
+#     md-tools: 0.6.2
+#     openmm: '8.6'
+#     openff-toolkit: 0.19.0
+#     openmmforcefields: 0.16.0
+#     parmed: 4.3.1
+#     rdkit: 2026.3.1
+#     ambertools: null
+#     numpy: 2.4.6
+#     pyyaml: 6.0.3
+#     openmm_build: 8.6.0.dev-c6173db
+#   md_tools_commit: 2e1aa6cf99503bb7e8b3d7a79fcb330e4b6c55ac
+# simulation_output: eq/eq_2.out
+# system_census:
+#   atoms: 2566
+#   residues:
+#     FOL: 1
+#     HOH: 837
+#     NA: 2
+#     CL: 2
+#   residues_summary: 842 (HOH 837, CL 2, NA 2, FOL 1)
+#   net_charge_e: -1.3322676295501878e-15
+#   degrees_of_freedom: 5165
+#   constraints: 2530
+#   box_nm: 3.423 x 3.423 x 2.420 nm
+#   volume_nm3: 28.347539726145456
+# method_summary:
+#   nonbonded: PME, cutoff 1.0 nm, Ewald tolerance 0.0005, grid chosen per Context from
+#     the tolerance
+#   dispersion correction: 'on'
+#   switching: 'off'
+#   exceptions (1-4 pairs): 2765
+#   constraints: 2530 bond(s)
+#   barostat in system: MonteCarloBarostat
+#   forces: HarmonicBondForce, NonbondedForce, PeriodicTorsionForce, CMMotionRemover,
+#     HarmonicAngleForce, CustomExternalForce, MonteCarloBarostat
+# timestep:
+#   timestep_fs: 2.0
+#   requested: auto
+#   basis: ordinary_masses
+#   heaviest_hydrogen_amu: 1.007947
+#   hmr_detected: false
+# selections:
+#   n_solute_atoms: 51
+#   unscaled_central_bonds: []
+#   unscaled_impropers: false
+# acceleration:
+#   requested_policy: default-cuda
+#   platform_selection: machine-config
+#   cli_cpu_override: false
+#   platform_origin: machine.openmm
+#   device_policy: local_rank
+#   requested_platform: CUDA
+#   explicit_cpu: false
+#   resolved_platform: CUDA
+#   cuda_device_index: 0
+#   cuda_precision: mixed
+#   gpus_on_host:
+#   - NVIDIA H200 NVL
+#   - NVIDIA H200 NVL
+#   - NVIDIA H200 NVL
+#   - NVIDIA H200 NVL
+#   - NVIDIA H200 NVL
+#   - NVIDIA H200 NVL
+#   - NVIDIA H200 NVL
+#   - NVIDIA H200 NVL
+#   openmm_version: 8.6.0.dev-c6173db
+#   cuda_visible_devices: 0,1,2,3,4,5,6,7
+#   cuda_driver_version: 595.58.03
+#   cuda_runtime_version: null
+#   openmm_plugin_load_failures:
+#   - 'Error loading library /scratch/ipopa/software/md-stack/envs/openmm-env/lib/plugins/libOpenMMHIP.so:
+#     libhiprtc.so.6: cannot open shared object file: No such file or directory'
+#   - 'Error loading library /scratch/ipopa/software/md-stack/envs/openmm-env/lib/plugins/libOpenMMRPMDHIP.so:
+#     libhiprtc.so.6: cannot open shared object file: No such file or directory'
+#   - 'Error loading library /scratch/ipopa/software/md-stack/envs/openmm-env/lib/plugins/libOpenMMDrudeHIP.so:
+#     libhiprtc.so.6: cannot open shared object file: No such file or directory'
+#   - 'Error loading library /scratch/ipopa/software/md-stack/envs/openmm-env/lib/plugins/libOpenMMAmoebaHIP.so:
+#     libhiprtc.so.6: cannot open shared object file: No such file or directory'
+#   mpi:
+#     rank: 0
+#     size: 1
+#     local_rank: 0
+#   device_policy_detail: 'single worker: first visible device'
+#   placement:
+#     workers: 1
+#     placement: 'single worker: first visible device'
+#     nodes:
+#     - host: sbrinz
+#       ranks:
+#       - 0
+#       usable_cpus: 128
+#       cpus_per_worker: 128
+#       visible_devices: 8
+#     this_worker: &id001
+#       host: sbrinz
+#       local_rank: 0
+#       cpus:
+#       - 0
+#       - 1
+#       - 2
+#       - 3
+#       - 4
+#       - 5
+#       - 6
+#       - 7
+#       - 48
+#       - 49
+#       - 50
+#       - 51
+#       - 52
+#       - 53
+#       - 54
+#       - 55
+#       - 16
+#       - 17
+#       - 18
+#       - 19
+#       - 20
+#       - 21
+#       - 22
+#       - 23
+#       - 32
+#       - 33
+#       - 34
+#       - 35
+#       - 36
+#       - 37
+#       - 38
+#       - 39
+#       - 8
+#       - 9
+#       - 10
+#       - 11
+#       - 12
+#       - 13
+#       - 14
+#       - 15
+#       - 56
+#       - 57
+#       - 58
+#       - 59
+#       - 60
+#       - 61
+#       - 62
+#       - 63
+#       - 24
+#       - 25
+#       - 26
+#       - 27
+#       - 28
+#       - 29
+#       - 30
+#       - 31
+#       - 40
+#       - 41
+#       - 42
+#       - 43
+#       - 44
+#       - 45
+#       - 46
+#       - 47
+#       - 64
+#       - 65
+#       - 66
+#       - 67
+#       - 68
+#       - 69
+#       - 70
+#       - 71
+#       - 112
+#       - 113
+#       - 114
+#       - 115
+#       - 116
+#       - 117
+#       - 118
+#       - 119
+#       - 80
+#       - 81
+#       - 82
+#       - 83
+#       - 84
+#       - 85
+#       - 86
+#       - 87
+#       - 96
+#       - 97
+#       - 98
+#       - 99
+#       - 100
+#       - 101
+#       - 102
+#       - 103
+#       - 72
+#       - 73
+#       - 74
+#       - 75
+#       - 76
+#       - 77
+#       - 78
+#       - 79
+#       - 120
+#       - 121
+#       - 122
+#       - 123
+#       - 124
+#       - 125
+#       - 126
+#       - 127
+#       - 88
+#       - 89
+#       - 90
+#       - 91
+#       - 92
+#       - 93
+#       - 94
+#       - 95
+#       - 104
+#       - 105
+#       - 106
+#       - 107
+#       - 108
+#       - 109
+#       - 110
+#       - 111
+#       launcher_cpus:
+#       - 0
+#       - 1
+#       - 2
+#       - 3
+#       - 4
+#       - 5
+#       - 6
+#       - 7
+#       - 8
+#       - 9
+#       - 10
+#       - 11
+#       - 12
+#       - 13
+#       - 14
+#       - 15
+#       - 16
+#       - 17
+#       - 18
+#       - 19
+#       - 20
+#       - 21
+#       - 22
+#       - 23
+#       - 24
+#       - 25
+#       - 26
+#       - 27
+#       - 28
+#       - 29
+#       - 30
+#       - 31
+#       - 32
+#       - 33
+#       - 34
+#       - 35
+#       - 36
+#       - 37
+#       - 38
+#       - 39
+#       - 40
+#       - 41
+#       - 42
+#       - 43
+#       - 44
+#       - 45
+#       - 46
+#       - 47
+#       - 48
+#       - 49
+#       - 50
+#       - 51
+#       - 52
+#       - 53
+#       - 54
+#       - 55
+#       - 56
+#       - 57
+#       - 58
+#       - 59
+#       - 60
+#       - 61
+#       - 62
+#       - 63
+#       - 64
+#       - 65
+#       - 66
+#       - 67
+#       - 68
+#       - 69
+#       - 70
+#       - 71
+#       - 72
+#       - 73
+#       - 74
+#       - 75
+#       - 76
+#       - 77
+#       - 78
+#       - 79
+#       - 80
+#       - 81
+#       - 82
+#       - 83
+#       - 84
+#       - 85
+#       - 86
+#       - 87
+#       - 88
+#       - 89
+#       - 90
+#       - 91
+#       - 92
+#       - 93
+#       - 94
+#       - 95
+#       - 96
+#       - 97
+#       - 98
+#       - 99
+#       - 100
+#       - 101
+#       - 102
+#       - 103
+#       - 104
+#       - 105
+#       - 106
+#       - 107
+#       - 108
+#       - 109
+#       - 110
+#       - 111
+#       - 112
+#       - 113
+#       - 114
+#       - 115
+#       - 116
+#       - 117
+#       - 118
+#       - 119
+#       - 120
+#       - 121
+#       - 122
+#       - 123
+#       - 124
+#       - 125
+#       - 126
+#       - 127
+#       device: 0
+#       co_tenants: 1
+#     worker_map:
+#       '0': *id001
+#     measurement: null
+#     shared_devices: false
+#     mps:
+#       requested: false
+#       pipe_directory: /tmp/nvidia-mps
+#       daemon: not-running
+#       verified: null
+#       environment:
+#         CUDA_MPS_PIPE_DIRECTORY: null
+#         CUDA_MPS_LOG_DIRECTORY: null
+#         CUDA_MPS_ACTIVE_THREAD_PERCENTAGE: null
+#         CUDA_MPS_PINNED_DEVICE_MEM_LIMIT: null
+#       detail: no control pipe in /tmp/nvidia-mps
+#       forced: false
+#       status: absent
+# stage:
+#   tau: 0.0
+#   phase_space_interval_steps: 0
+#   timestep_fs: auto
+#   temperature_K: 300.0
+#   pressure_bar: 1.0
+#   friction_per_ps: 1.0
+#   barostat_interval_steps: 25
+#   seed: 1
+#   collective_variables:
+#     file: null
+#     generate: null
+#     interval_steps: 0
+#   name: eq_npt_posres
+#   ensemble: NPT
+#   steps: 50000
+#   restraint_kcal_per_mol_A2: 1.0
+#   trajectory_interval_steps: 1000
+#   whole_interval_steps: 50000
+#   state_interval_steps: 5000
+#   checkpoint_interval_steps: 50000
+#   description: 'Restrained NPT: equilibrate the density with the solute held.'
+#   file_key: eq_2
+#   resolved_config: eq/resolved.config
+# fingerprint: 7361204d86a6f3f6d8e4a5d133d9688a54dcf58e434afc32a496af3ce4f5cde5
+# implicit: false
+# inputs:
+#   topology:
+#     path: built.pdb
+#     bytes: 209192
+#     sha256: de0a643887fc86c017195838aab5c63bdd61bbd2e5fe242f49c291b949113221
+#   system:
+#     path: built.xml
+#     bytes: 530124
+#     sha256: a46505b05a28b6ebf81292717fdfb70412c14ee1b0131af66f760d33fd348915
+#   continued_from:
+#     path: eq_1.xml
+#     bytes: 426108
+#     sha256: 41460c431371f60367025d19a0284bb928e99e69fa2dc09a1e1b79454a4be233
+# derived:
+#   production_ps: 100.0
+#   timestep_fs: 2.0
+#   steps: 50000
+# platform:
+#   name: CUDA
+#   properties:
+#     DeviceIndex: '0'
+#     DeviceName: NVIDIA H200 NVL
+#     UseBlockingSync: 'false'
+#     Precision: mixed
+#     UseCpuPme: 'false'
+#     CudaCompiler: ''
+#     TempDirectory: /tmp
+#     CudaHostCompiler: ''
+#     DisablePmeStream: 'false'
+#     DeterministicForces: 'false'
+# barostats:
+#   in_system: 1
+#   active: 1
+#   frequency_steps: 25
+#   interval_ps: 0.05
+# outputs:
+#   final_state:
+#     path: eq_2.xml
+#     bytes: 426381
+#     sha256: 0e93c79f81ce711e7e31c603f7e560ef0f00ae412b094db6b01d6df6ec40e830
+#   checkpoint_pointer:
+#     path: current_checkpoint.json
+#     bytes: 61
+#     sha256: 20a85acc0e951b95e559fa2982c9cd84b4b67a2272784da1b73b5f991eae187d
+#   checkpoint:
+#     path: generation_000002.chk
+#     bytes: 1197374
+#     sha256: df61aede5b8a3d4292d013270b568e3d5babb20f619bc8d27de5abedab7fe51d
+#   trajectory:
+#     path: solute_eq_2.nc
+#     bytes: 34084
+#     sha256: d1ca543b6f295a1a3a7f941c4f0b72649184db5cfa91f6d5f6bc1d5a0f24d0eb
+#   state_csv:
+#     path: mdout_eq_2.csv
+#     bytes: 1602
+#     sha256: 274bed76e2ff0a506d729013db91338e537da8abda7d903f845610b34a098b11
+# ===== END md-tools machine record =====

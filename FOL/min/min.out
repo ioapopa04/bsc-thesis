@@ -1,0 +1,59 @@
+md-openmm  |  stage min
+==============================================================================
+started              2026-09-30T15:24:43+00:00
+provenance record    ../min/min.log
+
+
+Inputs
+------------------------------------------------------------------------------
+  topology                     /scratch/ipopa/FOLn-REST2-50ns/REST2-run1/../build/built.pdb
+  system                       /scratch/ipopa/FOLn-REST2-50ns/REST2-run1/../build/built.xml
+  continue from                (none -- first stage)
+  trajectory                   ../min/solute_min.nc
+  final state                  ../min/min.xml
+  checkpoint                   ../min/min.checkpoints
+
+System
+------------------------------------------------------------------------------
+  atoms                        2566
+  residues                     842 (HOH 837, CL 2, NA 2, FOL 1)
+  net charge                   -0.000 e
+  degrees of freedom           5165
+  box                          3.423 x 3.423 x 2.420 nm  volume 28.348 nm^3
+
+Method
+------------------------------------------------------------------------------
+  nonbonded                    PME, cutoff 1.0 nm, Ewald tolerance 0.0005, grid chosen per Context from the tolerance
+  dispersion correction        on
+  switching                    off
+  exceptions (1-4 pairs)       2765
+  constraints                  2530 bond(s)
+  barostat in system           MonteCarloBarostat
+  forces                       HarmonicBondForce, NonbondedForce, PeriodicTorsionForce, CMMotionRemover, HarmonicAngleForce, CustomExternalForce, MonteCarloBarostat
+
+Selections
+------------------------------------------------------------------------------
+  solute                       51 atom(s) (restraint and REST2 region)
+  unscaled central bonds       not applicable at tau = 0 (nothing is scaled, so nothing is exempted)
+
+Run
+------------------------------------------------------------------------------
+  timestep                     2.0 fs
+  steps                        0 (0 ps)
+  already done                 0
+  ensemble                     NVT
+  platform                     CUDA
+  minimisation                 5000 iterations
+
+Outputs
+------------------------------------------------------------------------------
+  final state                  ../min/min.xml  (re-read OK)
+  checkpoint                   ../min/min.checkpoints
+
+Summary
+------------------------------------------------------------------------------
+  min: 0 steps completed, 0 ps
+
+finished             2026-09-30T15:24:47+00:00
+elapsed              4.2 s
+status               completed

@@ -1,0 +1,102 @@
+[15:51:22] Warning: molecule is tagged as 2D, but at least one Z coordinate is not zero. Marking the mol as 3D.
+[15:51:22] Warning: molecule is tagged as 2D, but at least one Z coordinate is not zero. Marking the mol as 3D.
+== 1. Clustering ==
+  torsions_0 (0, 1, 3, 4): FOL1-O1 - FOL1-C1 - FOL1-C2 - FOL1-N1
+  torsions_1 (1, 3, 4, 5): FOL1-C1 - FOL1-C2 - FOL1-N1 - FOL1-C3
+  torsions_2 (4, 5, 7, 8): FOL1-N1 - FOL1-C3 - FOL1-C4 - FOL1-C5
+  torsions_3 (9, 10, 13, 14): FOL1-C6 - FOL1-C7 - FOL1-N2 - FOL1-C10
+  torsions_4 (10, 13, 14, 15): FOL1-C7 - FOL1-N2 - FOL1-C10 - FOL1-C11
+  torsions_5 (13, 14, 15, 16): FOL1-N2 - FOL1-C10 - FOL1-C11 - FOL1-N3
+  torsions_6 (1, 3, 27, 28): FOL1-C1 - FOL1-C2 - FOL1-C17 - FOL1-C18
+  torsions_7 (3, 27, 28, 29): FOL1-C2 - FOL1-C17 - FOL1-C18 - FOL1-C19
+  torsions_8 (27, 28, 29, 30): FOL1-C17 - FOL1-C18 - FOL1-C19 - FOL1-O5
+  torsions_rigid_9 (3, 4, 5, 6): FOL1-C2 - FOL1-N1 - FOL1-C3 - FOL1-O3
+  torsions_polarH_10 (0, 1, 2, 32): FOL1-O1 - FOL1-C1 - FOL1-O2 - FOL1-H1
+  torsions_polarH_11 (28, 29, 31, 50): FOL1-C18 - FOL1-C19 - FOL1-O6 - FOL1-H19
+10000 frames, 12 torsions
+allow_single_cluster = False
+n_clusters = 2
+masses     = {0: 0.067, 1: 0.058}
+noise      = 0.8747
+
+Is one state a possible answer? (allow_single_cluster True vs False)
+  allow_single_cluster=True  -> 1 clusters, excluded_by_construction=False
+  allow_single_cluster=False -> 2 clusters, excluded_by_construction=True
+
+Caveats:
+  - cluster labels are ordered by descending population; HDBSCAN's own numbering is arbitrary and unrelated between fits
+  - draw_agreement is PRECISION, not accuracy: it says the count is stable under resampling, not that a small state was seen. Check that settings.min_cluster_size >= settings.min_samples first
+  - min_vote is a BOUNDARY detector, not a density test: against a direct fit's own noise it recalls about 7 %
+  - a cluster is a density basin, NOT a metastable state; nothing here looks at time
+  - two kinds of unassigned, and they are different claims: -2 is DENSITY noise (the neighbourhood is thinner than any clustered frame's -- nowhere in particular) and -1 is a BARRIER frame (the neighbours disagree about which cluster -- between two somewheres). Measured on a two-basin fixture they overlap only partly: a frame can be sparse yet unanimous, or dense yet split. Density takes precedence where both apply.
+  - a query frame is NOISE_LABEL (-2) if its distance to its 100-th nearest training neighbour exceeds 1.84315, the largest such distance among clustered training frames. This is a PROXY for HDBSCAN's tree criterion, not that criterion: it agrees with HDBSCAN's own verdict on 98.70 % of the training frames.
+  - allow_single_cluster is False, so a UNIMODAL ensemble cannot be reported as one state: EOM refuses the root of the condensed tree and the blob is split instead. Measured: a 4000-frame single Gaussian returns 2-3 clusters. Pass allow_single_cluster=True if one state is a possible answer.
+
+== 2. Pruning by symmetry ==
+crystal reference fol_4LRH_A:
+  torsions_0           -99.0, 79.7 deg
+  torsions_1           -155.0 deg
+  torsions_2           -15.5, 164.2 deg
+  torsions_3           139.4, -41.2 deg
+  torsions_4           -158.4 deg
+  torsions_5           94.6 deg
+  torsions_6           -89.5 deg
+  torsions_7           -179.7 deg
+  torsions_8           0.2, -179.8 deg
+  torsions_rigid_9     7.5 deg
+  torsions_polarH_10   n/a (through H) deg
+  torsions_polarH_11   n/a (through H) deg
+crystal reference fol_3QL3_A:
+  torsions_0           -9.8, 170.7 deg
+  torsions_1           -144.4 deg
+  torsions_2           160.6, -19.2 deg
+  torsions_3           176.4, -11.5 deg
+  torsions_4           79.9 deg
+  torsions_5           6.0 deg
+  torsions_6           -50.2 deg
+  torsions_7           -168.6 deg
+  torsions_8           -149.4, 30.5 deg
+  torsions_rigid_9     -21.8 deg
+  torsions_polarH_10   n/a (through H) deg
+  torsions_polarH_11   n/a (through H) deg
+atom mapping: identity
+  identity verified: elements and the full bond graph agree under this mapping
+cluster labels: [0, 1] | masses: {'clusters': {0: 0.0671, 1: 0.0582}, 'noise': 0.0, 'unassigned': {-2: 0.8747}, 'sum': 1.0}
+operations distinct on these torsions: 2
+groups: [[0], [1]]
+  0 vs 1: rejected  op=1 E=0.2203
+{
+  "groups": [
+    [
+      0
+    ],
+    [
+      1
+    ]
+  ],
+  "original_to_merged": {
+    "0": 0,
+    "1": 1
+  },
+  "masses": {
+    "0": 0.0671,
+    "1": 0.0582
+  },
+  "noise_mass": 0.8747,
+  "operations_used": {
+    "0": null,
+    "1": null
+  },
+  "mass_sum_including_noise": 1.0
+}
+populations conserved: merged masses + noise = 1.000000
+
+== 3. Summary ==
+group A: clusters [0]  mass 0.0671  representative frame 58
+group B: clusters [1]  mass 0.0582  representative frame 4
+cluster_id original_clusters  torsions_0_avg  torsions_0_std  torsions_1_avg  torsions_1_std  torsions_2_avg  torsions_2_std  torsions_3_avg  torsions_3_std  torsions_4_avg  torsions_4_std  torsions_5_avg  torsions_5_std  torsions_6_avg  torsions_6_std  torsions_7_avg  torsions_7_std  torsions_8_avg  torsions_8_std  torsions_rigid_9_avg  torsions_rigid_9_std  torsions_polarH_10_avg  torsions_polarH_10_std  torsions_polarH_11_avg  torsions_polarH_11_std  n_samples  mass
+         A                 0         -44.205          45.378         -95.605          18.183          -3.993         100.251           3.629          19.849          84.346          95.162         148.746         126.162         174.063           9.832        -171.886          30.997          -1.722          22.514                -4.940                10.950                  -0.396                   9.609                 179.267                   9.150        671 0.067
+         B                 1         -43.264          42.515         -93.624          17.512          11.054          95.373         178.748          17.985         -96.469          87.234          93.491         115.429         173.068           9.564        -177.150          17.359           1.289          24.028                -4.601                10.867                   0.919                   9.278                -179.395                   8.662        582 0.058
+39 atoms drawn, superposed: True
+
+All outputs in /scratch/ipopa/FOLn-REST2-50ns/folic-acid-clustering-shuyu-nosingle-ref/

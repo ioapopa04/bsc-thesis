@@ -1,0 +1,84 @@
+md-openmm  |  stage eq_nvt_posres
+==============================================================================
+started              2026-09-30T15:25:01+00:00
+provenance record    eq/eq_1.log
+
+
+Inputs
+------------------------------------------------------------------------------
+  topology                     /scratch/ipopa/FOLn-REST2-50ns/REST2-run1/../build/built.pdb
+  system                       /scratch/ipopa/FOLn-REST2-50ns/REST2-run1/../build/built.xml
+  continue from                ../min/min.xml
+  trajectory                   eq/solute_eq_1.nc
+  final state                  eq/eq_1.xml
+  checkpoint                   eq/eq_1.checkpoints
+
+System
+------------------------------------------------------------------------------
+  atoms                        2566
+  residues                     842 (HOH 837, CL 2, NA 2, FOL 1)
+  net charge                   -0.000 e
+  degrees of freedom           5165
+  box                          3.423 x 3.423 x 2.420 nm  volume 28.348 nm^3
+
+Method
+------------------------------------------------------------------------------
+  nonbonded                    PME, cutoff 1.0 nm, Ewald tolerance 0.0005, grid chosen per Context from the tolerance
+  dispersion correction        on
+  switching                    off
+  exceptions (1-4 pairs)       2765
+  constraints                  2530 bond(s)
+  barostat in system           MonteCarloBarostat
+  forces                       HarmonicBondForce, NonbondedForce, PeriodicTorsionForce, CMMotionRemover, HarmonicAngleForce, CustomExternalForce, MonteCarloBarostat
+
+Selections
+------------------------------------------------------------------------------
+  solute                       51 atom(s) (restraint and REST2 region)
+  unscaled central bonds       not applicable at tau = 0 (nothing is scaled, so nothing is exempted)
+
+Run
+------------------------------------------------------------------------------
+  timestep                     2.0 fs
+  steps                        50000 (100 ps)
+  already done                 0
+  ensemble                     NVT
+  platform                     CUDA
+
+Progress
+------------------------------------------------------------------------------
+#"Step"  "Time (ps)"  "Potential Energy (kJ/mole)"  "Kinetic Energy (kJ/mole)"  "Total Energy (kJ/mole)"  "Temperature (K)"  "Box Volume (nm^3)"  "Density (g/mL)"  "Speed (ns/day)"
+5000  10.000000000000009  -35612.53465974954  6460.403118450088  -29152.131541299448  300.8743069046906  28.347539726145456  0.9159886548194967  0
+10000  19.999999999999794  -35927.551991367305  6385.938946164233  -29541.61304520307  297.4063567141284  28.347539726145456  0.9159886548194967  1.7e+03
+15000  29.99999999999425  -35631.05296120379  6393.48335377495  -29237.569607428843  297.7577153475236  28.347539726145456  0.9159886548194967  1.69e+03
+20000  40.00000000000292  -35430.3314333896  6532.466736027765  -28897.86469736183  304.23045830796866  28.347539726145456  0.9159886548194967  1.69e+03
+25000  50.00000000001514  -35466.657202114526  6724.52602696151  -28742.131175153016  313.17505587948375  28.347539726145456  0.9159886548194967  1.7e+03
+30000  60.00000000002736  -35518.76810294046  6336.498807929105  -29182.269295011356  295.1038274366156  28.347539726145456  0.9159886548194967  1.7e+03
+35000  70.00000000001826  -35701.15567337643  6394.682581692724  -29306.473091683707  297.81356586675054  28.347539726145456  0.9159886548194967  1.7e+03
+40000  79.99999999999496  -35727.88081376164  6539.262453941386  -29188.618359820255  304.54694891694345  28.347539726145456  0.9159886548194967  1.7e+03
+45000  89.99999999997165  -35722.054511906405  6553.9477382034165  -29168.106773702988  305.2308729141036  28.347539726145456  0.9159886548194967  1.7e+03
+50000  99.99999999994834  -35814.624075118336  6621.575579177694  -29193.048495940642  308.380441045926  28.347539726145456  0.9159886548194967  1.7e+03
+
+Averages
+------------------------------------------------------------------------------
+  over                         10 report(s) in mdout_eq_1.csv
+  Potential Energy (kJ/mole)   mean -35655.3   rms fluctuation 147.847
+  Kinetic Energy (kJ/mole)     mean 6494.28   rms fluctuation 115.81
+  Total Energy (kJ/mole)       mean -29161   rms fluctuation 204.684
+  Temperature (K)              mean 302.452   rms fluctuation 5.3935
+  Box Volume (nm^3)            mean 28.3475   rms fluctuation 4.76837e-07
+  Density (g/mL)               mean 0.915989   rms fluctuation 0
+  Speed (ns/day)               mean 1399   rms fluctuation 476.748
+
+Outputs
+------------------------------------------------------------------------------
+  final state                  eq/eq_1.xml  (re-read OK)
+  checkpoint                   eq/eq_1.checkpoints
+  trajectory                   eq/solute_eq_1.nc  (NETCDF)
+
+Summary
+------------------------------------------------------------------------------
+  eq_nvt_posres: 50000 steps completed, 100 ps
+
+finished             2026-09-30T15:25:11+00:00
+elapsed              9.5 s
+status               completed

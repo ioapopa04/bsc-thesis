@@ -1,0 +1,20 @@
+# replica executor, grouped mode: 8 group(s) from remd_groupfile.1
+# mpi                : rank 4/8
+# exchange rule      : built-in neighbouring
+# analysis storage   : REST2.nc
+# checkpoint         : REST2_checkpoint.nc
+# manifest           : restart_ext1.json
+#   group 0: -i _protocol.py -p built.pdb -s system_state0.xml -c eq_3.xml
+#   group 1: -i _protocol.py -p built.pdb -s system_state1.xml -c eq_3.xml
+#   group 2: -i _protocol.py -p built.pdb -s system_state2.xml -c eq_3.xml
+#   group 3: -i _protocol.py -p built.pdb -s system_state3.xml -c eq_3.xml
+#   group 4: -i _protocol.py -p built.pdb -s system_state4.xml -c eq_3.xml
+#   group 5: -i _protocol.py -p built.pdb -s system_state5.xml -c eq_3.xml
+#   group 6: -i _protocol.py -p built.pdb -s system_state6.xml -c eq_3.xml
+#   group 7: -i _protocol.py -p built.pdb -s system_state7.xml -c eq_3.xml
+# platform           : CUDA device=4 (measured throughput (balanced) (rank 4 of 8, local rank 4 on sbrinz, 1 worker(s) on this device)), precision mixed
+# this process drives: state(s) [4] of 8
+# host               : sbrinz
+# continuation       : bitwise: every rung's OpenMM context checkpoint was restored
+# rank 4 finished its share of the propagation; rank 0 owns the manifest
+rank_status: completed rank=4

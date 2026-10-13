@@ -1,0 +1,284 @@
+=== 2026-09-30T16:57:02+02:00 watcher started; waiting for all 8 GPUs to be idle ===
+    (busy: nicosuter training; will launch REST2 50 ns when free)
+    2026-09-30T17:23:29+02:00 free check 1/2 (8/8 idle)
+    2026-09-30T17:24:31+02:00 free check 2/2 (8/8 idle)
+=== 2026-09-30T17:24:31+02:00 all 8 GPUs free -> launching REST2 50 ns ===
+== min ==
+md-openmm stage: min
+====================================================================
+
+Inputs
+------
+  topology                    /scratch/ipopa/FOLn-REST2-50ns/REST2-run1/../build/built.pdb
+  system                      /scratch/ipopa/FOLn-REST2-50ns/REST2-run1/../build/built.xml
+  continue from               (none -- first stage)
+
+System
+------
+  atoms                       2566
+  residues                    842 (HOH 837, CL 2, NA 2, FOL 1)
+  net charge                  -0.000 e
+  degrees of freedom          5165
+  box                         3.423 x 3.423 x 2.420 nm  volume 28.348 nm^3
+
+Method
+------
+  nonbonded                   PME, cutoff 1.0 nm, Ewald tolerance 0.0005, grid chosen per Context from the tolerance
+  dispersion correction       on
+  switching                   off
+  exceptions (1-4 pairs)      2765
+  constraints                 2530 bond(s)
+  barostat in system          MonteCarloBarostat
+  forces                      HarmonicBondForce, NonbondedForce, PeriodicTorsionForce, CMMotionRemover, HarmonicAngleForce, CustomExternalForce, MonteCarloBarostat
+
+Resolved settings
+-----------------
+  ensemble                    NVT
+  steps                       0
+  timestep_fs                 auto
+  temperature_K               300.0
+  pressure_bar                1.0
+  friction_per_ps             1.0
+  barostat_interval_steps     25
+  restraint_kcal_per_mol_A2   1.0
+  minimization_iterations     5000
+  trajectory_interval_steps   0
+  state_interval_steps        0
+  checkpoint_interval_steps   0
+  timestep                    2.0 fs (requested 'auto', ordinary_masses; heaviest hydrogen 1.007947 amu)
+  derived time                0 steps x 2.0 fs = 0 ps (0 ns)
+  solvent                     explicit
+
+Selections
+----------
+  solute                      51 atom(s) (restraint and REST2 region)
+  unscaled central bonds      not applicable at tau = 0 (nothing is scaled, so nothing is exempted)
+  acceleration                CUDA (default-cuda)
+  started from                /scratch/ipopa/FOLn-REST2-50ns/REST2-run1/../build/built.pdb coordinates
+  platform                    CUDA
+  barostat                    1 in system, 0 active
+
+Run
+---
+  minimising, 5000 iterations
+  no dynamics for this stage
+
+Outputs
+-------
+  checkpoint                  ../min/min.checkpoints generation 1
+  min.xml                     ../min/min.xml  (re-read OK)
+
+Summary
+-------
+  min: 0 steps completed, 0 ps
+  status: completed
+== eq_1 ==
+md-openmm stage: eq_nvt_posres
+====================================================================
+
+Inputs
+------
+  topology                    /scratch/ipopa/FOLn-REST2-50ns/REST2-run1/../build/built.pdb
+  system                      /scratch/ipopa/FOLn-REST2-50ns/REST2-run1/../build/built.xml
+  continue from               ../min/min.xml
+
+System
+------
+  atoms                       2566
+  residues                    842 (HOH 837, CL 2, NA 2, FOL 1)
+  net charge                  -0.000 e
+  degrees of freedom          5165
+  box                         3.423 x 3.423 x 2.420 nm  volume 28.348 nm^3
+
+Method
+------
+  nonbonded                   PME, cutoff 1.0 nm, Ewald tolerance 0.0005, grid chosen per Context from the tolerance
+  dispersion correction       on
+  switching                   off
+  exceptions (1-4 pairs)      2765
+  constraints                 2530 bond(s)
+  barostat in system          MonteCarloBarostat
+  forces                      HarmonicBondForce, NonbondedForce, PeriodicTorsionForce, CMMotionRemover, HarmonicAngleForce, CustomExternalForce, MonteCarloBarostat
+
+Resolved settings
+-----------------
+  ensemble                    NVT
+  steps                       50000
+  timestep_fs                 auto
+  temperature_K               300.0
+  pressure_bar                1.0
+  friction_per_ps             1.0
+  barostat_interval_steps     25
+  restraint_kcal_per_mol_A2   1.0
+  trajectory_interval_steps   1000
+  state_interval_steps        5000
+  checkpoint_interval_steps   50000
+  timestep                    2.0 fs (requested 'auto', ordinary_masses; heaviest hydrogen 1.007947 amu)
+  derived time                50000 steps x 2.0 fs = 100 ps (0.1 ns)
+  solvent                     explicit
+
+Selections
+----------
+  solute                      51 atom(s) (restraint and REST2 region)
+  unscaled central bonds      not applicable at tau = 0 (nothing is scaled, so nothing is exempted)
+  acceleration                CUDA (default-cuda)
+  started from                ../min/min.xml  (sha256 458a56de682e...)
+  platform                    CUDA
+  barostat                    1 in system, 0 active
+
+Run
+---
+  integrating 50000 steps
+
+Outputs
+-------
+  checkpoint                  eq/eq_1.checkpoints generation 2
+  eq_1.xml                    eq/eq_1.xml  (re-read OK)
+  solute_eq_1.nc              eq/solute_eq_1.nc
+  mdout_eq_1.csv              eq/mdout_eq_1.csv  (state table)
+
+Summary
+-------
+  eq_nvt_posres: 50000 steps completed, 100 ps
+  status: completed
+== eq_2 ==
+md-openmm stage: eq_npt_posres
+====================================================================
+
+Inputs
+------
+  topology                    /scratch/ipopa/FOLn-REST2-50ns/REST2-run1/../build/built.pdb
+  system                      /scratch/ipopa/FOLn-REST2-50ns/REST2-run1/../build/built.xml
+  continue from               eq/eq_1.xml
+
+System
+------
+  atoms                       2566
+  residues                    842 (HOH 837, CL 2, NA 2, FOL 1)
+  net charge                  -0.000 e
+  degrees of freedom          5165
+  box                         3.423 x 3.423 x 2.420 nm  volume 28.348 nm^3
+
+Method
+------
+  nonbonded                   PME, cutoff 1.0 nm, Ewald tolerance 0.0005, grid chosen per Context from the tolerance
+  dispersion correction       on
+  switching                   off
+  exceptions (1-4 pairs)      2765
+  constraints                 2530 bond(s)
+  barostat in system          MonteCarloBarostat
+  forces                      HarmonicBondForce, NonbondedForce, PeriodicTorsionForce, CMMotionRemover, HarmonicAngleForce, CustomExternalForce, MonteCarloBarostat
+
+Resolved settings
+-----------------
+  ensemble                    NPT
+  steps                       50000
+  timestep_fs                 auto
+  temperature_K               300.0
+  pressure_bar                1.0
+  friction_per_ps             1.0
+  barostat_interval_steps     25
+  restraint_kcal_per_mol_A2   1.0
+  trajectory_interval_steps   1000
+  state_interval_steps        5000
+  checkpoint_interval_steps   50000
+  timestep                    2.0 fs (requested 'auto', ordinary_masses; heaviest hydrogen 1.007947 amu)
+  derived time                50000 steps x 2.0 fs = 100 ps (0.1 ns)
+  solvent                     explicit
+
+Selections
+----------
+  solute                      51 atom(s) (restraint and REST2 region)
+  unscaled central bonds      not applicable at tau = 0 (nothing is scaled, so nothing is exempted)
+  acceleration                CUDA (default-cuda)
+  started from                eq/eq_1.xml  (sha256 41460c431371...)
+  platform                    CUDA
+  barostat                    1 in system, 1 active, every 25 steps (0.05 ps)
+
+Run
+---
+  integrating 50000 steps
+
+Outputs
+-------
+  checkpoint                  eq/eq_2.checkpoints generation 2
+  eq_2.xml                    eq/eq_2.xml  (re-read OK)
+  solute_eq_2.nc              eq/solute_eq_2.nc
+  mdout_eq_2.csv              eq/mdout_eq_2.csv  (state table)
+
+Summary
+-------
+  eq_npt_posres: 50000 steps completed, 100 ps
+  status: completed
+== eq_3 ==
+md-openmm stage: eq_npt_free
+====================================================================
+
+Inputs
+------
+  topology                    /scratch/ipopa/FOLn-REST2-50ns/REST2-run1/../build/built.pdb
+  system                      /scratch/ipopa/FOLn-REST2-50ns/REST2-run1/../build/built.xml
+  continue from               eq/eq_2.xml
+
+System
+------
+  atoms                       2566
+  residues                    842 (HOH 837, CL 2, NA 2, FOL 1)
+  net charge                  -0.000 e
+  degrees of freedom          5165
+  box                         3.423 x 3.423 x 2.420 nm  volume 28.348 nm^3
+
+Method
+------
+  nonbonded                   PME, cutoff 1.0 nm, Ewald tolerance 0.0005, grid chosen per Context from the tolerance
+  dispersion correction       on
+  switching                   off
+  exceptions (1-4 pairs)      2765
+  constraints                 2530 bond(s)
+  barostat in system          MonteCarloBarostat
+  forces                      HarmonicBondForce, NonbondedForce, PeriodicTorsionForce, CMMotionRemover, HarmonicAngleForce, CustomExternalForce, MonteCarloBarostat
+
+Resolved settings
+-----------------
+  ensemble                    NPT
+  steps                       100000
+  timestep_fs                 auto
+  temperature_K               300.0
+  pressure_bar                1.0
+  friction_per_ps             1.0
+  barostat_interval_steps     25
+  restraint_kcal_per_mol_A2   0.0
+  trajectory_interval_steps   1000
+  state_interval_steps        5000
+  checkpoint_interval_steps   50000
+  timestep                    2.0 fs (requested 'auto', ordinary_masses; heaviest hydrogen 1.007947 amu)
+  derived time                100000 steps x 2.0 fs = 200 ps (0.2 ns)
+  solvent                     explicit
+
+Selections
+----------
+  solute                      51 atom(s) (restraint and REST2 region)
+  unscaled central bonds      not applicable at tau = 0 (nothing is scaled, so nothing is exempted)
+  acceleration                CUDA (default-cuda)
+  started from                eq/eq_2.xml  (sha256 0e93c79f81ce...)
+  platform                    CUDA
+  barostat                    1 in system, 1 active, every 25 steps (0.05 ps)
+
+Run
+---
+  integrating 100000 steps
+
+Outputs
+-------
+  checkpoint                  eq/eq_3.checkpoints generation 3
+  eq_3.xml                    eq/eq_3.xml  (re-read OK)
+  solute_eq_3.nc              eq/solute_eq_3.nc
+  mdout_eq_3.csv              eq/mdout_eq_3.csv  (state table)
+
+Summary
+-------
+  eq_npt_free: 100000 steps completed, 200 ps
+  status: completed
+== REST2 prod1 ==
+run.sh: all stages reported completion
+=== 2026-09-30T18:21:22+02:00 run.sh exited rc=0 after 56 min ===

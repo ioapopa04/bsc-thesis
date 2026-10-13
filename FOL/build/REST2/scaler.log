@@ -1,0 +1,1005 @@
+
+REST2 scaled states
+-------------------
+  source System               built.xml  sha256 a46505b05a28b6ebf81292717fdfb70412c14ee1b0131af66f760d33fd348915
+  source topology             built.pdb
+  configuration               scaler.config  sha256 262588fdcf07d67515c93fa7fb931f0018e275d33cf93a158cc0ba2bbb8470cf
+  schedule                    linear, 8 state(s), tau 0.0 .. 0.4
+  solute                      51 atom(s)
+  selection                   legacy full solute (no selector present)
+  unscaled torsions           amide omega 1 bond(s), aromatic ring 17 bond(s), double bond 0 bond(s), impropers 57 term(s)
+                              125 torsion term(s) unscaled, 90 scaled
+  proline-like amides         0 bond(s), scaled
+  SDF for FOL                 FOL.sdf
+  picture of FOL              FOL-unscaled.png  (FOL: red = unscaled torsions across bond(s) 4-5, 7-8, 7-12, 8-9, 9-10, 10-11, 11-12, 15-16, 15-20, 16-17, 17-18, 17-24, 18-19, 18-21, 19-20, 21-22, 22-23, 23-24; 19 improper centre(s))
+
+States
+------
+  system_state0.xml      tau 0.0       (1-tau)^2 1.000000   1-tau 1.000000
+  system_state1.xml      tau 0.057143  (1-tau)^2 0.888979   1-tau 0.942857
+  system_state2.xml      tau 0.114286  (1-tau)^2 0.784489   1-tau 0.885714
+  system_state3.xml      tau 0.171429  (1-tau)^2 0.686530   1-tau 0.828571
+  system_state4.xml      tau 0.228571  (1-tau)^2 0.595103   1-tau 0.771429
+  system_state5.xml      tau 0.285714  (1-tau)^2 0.510204   1-tau 0.714286
+  system_state6.xml      tau 0.342857  (1-tau)^2 0.431837   1-tau 0.657143
+  system_state7.xml      tau 0.4       (1-tau)^2 0.360000   1-tau 0.600000
+
+# ===== BEGIN md-tools machine record =====
+# schema_version: md-tools-record/2.0
+# record_type: rest2-scaler
+# status: completed
+# started_utc: '2026-09-29T08:05:28+00:00'
+# finished_utc: '2026-09-29T08:05:28+00:00'
+# command:
+# - /scratch/ipopa/software/md-stack/envs/openmm-env/bin/md-openmm
+# - build-top
+# - --rest2-scaler
+# - -s
+# - built.xml
+# - -p
+# - built.pdb
+# - --config
+# - scaler.config
+# environment:
+#   hostname: sbrinz
+#   platform: Linux-5.14.0-503.40.1.el9_5.x86_64-x86_64-with-glibc2.34
+#   machine: x86_64
+#   user: ipopa
+#   packages:
+#     python: 3.12.14
+#     md-tools: 0.6.2
+#     openmm: '8.6'
+#     openff-toolkit: 0.19.0
+#     openmmforcefields: 0.16.0
+#     parmed: 4.3.1
+#     rdkit: 2026.3.1
+#     ambertools: null
+#     numpy: 2.4.6
+#     pyyaml: 6.0.3
+#     openmm_build: 8.6.0.dev-c6173db
+#   md_tools_commit: 2e1aa6cf99503bb7e8b3d7a79fcb330e4b6c55ac
+# scaler:
+#   format: md-tools-scaled-states/v1
+#   method: REST2
+#   schedule:
+#     kind: linear
+#     n_states: 8
+#     tau_min: 0.0
+#     tau_max: 0.4
+#   state0_is_physical: true
+#   states:
+#   - state: 0
+#     file: system_state0.xml
+#     tau: 0.0
+#     sha256: a46505b05a28b6ebf81292717fdfb70412c14ee1b0131af66f760d33fd348915
+#     bytes: 530124
+#     scaling:
+#       solute_solute: 1.0
+#       solute_environment: 1.0
+#       solute_solute_expression: (1 - tau)^2
+#       solute_environment_expression: 1 - tau
+#   - state: 1
+#     file: system_state1.xml
+#     tau: 0.057143
+#     sha256: 55203968fa07a7d16a40b8238749bfed12215fb7696faf2a736003e302f6c681
+#     bytes: 530180
+#     scaling:
+#       solute_solute: 0.8889793224490001
+#       solute_environment: 0.9428570000000001
+#       solute_solute_expression: (1 - tau)^2
+#       solute_environment_expression: 1 - tau
+#   - state: 2
+#     file: system_state2.xml
+#     tau: 0.114286
+#     sha256: 05c34d5f3404b5c5d8b9ae4eaa2bee9509e16c9c61d564d3df1a614e2cfc6c9a
+#     bytes: 530161
+#     scaling:
+#       solute_solute: 0.784489289796
+#       solute_environment: 0.885714
+#       solute_solute_expression: (1 - tau)^2
+#       solute_environment_expression: 1 - tau
+#   - state: 3
+#     file: system_state3.xml
+#     tau: 0.171429
+#     sha256: 238ad031db18adaa59239988132c53e1725dd3c7bbeea553f3d3a9fa3074c8f0
+#     bytes: 530222
+#     scaling:
+#       solute_solute: 0.686529902041
+#       solute_environment: 0.828571
+#       solute_solute_expression: (1 - tau)^2
+#       solute_environment_expression: 1 - tau
+#   - state: 4
+#     file: system_state4.xml
+#     tau: 0.228571
+#     sha256: 877b4b1e912cd88b2123795689f899a384a7cc9da319ed423c31e5403a8fe462
+#     bytes: 530205
+#     scaling:
+#       solute_solute: 0.595102702041
+#       solute_environment: 0.771429
+#       solute_solute_expression: (1 - tau)^2
+#       solute_environment_expression: 1 - tau
+#   - state: 5
+#     file: system_state5.xml
+#     tau: 0.285714
+#     sha256: 7d0f728b72862375cb2669a9ef36acecc67df1b078abfc26b33792ce74745153
+#     bytes: 530310
+#     scaling:
+#       solute_solute: 0.510204489796
+#       solute_environment: 0.714286
+#       solute_solute_expression: (1 - tau)^2
+#       solute_environment_expression: 1 - tau
+#   - state: 6
+#     file: system_state6.xml
+#     tau: 0.342857
+#     sha256: c8d5ecf50fcf2f001974e36b7795517a8fa04bd9f1721c1c5d7fc4156f82dabd
+#     bytes: 530248
+#     scaling:
+#       solute_solute: 0.431836922449
+#       solute_environment: 0.657143
+#       solute_solute_expression: (1 - tau)^2
+#       solute_environment_expression: 1 - tau
+#   - state: 7
+#     file: system_state7.xml
+#     tau: 0.4
+#     sha256: e503e38db5e4f5db9e30dbdd6c7bc09a197a69a137a724665f12e18300d4938e
+#     bytes: 530278
+#     scaling:
+#       solute_solute: 0.36
+#       solute_environment: 0.6
+#       solute_solute_expression: (1 - tau)^2
+#       solute_environment_expression: 1 - tau
+#   source:
+#     system: built.xml
+#     system_sha256: a46505b05a28b6ebf81292717fdfb70412c14ee1b0131af66f760d33fd348915
+#     topology: built.pdb
+#     topology_sha256: de0a643887fc86c017195838aab5c63bdd61bbd2e5fe242f49c291b949113221
+#   config:
+#     file: scaler.config
+#     sha256: 262588fdcf07d67515c93fa7fb931f0018e275d33cf93a158cc0ba2bbb8470cf
+#   solute:
+#     n_atoms: 51
+#     atom_range:
+#     - 0
+#     - 50
+#     atom_indices:
+#     - 0
+#     - 1
+#     - 2
+#     - 3
+#     - 4
+#     - 5
+#     - 6
+#     - 7
+#     - 8
+#     - 9
+#     - 10
+#     - 11
+#     - 12
+#     - 13
+#     - 14
+#     - 15
+#     - 16
+#     - 17
+#     - 18
+#     - 19
+#     - 20
+#     - 21
+#     - 22
+#     - 23
+#     - 24
+#     - 25
+#     - 26
+#     - 27
+#     - 28
+#     - 29
+#     - 30
+#     - 31
+#     - 32
+#     - 33
+#     - 34
+#     - 35
+#     - 36
+#     - 37
+#     - 38
+#     - 39
+#     - 40
+#     - 41
+#     - 42
+#     - 43
+#     - 44
+#     - 45
+#     - 46
+#     - 47
+#     - 48
+#     - 49
+#     - 50
+#   selection:
+#     format: md-tools-solute-selection/2.0
+#     selection_mode: legacy-full-solute
+#     topology_sha256: c3458b6c2c02f94d00af1c87682ffab1bdaf858711bd5c4ae323f0f8ad891ed0
+#     topology_digest_scheme: atoms-in-index-order+sorted-bond-set/1
+#     solute_atoms:
+#     - 0
+#     - 1
+#     - 2
+#     - 3
+#     - 4
+#     - 5
+#     - 6
+#     - 7
+#     - 8
+#     - 9
+#     - 10
+#     - 11
+#     - 12
+#     - 13
+#     - 14
+#     - 15
+#     - 16
+#     - 17
+#     - 18
+#     - 19
+#     - 20
+#     - 21
+#     - 22
+#     - 23
+#     - 24
+#     - 25
+#     - 26
+#     - 27
+#     - 28
+#     - 29
+#     - 30
+#     - 31
+#     - 32
+#     - 33
+#     - 34
+#     - 35
+#     - 36
+#     - 37
+#     - 38
+#     - 39
+#     - 40
+#     - 41
+#     - 42
+#     - 43
+#     - 44
+#     - 45
+#     - 46
+#     - 47
+#     - 48
+#     - 49
+#     - 50
+#     selected_nonbonded_atoms:
+#     - 0
+#     - 1
+#     - 2
+#     - 3
+#     - 4
+#     - 5
+#     - 6
+#     - 7
+#     - 8
+#     - 9
+#     - 10
+#     - 11
+#     - 12
+#     - 13
+#     - 14
+#     - 15
+#     - 16
+#     - 17
+#     - 18
+#     - 19
+#     - 20
+#     - 21
+#     - 22
+#     - 23
+#     - 24
+#     - 25
+#     - 26
+#     - 27
+#     - 28
+#     - 29
+#     - 30
+#     - 31
+#     - 32
+#     - 33
+#     - 34
+#     - 35
+#     - 36
+#     - 37
+#     - 38
+#     - 39
+#     - 40
+#     - 41
+#     - 42
+#     - 43
+#     - 44
+#     - 45
+#     - 46
+#     - 47
+#     - 48
+#     - 49
+#     - 50
+#     selected_torsion_central_bonds: null
+#     scaled_cmap_terms: null
+#     unscaled_torsion_central_bonds:
+#     - - 4
+#       - 5
+#     - - 7
+#       - 8
+#     - - 7
+#       - 12
+#     - - 8
+#       - 9
+#     - - 9
+#       - 10
+#     - - 10
+#       - 11
+#     - - 11
+#       - 12
+#     - - 15
+#       - 16
+#     - - 15
+#       - 20
+#     - - 16
+#       - 17
+#     - - 17
+#       - 18
+#     - - 17
+#       - 24
+#     - - 18
+#       - 19
+#     - - 18
+#       - 21
+#     - - 19
+#       - 20
+#     - - 21
+#       - 22
+#     - - 22
+#       - 23
+#     - - 23
+#       - 24
+#     excluded_central_bonds:
+#     - - 4
+#       - 5
+#     - - 7
+#       - 8
+#     - - 7
+#       - 12
+#     - - 8
+#       - 9
+#     - - 9
+#       - 10
+#     - - 10
+#       - 11
+#     - - 11
+#       - 12
+#     - - 15
+#       - 16
+#     - - 15
+#       - 20
+#     - - 16
+#       - 17
+#     - - 17
+#       - 18
+#     - - 17
+#       - 24
+#     - - 18
+#       - 19
+#     - - 18
+#       - 21
+#     - - 19
+#       - 20
+#     - - 21
+#       - 22
+#     - - 22
+#       - 23
+#     - - 23
+#       - 24
+#     improper_policy:
+#       unscaled_impropers: true
+#     detector_policy_version: 2
+#     labels: []
+#     detection_method: 'unscaled torsions: amide omega evidence chosen per candidate:
+#       residue-aware against PROTEIN_RESIDUES, proline-like names [''PRO''] applied
+#       to the residue containing the amide NITROGEN; residues [''FOL''] from RDKit
+#       SMARTS [CX3](=[OX1])[NX3] over per-residue SDFs FOL=FOL.sdf, proline-like =
+#       amide N in a ring of <= 7 atoms; aromatic ring and double bonds from PROTEIN_UNSCALED_BONDS
+#       for protein residues and from SDF bond orders otherwise; impropers unscaled'
+#     policy: null
+#     masks: null
+#     residue_map: null
+#     torsion_bond_owners: null
+#     cmap_decisions: null
+#     ligand_instances: null
+#     partially_owned_central_bonds: null
+#     notes: null
+#   selection_sha256: e43d6b0fa0e9b60123236050a378a4bbc941eb96bf4995d5b423f1b61109ef76
+#   selection_provenance_sha256: 70052999c16d509a9b1a540a080b781b78151d05feb80da65a43b9a49e026326
+#   scaler_arguments:
+#     solute_indices:
+#     - 0
+#     - 1
+#     - 2
+#     - 3
+#     - 4
+#     - 5
+#     - 6
+#     - 7
+#     - 8
+#     - 9
+#     - 10
+#     - 11
+#     - 12
+#     - 13
+#     - 14
+#     - 15
+#     - 16
+#     - 17
+#     - 18
+#     - 19
+#     - 20
+#     - 21
+#     - 22
+#     - 23
+#     - 24
+#     - 25
+#     - 26
+#     - 27
+#     - 28
+#     - 29
+#     - 30
+#     - 31
+#     - 32
+#     - 33
+#     - 34
+#     - 35
+#     - 36
+#     - 37
+#     - 38
+#     - 39
+#     - 40
+#     - 41
+#     - 42
+#     - 43
+#     - 44
+#     - 45
+#     - 46
+#     - 47
+#     - 48
+#     - 49
+#     - 50
+#     excluded_bonds:
+#     - - 4
+#       - 5
+#     - - 7
+#       - 8
+#     - - 7
+#       - 12
+#     - - 8
+#       - 9
+#     - - 9
+#       - 10
+#     - - 10
+#       - 11
+#     - - 11
+#       - 12
+#     - - 15
+#       - 16
+#     - - 15
+#       - 20
+#     - - 16
+#       - 17
+#     - - 17
+#       - 18
+#     - - 17
+#       - 24
+#     - - 18
+#       - 19
+#     - - 18
+#       - 21
+#     - - 19
+#       - 20
+#     - - 21
+#       - 22
+#     - - 22
+#       - 23
+#     - - 23
+#       - 24
+#     unscaled_impropers: true
+#     torsion_central_bonds: null
+#     cmap_terms: null
+#   unscaled_torsions:
+#     enabled: true
+#     classes:
+#     - amide_omega
+#     - aromatic_ring
+#     - double_bond
+#     - improper
+#     method: 'unscaled torsions: amide omega evidence chosen per candidate: residue-aware
+#       against PROTEIN_RESIDUES, proline-like names [''PRO''] applied to the residue
+#       containing the amide NITROGEN; residues [''FOL''] from RDKit SMARTS [CX3](=[OX1])[NX3]
+#       over per-residue SDFs FOL=FOL.sdf, proline-like = amide N in a ring of <= 7
+#       atoms; aromatic ring and double bonds from PROTEIN_UNSCALED_BONDS for protein
+#       residues and from SDF bond orders otherwise; impropers unscaled'
+#     central_bonds:
+#     - bond:
+#       - 4
+#       - 5
+#       class: amide_omega
+#       residue: FOL
+#       residue_index: 0
+#       evidence: SDF bond orders
+#     - bond:
+#       - 7
+#       - 8
+#       class: aromatic_ring
+#       residue: FOL
+#       residue_index: 0
+#       evidence: SDF bond orders
+#     - bond:
+#       - 7
+#       - 12
+#       class: aromatic_ring
+#       residue: FOL
+#       residue_index: 0
+#       evidence: SDF bond orders
+#     - bond:
+#       - 8
+#       - 9
+#       class: aromatic_ring
+#       residue: FOL
+#       residue_index: 0
+#       evidence: SDF bond orders
+#     - bond:
+#       - 9
+#       - 10
+#       class: aromatic_ring
+#       residue: FOL
+#       residue_index: 0
+#       evidence: SDF bond orders
+#     - bond:
+#       - 10
+#       - 11
+#       class: aromatic_ring
+#       residue: FOL
+#       residue_index: 0
+#       evidence: SDF bond orders
+#     - bond:
+#       - 11
+#       - 12
+#       class: aromatic_ring
+#       residue: FOL
+#       residue_index: 0
+#       evidence: SDF bond orders
+#     - bond:
+#       - 15
+#       - 16
+#       class: aromatic_ring
+#       residue: FOL
+#       residue_index: 0
+#       evidence: SDF bond orders
+#     - bond:
+#       - 15
+#       - 20
+#       class: aromatic_ring
+#       residue: FOL
+#       residue_index: 0
+#       evidence: SDF bond orders
+#     - bond:
+#       - 16
+#       - 17
+#       class: aromatic_ring
+#       residue: FOL
+#       residue_index: 0
+#       evidence: SDF bond orders
+#     - bond:
+#       - 17
+#       - 18
+#       class: aromatic_ring
+#       residue: FOL
+#       residue_index: 0
+#       evidence: SDF bond orders
+#     - bond:
+#       - 17
+#       - 24
+#       class: aromatic_ring
+#       residue: FOL
+#       residue_index: 0
+#       evidence: SDF bond orders
+#     - bond:
+#       - 18
+#       - 19
+#       class: aromatic_ring
+#       residue: FOL
+#       residue_index: 0
+#       evidence: SDF bond orders
+#     - bond:
+#       - 18
+#       - 21
+#       class: aromatic_ring
+#       residue: FOL
+#       residue_index: 0
+#       evidence: SDF bond orders
+#     - bond:
+#       - 19
+#       - 20
+#       class: aromatic_ring
+#       residue: FOL
+#       residue_index: 0
+#       evidence: SDF bond orders
+#     - bond:
+#       - 21
+#       - 22
+#       class: aromatic_ring
+#       residue: FOL
+#       residue_index: 0
+#       evidence: SDF bond orders
+#     - bond:
+#       - 22
+#       - 23
+#       class: aromatic_ring
+#       residue: FOL
+#       residue_index: 0
+#       evidence: SDF bond orders
+#     - bond:
+#       - 23
+#       - 24
+#       class: aromatic_ring
+#       residue: FOL
+#       residue_index: 0
+#       evidence: SDF bond orders
+#     counts:
+#       amide_omega: 1
+#       aromatic_ring: 17
+#       double_bond: 0
+#       improper_terms: 57
+#     unscaled_central_bonds:
+#     - - 4
+#       - 5
+#     - - 7
+#       - 8
+#     - - 7
+#       - 12
+#     - - 8
+#       - 9
+#     - - 9
+#       - 10
+#     - - 10
+#       - 11
+#     - - 11
+#       - 12
+#     - - 15
+#       - 16
+#     - - 15
+#       - 20
+#     - - 16
+#       - 17
+#     - - 17
+#       - 18
+#     - - 17
+#       - 24
+#     - - 18
+#       - 19
+#     - - 18
+#       - 21
+#     - - 19
+#       - 20
+#     - - 21
+#       - 22
+#     - - 22
+#       - 23
+#     - - 23
+#       - 24
+#     unscaled_impropers: true
+#     proline_like_scaled_bonds: []
+#     amide_decisions:
+#       unscaled:
+#       - bond:
+#         - 5
+#         - 4
+#         carbon: 5
+#         nitrogen: 4
+#         carbon_residue: FOL
+#         nitrogen_residue: FOL
+#         carbon_residue_index: 0
+#         nitrogen_residue_index: 0
+#         inter_residue: false
+#         ambiguous: null
+#       proline_like_scaled: []
+#     residue_sdfs:
+#       FOL:
+#         file: FOL.sdf
+#         sha256: 5682a7fd3403e9f077aeb04683cdae9ad92e9ecc6870bc765be5d942f5ae2390
+#     proline_like_residues:
+#     - PRO
+#     max_proline_ring_size: 7
+#     torsion_terms:
+#       detector_version: 2
+#       excluded_central_bonds:
+#       - - 4
+#         - 5
+#       - - 7
+#         - 8
+#       - - 7
+#         - 12
+#       - - 8
+#         - 9
+#       - - 9
+#         - 10
+#       - - 10
+#         - 11
+#       - - 11
+#         - 12
+#       - - 15
+#         - 16
+#       - - 15
+#         - 20
+#       - - 16
+#         - 17
+#       - - 17
+#         - 18
+#       - - 17
+#         - 24
+#       - - 18
+#         - 19
+#       - - 18
+#         - 21
+#       - - 19
+#         - 20
+#       - - 21
+#         - 22
+#       - - 22
+#         - 23
+#       - - 23
+#         - 24
+#       excluded_torsion_indices:
+#         4-5:
+#         - 18
+#         - 19
+#         - 20
+#         - 21
+#         - 40
+#         - 41
+#         - 44
+#         - 45
+#         7-8:
+#         - 36
+#         - 37
+#         - 54
+#         - 70
+#         7-12:
+#         - 38
+#         - 39
+#         - 50
+#         - 51
+#         8-9:
+#         - 46
+#         - 47
+#         - 59
+#         - 148
+#         9-10:
+#         - 52
+#         - 53
+#         - 67
+#         - 72
+#         10-11:
+#         - 55
+#         - 56
+#         - 71
+#         - 73
+#         11-12:
+#         - 48
+#         - 49
+#         - 60
+#         - 149
+#         15-16:
+#         - 76
+#         - 92
+#         15-20:
+#         - 77
+#         - 78
+#         - 86
+#         - 87
+#         16-17:
+#         - 81
+#         - 82
+#         17-18:
+#         - 88
+#         - 89
+#         - 104
+#         - 110
+#         17-24:
+#         - 90
+#         - 91
+#         - 97
+#         - 98
+#         18-19:
+#         - 93
+#         - 109
+#         18-21:
+#         - 94
+#         - 95
+#         - 105
+#         - 106
+#         19-20:
+#         - 83
+#         - 99
+#         21-22:
+#         - 100
+#         - 101
+#         - 102
+#         - 103
+#         - 117
+#         - 118
+#         - 124
+#         - 125
+#         22-23:
+#         - 111
+#         - 123
+#         23-24:
+#         - 96
+#         - 116
+#       n_excluded_torsions: 68
+#       unscaled_impropers: true
+#       unscaled_improper_indices:
+#       - 158
+#       - 159
+#       - 160
+#       - 161
+#       - 162
+#       - 163
+#       - 164
+#       - 165
+#       - 166
+#       - 167
+#       - 168
+#       - 169
+#       - 170
+#       - 171
+#       - 172
+#       - 173
+#       - 174
+#       - 175
+#       - 176
+#       - 177
+#       - 178
+#       - 179
+#       - 180
+#       - 181
+#       - 182
+#       - 183
+#       - 184
+#       - 185
+#       - 186
+#       - 187
+#       - 188
+#       - 189
+#       - 190
+#       - 191
+#       - 192
+#       - 193
+#       - 194
+#       - 195
+#       - 196
+#       - 197
+#       - 198
+#       - 199
+#       - 200
+#       - 201
+#       - 202
+#       - 203
+#       - 204
+#       - 205
+#       - 206
+#       - 207
+#       - 208
+#       - 209
+#       - 210
+#       - 211
+#       - 212
+#       - 213
+#       - 214
+#       n_unscaled_impropers: 57
+#       n_scaled_solute_torsions: 90
+#     n_unscaled_solute_torsion_terms: 125
+#     n_scaled_solute_torsion_terms: 90
+#     depictions:
+#       FOL:
+#         file: FOL-unscaled.png
+#         unscaled_bonds:
+#         - - 4
+#           - 5
+#         - - 7
+#           - 8
+#         - - 7
+#           - 12
+#         - - 8
+#           - 9
+#         - - 9
+#           - 10
+#         - - 10
+#           - 11
+#         - - 11
+#           - 12
+#         - - 15
+#           - 16
+#         - - 15
+#           - 20
+#         - - 16
+#           - 17
+#         - - 17
+#           - 18
+#         - - 17
+#           - 24
+#         - - 18
+#           - 19
+#         - - 18
+#           - 21
+#         - - 19
+#           - 20
+#         - - 21
+#           - 22
+#         - - 22
+#           - 23
+#         - - 23
+#           - 24
+#         improper_centres:
+#         - 1
+#         - 4
+#         - 5
+#         - 7
+#         - 8
+#         - 9
+#         - 10
+#         - 11
+#         - 12
+#         - 13
+#         - 15
+#         - 17
+#         - 18
+#         - 20
+#         - 21
+#         - 22
+#         - 24
+#         - 26
+#         - 29
+#         caption: 'FOL: red = unscaled torsions across bond(s) 4-5, 7-8, 7-12, 8-9,
+#           9-10, 10-11, 11-12, 15-16, 15-20, 16-17, 17-18, 17-24, 18-19, 18-21, 19-20,
+#           21-22, 22-23, 23-24; 19 improper centre(s)'
+#         sha256: 653d1a2d57c912a026c8084c17e1725eab92f464663cc2bd9759fd5fd064a55f
+#   convention:
+#     name: rest2-unscaled-torsions
+#     version: 3
+#     state_coordinate: tau
+#     solute_solute_nonbonded_scale: (1-tau)^2
+#     solute_environment_nonbonded_scale: 1-tau
+#     generalized_born_scale: 1-tau
+#     eligible_solute_torsion_scale: (1-tau)^2
+#     bonds: unscaled
+#     angles: unscaled
+#     unscaled_torsions:
+#     - ordinary amide omega
+#     - aromatic ring bonds
+#     - other double bonds
+#     - impropers
+#   forces:
+#     scaled:
+#     - - 1
+#       - NonbondedForce
+#     - - 2
+#       - PeriodicTorsionForce
+#     unscaled_by_convention:
+#     - - 0
+#       - HarmonicBondForce
+#     - - 4
+#       - HarmonicAngleForce
+#     energy_free:
+#     - - 3
+#       - CMMotionRemover
+#   md_tools:
+#     version: 0.6.2
+#     commit: 2e1aa6cf99503bb7e8b3d7a79fcb330e4b6c55ac
+# ===== END md-tools machine record =====

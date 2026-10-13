@@ -1,0 +1,1132 @@
+{
+  "format": "md-tools-replica-restart/v2",
+  "run_status": "completed",
+  "steps_expected": 25000000,
+  "steps_completed": 25000000,
+  "exchanges_committed": 25000,
+  "whole_frames": 500,
+  "solute_frames": 25000,
+  "production_ps_per_replica": 50000.0,
+  "started_utc": "2026-09-30T15:27:29.011727+00:00",
+  "finished_utc": "2026-09-30T16:21:18.195698+00:00",
+  "resumed_from_step": null,
+  "storage_migrations": [],
+  "schedule": {
+    "timestep_fs": 2.0,
+    "exchange_interval_ps": 2.0,
+    "exchange_interval_steps": 1000,
+    "whole_output_interval_ps": 100.0,
+    "whole_output_interval_steps": 50000,
+    "solute_output_interval_ps": 2.0,
+    "solute_output_interval_steps": 1000,
+    "checkpoint_interval_ps": 100.0,
+    "checkpoint_interval_steps": 50000,
+    "number_of_exchanges": 25000,
+    "total_steps": 25000000,
+    "total_ps": 50000.0,
+    "equilibration_ps": 100.0,
+    "equilibration_steps": 50000,
+    "event_counts": {
+      "cv": 0,
+      "exchange": 25000,
+      "whole": 500,
+      "solute": 25000,
+      "checkpoint": 500
+    },
+    "event_order_when_simultaneous": [
+      "cv",
+      "exchange",
+      "whole",
+      "solute",
+      "checkpoint"
+    ],
+    "scheduling": "absolute integration steps; the propagation span between events is derived and private, and there is no user-facing segment"
+  },
+  "states": [
+    {
+      "index": 0,
+      "trajectory": "whole_state0_prod1.nc",
+      "tau": 0.0,
+      "effective_temperature_k": 300.0
+    },
+    {
+      "index": 1,
+      "trajectory": "whole_state1_prod1.nc",
+      "tau": 0.057143,
+      "effective_temperature_k": 337.46566700060754
+    },
+    {
+      "index": 2,
+      "trajectory": "whole_state2_prod1.nc",
+      "tau": 0.114286,
+      "effective_temperature_k": 382.41439864400513
+    },
+    {
+      "index": 3,
+      "trajectory": "whole_state3_prod1.nc",
+      "tau": 0.171429,
+      "effective_temperature_k": 436.9802380174896
+    },
+    {
+      "index": 4,
+      "trajectory": "whole_state4_prod1.nc",
+      "tau": 0.228571,
+      "effective_temperature_k": 504.114666209886
+    },
+    {
+      "index": 5,
+      "trajectory": "whole_state5_prod1.nc",
+      "tau": 0.285714,
+      "effective_temperature_k": 587.9995296002822
+    },
+    {
+      "index": 6,
+      "trajectory": "whole_state6_prod1.nc",
+      "tau": 0.342857,
+      "effective_temperature_k": 694.7066922825016
+    },
+    {
+      "index": 7,
+      "trajectory": "whole_state7_prod1.nc",
+      "tau": 0.4,
+      "effective_temperature_k": 833.3333333333334
+    }
+  ],
+  "storage": {
+    "analysis_netcdf": "REST2.nc",
+    "solute_netcdf": "REST2.solute.nc",
+    "checkpoint_netcdf": "REST2_checkpoint.nc",
+    "run_state": "REST2.runstate.json",
+    "schema": "md-tools-replica-exchange/v3",
+    "authoritative": "analysis_netcdf",
+    "coordinate_indexing": "walker"
+  },
+  "scientific_identity": {
+    "method": "REST2",
+    "is_temperature_remd": false,
+    "rest2_implementation": {
+      "name": "rest2-unscaled-torsions",
+      "version": 3,
+      "state_coordinate": "tau",
+      "solute_solute_nonbonded_scale": "(1-tau)^2",
+      "solute_environment_nonbonded_scale": "1-tau",
+      "generalized_born_scale": "1-tau",
+      "eligible_solute_torsion_scale": "(1-tau)^2",
+      "bonds": "unscaled",
+      "angles": "unscaled",
+      "unscaled_torsions": [
+        "ordinary amide omega",
+        "aromatic ring bonds",
+        "other double bonds",
+        "impropers"
+      ]
+    },
+    "hamiltonian_scaling": "(1 - tau)^2 solute-solute; (1 - tau) solute-environment; environment unchanged",
+    "tau": [
+      0.0,
+      0.057143,
+      0.114286,
+      0.171429,
+      0.228571,
+      0.285714,
+      0.342857,
+      0.4
+    ],
+    "scale_factors": [
+      1.0,
+      0.8889793224490001,
+      0.784489289796,
+      0.686529902041,
+      0.595102702041,
+      0.510204489796,
+      0.431836922449,
+      0.36
+    ],
+    "n_states": 8,
+    "temperature_k": 300.0,
+    "single_temperature": true,
+    "beta_kj_per_mol": 0.40090785014980906,
+    "pressure_bar": null,
+    "ensemble": "NVT",
+    "friction_per_ps": 1.0,
+    "constraint_tolerance": 1e-08,
+    "hydrogen_mass_amu": null,
+    "random_seed": 1,
+    "velocity_rescaling_on_exchange": false,
+    "velocity_rescaling_note": "every rung shares one temperature and one beta, so an exchange must not rescale velocities; that belongs to temperature REMD and would change the ensemble here",
+    "timestep_fs": 2.0,
+    "exchange_interval_ps": 2.0,
+    "exchange_interval_steps": 1000,
+    "whole_output_interval_ps": 100.0,
+    "whole_output_interval_steps": 50000,
+    "solute_output_interval_ps": 2.0,
+    "solute_output_interval_steps": 1000,
+    "checkpoint_interval_ps": 100.0,
+    "checkpoint_interval_steps": 50000,
+    "number_of_exchanges": 25000,
+    "total_steps": 25000000,
+    "total_ps": 50000.0,
+    "equilibration_ps": 100.0,
+    "equilibration_steps": 50000,
+    "event_counts": {
+      "cv": 0,
+      "exchange": 25000,
+      "whole": 500,
+      "solute": 25000,
+      "checkpoint": 500
+    },
+    "event_order_when_simultaneous": [
+      "cv",
+      "exchange",
+      "whole",
+      "solute",
+      "checkpoint"
+    ],
+    "scheduling": "absolute integration steps; the propagation span between events is derived and private, and there is no user-facing segment",
+    "format": "md-tools-replica-identity/v2",
+    "solute_atoms": 51,
+    "hamiltonian": {
+      "format": "md-tools-hamiltonian-identity/v3",
+      "system_sha256": "ac65b26bbbcde4813d829dd00264c63699161a74d7cf103c45a1a84239363c8f",
+      "selection_mode": "legacy-full-solute",
+      "selection_sha256": "e43d6b0fa0e9b60123236050a378a4bbc941eb96bf4995d5b423f1b61109ef76",
+      "v2_selection_sha256": "75204db7d973b7d3c89dc4469b624fbeaa208e391e4a26275c8101df2c64783a",
+      "n_solute_atoms": 51,
+      "n_unscaled_central_bonds": 18,
+      "unscaled_impropers": true,
+      "tau": null,
+      "temperature_k": 300.0,
+      "ensemble": "NVT",
+      "summary": {
+        "particles": 2566,
+        "constraints": 2530,
+        "forces": [
+          "HarmonicBondForce",
+          "NonbondedForce",
+          "PeriodicTorsionForce",
+          "CMMotionRemover",
+          "HarmonicAngleForce"
+        ],
+        "uses_periodic_boundary_conditions": true,
+        "total_mass_amu": 15637.105621,
+        "bonds": 34,
+        "nonbonded": {
+          "method": 4,
+          "cutoff_nm": 1.0,
+          "uses_switching_function": false,
+          "uses_dispersion_correction": true,
+          "ewald_error_tolerance": 0.0005,
+          "exceptions": 2765
+        },
+        "torsions": 215,
+        "angles": 86
+      },
+      "note": "the digest is over the canonical serialized OpenMM System: the object that determines the energy. Tau, temperature, topology and box are necessary and not sufficient -- ff14SB/TIP3P and ff19SB/OPC agree on all of them."
+    },
+    "exchange_rule": {
+      "name": "neighbouring",
+      "interface_version": "md-tools-exchange-rule/v2",
+      "file": null,
+      "sha256": null,
+      "parameters": {},
+      "describe": {
+        "name": "neighbouring",
+        "interface_version": "md-tools-exchange-rule/v2",
+        "parameters": {},
+        "schedule": "strict alternation of odd/even adjacent-pair sweeps",
+        "criterion": "log(alpha) = [u_i(x_i)+u_j(x_j)] - [u_i(x_j)+u_j(x_i)]",
+        "source": "built in to exchange_rules.py"
+      }
+    },
+    "rungs": {
+      "format": "md-tools-ladder-rungs/1",
+      "rung_source": "saved-states",
+      "rung_source_reason": "every rung is the saved state its group-file line names, verified against scaler.yaml",
+      "saved_states_record": "scaler.yaml",
+      "rungs": [
+        {
+          "rung": 0,
+          "system_digest": "ac65b26bbbcde4813d829dd00264c63699161a74d7cf103c45a1a84239363c8f",
+          "origin": "saved-state 0 (verified)"
+        },
+        {
+          "rung": 1,
+          "system_digest": "7f1711871cc3e708baceeaded8b232dcb08fcd62ef4809f622a01974293ac756",
+          "origin": "saved-state 1 (verified)"
+        },
+        {
+          "rung": 2,
+          "system_digest": "d0e256d7d530288492dfd38b7df1a262eb221e155599d942b5aef43a4c01ad95",
+          "origin": "saved-state 2 (verified)"
+        },
+        {
+          "rung": 3,
+          "system_digest": "f0d09acbfebe4b543cc506ac4f87292983377808bbd224a00f2556aacee01ada",
+          "origin": "saved-state 3 (verified)"
+        },
+        {
+          "rung": 4,
+          "system_digest": "20f4b10c491d93d7d1120ea998e32fb1f1b7f56027457cbaf09a4b78941fbcef",
+          "origin": "saved-state 4 (verified)"
+        },
+        {
+          "rung": 5,
+          "system_digest": "a9ce4f00d43cae82a961085fd5115e57fe6ffc8f746589980cdc57c833bd28db",
+          "origin": "saved-state 5 (verified)"
+        },
+        {
+          "rung": 6,
+          "system_digest": "99efa47e9db4815944d773648cdc16471ecc171fba3fcf9aa8883d895150a5af",
+          "origin": "saved-state 6 (verified)"
+        },
+        {
+          "rung": 7,
+          "system_digest": "825d3fe3ac0b67fa20412a8f2c165fcffea2487beb42672cc36ada48178d1841",
+          "origin": "saved-state 7 (verified)"
+        }
+      ]
+    },
+    "groups": 8,
+    "group_indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+    ]
+  },
+  "exchange_rule": {
+    "name": "neighbouring",
+    "interface_version": "md-tools-exchange-rule/v2",
+    "file": null,
+    "sha256": null,
+    "parameters": {},
+    "describe": {
+      "name": "neighbouring",
+      "interface_version": "md-tools-exchange-rule/v2",
+      "parameters": {},
+      "schedule": "strict alternation of odd/even adjacent-pair sweeps",
+      "criterion": "log(alpha) = [u_i(x_i)+u_j(x_j)] - [u_i(x_j)+u_j(x_i)]",
+      "source": "built in to exchange_rules.py"
+    }
+  },
+  "lifetime_statistics": {
+    "basis": "lifetime, summed over every committed exchange row in the analysis NetCDF",
+    "exchange_range": [
+      0,
+      24999
+    ],
+    "exchanges_committed": 25000,
+    "rows_with_proposals": 25000,
+    "total_proposed": 87500,
+    "total_accepted": 38393,
+    "overall_acceptance": 0.43877714285714287,
+    "by_state_pair": [
+      {
+        "state_pair": [
+          0,
+          1
+        ],
+        "adjacent": true,
+        "tau_pair": [
+          0.0,
+          0.057143
+        ],
+        "proposed": 12500,
+        "accepted": 5435,
+        "acceptance": 0.4348
+      },
+      {
+        "state_pair": [
+          0,
+          2
+        ],
+        "adjacent": false,
+        "tau_pair": [
+          0.0,
+          0.114286
+        ],
+        "proposed": 0,
+        "accepted": 0,
+        "acceptance": null
+      },
+      {
+        "state_pair": [
+          0,
+          3
+        ],
+        "adjacent": false,
+        "tau_pair": [
+          0.0,
+          0.171429
+        ],
+        "proposed": 0,
+        "accepted": 0,
+        "acceptance": null
+      },
+      {
+        "state_pair": [
+          0,
+          4
+        ],
+        "adjacent": false,
+        "tau_pair": [
+          0.0,
+          0.228571
+        ],
+        "proposed": 0,
+        "accepted": 0,
+        "acceptance": null
+      },
+      {
+        "state_pair": [
+          0,
+          5
+        ],
+        "adjacent": false,
+        "tau_pair": [
+          0.0,
+          0.285714
+        ],
+        "proposed": 0,
+        "accepted": 0,
+        "acceptance": null
+      },
+      {
+        "state_pair": [
+          0,
+          6
+        ],
+        "adjacent": false,
+        "tau_pair": [
+          0.0,
+          0.342857
+        ],
+        "proposed": 0,
+        "accepted": 0,
+        "acceptance": null
+      },
+      {
+        "state_pair": [
+          0,
+          7
+        ],
+        "adjacent": false,
+        "tau_pair": [
+          0.0,
+          0.4
+        ],
+        "proposed": 0,
+        "accepted": 0,
+        "acceptance": null
+      },
+      {
+        "state_pair": [
+          1,
+          2
+        ],
+        "adjacent": true,
+        "tau_pair": [
+          0.057143,
+          0.114286
+        ],
+        "proposed": 12500,
+        "accepted": 5529,
+        "acceptance": 0.44232
+      },
+      {
+        "state_pair": [
+          1,
+          3
+        ],
+        "adjacent": false,
+        "tau_pair": [
+          0.057143,
+          0.171429
+        ],
+        "proposed": 0,
+        "accepted": 0,
+        "acceptance": null
+      },
+      {
+        "state_pair": [
+          1,
+          4
+        ],
+        "adjacent": false,
+        "tau_pair": [
+          0.057143,
+          0.228571
+        ],
+        "proposed": 0,
+        "accepted": 0,
+        "acceptance": null
+      },
+      {
+        "state_pair": [
+          1,
+          5
+        ],
+        "adjacent": false,
+        "tau_pair": [
+          0.057143,
+          0.285714
+        ],
+        "proposed": 0,
+        "accepted": 0,
+        "acceptance": null
+      },
+      {
+        "state_pair": [
+          1,
+          6
+        ],
+        "adjacent": false,
+        "tau_pair": [
+          0.057143,
+          0.342857
+        ],
+        "proposed": 0,
+        "accepted": 0,
+        "acceptance": null
+      },
+      {
+        "state_pair": [
+          1,
+          7
+        ],
+        "adjacent": false,
+        "tau_pair": [
+          0.057143,
+          0.4
+        ],
+        "proposed": 0,
+        "accepted": 0,
+        "acceptance": null
+      },
+      {
+        "state_pair": [
+          2,
+          3
+        ],
+        "adjacent": true,
+        "tau_pair": [
+          0.114286,
+          0.171429
+        ],
+        "proposed": 12500,
+        "accepted": 5483,
+        "acceptance": 0.43864
+      },
+      {
+        "state_pair": [
+          2,
+          4
+        ],
+        "adjacent": false,
+        "tau_pair": [
+          0.114286,
+          0.228571
+        ],
+        "proposed": 0,
+        "accepted": 0,
+        "acceptance": null
+      },
+      {
+        "state_pair": [
+          2,
+          5
+        ],
+        "adjacent": false,
+        "tau_pair": [
+          0.114286,
+          0.285714
+        ],
+        "proposed": 0,
+        "accepted": 0,
+        "acceptance": null
+      },
+      {
+        "state_pair": [
+          2,
+          6
+        ],
+        "adjacent": false,
+        "tau_pair": [
+          0.114286,
+          0.342857
+        ],
+        "proposed": 0,
+        "accepted": 0,
+        "acceptance": null
+      },
+      {
+        "state_pair": [
+          2,
+          7
+        ],
+        "adjacent": false,
+        "tau_pair": [
+          0.114286,
+          0.4
+        ],
+        "proposed": 0,
+        "accepted": 0,
+        "acceptance": null
+      },
+      {
+        "state_pair": [
+          3,
+          4
+        ],
+        "adjacent": true,
+        "tau_pair": [
+          0.171429,
+          0.228571
+        ],
+        "proposed": 12500,
+        "accepted": 5498,
+        "acceptance": 0.43984
+      },
+      {
+        "state_pair": [
+          3,
+          5
+        ],
+        "adjacent": false,
+        "tau_pair": [
+          0.171429,
+          0.285714
+        ],
+        "proposed": 0,
+        "accepted": 0,
+        "acceptance": null
+      },
+      {
+        "state_pair": [
+          3,
+          6
+        ],
+        "adjacent": false,
+        "tau_pair": [
+          0.171429,
+          0.342857
+        ],
+        "proposed": 0,
+        "accepted": 0,
+        "acceptance": null
+      },
+      {
+        "state_pair": [
+          3,
+          7
+        ],
+        "adjacent": false,
+        "tau_pair": [
+          0.171429,
+          0.4
+        ],
+        "proposed": 0,
+        "accepted": 0,
+        "acceptance": null
+      },
+      {
+        "state_pair": [
+          4,
+          5
+        ],
+        "adjacent": true,
+        "tau_pair": [
+          0.228571,
+          0.285714
+        ],
+        "proposed": 12500,
+        "accepted": 5508,
+        "acceptance": 0.44064
+      },
+      {
+        "state_pair": [
+          4,
+          6
+        ],
+        "adjacent": false,
+        "tau_pair": [
+          0.228571,
+          0.342857
+        ],
+        "proposed": 0,
+        "accepted": 0,
+        "acceptance": null
+      },
+      {
+        "state_pair": [
+          4,
+          7
+        ],
+        "adjacent": false,
+        "tau_pair": [
+          0.228571,
+          0.4
+        ],
+        "proposed": 0,
+        "accepted": 0,
+        "acceptance": null
+      },
+      {
+        "state_pair": [
+          5,
+          6
+        ],
+        "adjacent": true,
+        "tau_pair": [
+          0.285714,
+          0.342857
+        ],
+        "proposed": 12500,
+        "accepted": 5505,
+        "acceptance": 0.4404
+      },
+      {
+        "state_pair": [
+          5,
+          7
+        ],
+        "adjacent": false,
+        "tau_pair": [
+          0.285714,
+          0.4
+        ],
+        "proposed": 0,
+        "accepted": 0,
+        "acceptance": null
+      },
+      {
+        "state_pair": [
+          6,
+          7
+        ],
+        "adjacent": true,
+        "tau_pair": [
+          0.342857,
+          0.4
+        ],
+        "proposed": 12500,
+        "accepted": 5435,
+        "acceptance": 0.4348
+      }
+    ]
+  },
+  "completion_report": {
+    "basis": "cumulative over every committed exchange row in the authoritative NetCDF, exchanges 0-24999",
+    "by_neighbouring_pair": [
+      {
+        "state_pair": [
+          0,
+          1
+        ],
+        "tau_pair": [
+          0.0,
+          0.057143
+        ],
+        "accepted": 5435,
+        "proposed": 12500,
+        "acceptance": 0.4348
+      },
+      {
+        "state_pair": [
+          1,
+          2
+        ],
+        "tau_pair": [
+          0.057143,
+          0.114286
+        ],
+        "accepted": 5529,
+        "proposed": 12500,
+        "acceptance": 0.44232
+      },
+      {
+        "state_pair": [
+          2,
+          3
+        ],
+        "tau_pair": [
+          0.114286,
+          0.171429
+        ],
+        "accepted": 5483,
+        "proposed": 12500,
+        "acceptance": 0.43864
+      },
+      {
+        "state_pair": [
+          3,
+          4
+        ],
+        "tau_pair": [
+          0.171429,
+          0.228571
+        ],
+        "accepted": 5498,
+        "proposed": 12500,
+        "acceptance": 0.43984
+      },
+      {
+        "state_pair": [
+          4,
+          5
+        ],
+        "tau_pair": [
+          0.228571,
+          0.285714
+        ],
+        "accepted": 5508,
+        "proposed": 12500,
+        "acceptance": 0.44064
+      },
+      {
+        "state_pair": [
+          5,
+          6
+        ],
+        "tau_pair": [
+          0.285714,
+          0.342857
+        ],
+        "accepted": 5505,
+        "proposed": 12500,
+        "acceptance": 0.4404
+      },
+      {
+        "state_pair": [
+          6,
+          7
+        ],
+        "tau_pair": [
+          0.342857,
+          0.4
+        ],
+        "accepted": 5435,
+        "proposed": 12500,
+        "acceptance": 0.4348
+      }
+    ],
+    "overall": {
+      "accepted": 38393,
+      "proposed": 87500,
+      "acceptance": 0.43877714285714287
+    }
+  },
+  "mapping_integrity": {
+    "rows": 25000,
+    "every_row_is_a_permutation": true,
+    "offending_rows": []
+  },
+  "hamiltonian": {
+    "forces_scaled": [
+      "NonbondedForce",
+      "PeriodicTorsionForce"
+    ],
+    "forces_unscaled_by_convention": [
+      "HarmonicBondForce",
+      "HarmonicAngleForce"
+    ],
+    "forces_energy_free": [
+      "CMMotionRemover"
+    ]
+  },
+  "versions": {
+    "python": "3.12.14",
+    "openmm": "8.6.0.dev-c6173db",
+    "openmm_short": "8.6.0",
+    "netCDF4": "1.7.4",
+    "numpy": "2.4.6",
+    "mdtraj": "1.11.1",
+    "mpi4py": "4.1.2",
+    "openmmtools_present_but_unused": "0.26.0"
+  },
+  "execution": {
+    "acceleration": {
+      "requested_policy": "default-cuda",
+      "platform_selection": "machine-config",
+      "cli_cpu_override": false,
+      "platform_origin": "machine.openmm",
+      "device_policy": "local_rank",
+      "requested_platform": "CUDA",
+      "explicit_cpu": false,
+      "resolved_platform": "CUDA",
+      "cuda_device_index": 0,
+      "cuda_precision": "mixed",
+      "gpus_on_host": [
+        "NVIDIA H200 NVL",
+        "NVIDIA H200 NVL",
+        "NVIDIA H200 NVL",
+        "NVIDIA H200 NVL",
+        "NVIDIA H200 NVL",
+        "NVIDIA H200 NVL",
+        "NVIDIA H200 NVL",
+        "NVIDIA H200 NVL"
+      ],
+      "openmm_version": "8.6.0.dev-c6173db",
+      "cuda_visible_devices": "0,1,2,3,4,5,6,7",
+      "cuda_driver_version": "595.58.03",
+      "cuda_runtime_version": null,
+      "openmm_plugin_load_failures": [
+        "Error loading library /scratch/ipopa/software/md-stack/envs/openmm-env/lib/plugins/libOpenMMHIP.so: libhiprtc.so.6: cannot open shared object file: No such file or directory",
+        "Error loading library /scratch/ipopa/software/md-stack/envs/openmm-env/lib/plugins/libOpenMMRPMDHIP.so: libhiprtc.so.6: cannot open shared object file: No such file or directory",
+        "Error loading library /scratch/ipopa/software/md-stack/envs/openmm-env/lib/plugins/libOpenMMDrudeHIP.so: libhiprtc.so.6: cannot open shared object file: No such file or directory",
+        "Error loading library /scratch/ipopa/software/md-stack/envs/openmm-env/lib/plugins/libOpenMMAmoebaHIP.so: libhiprtc.so.6: cannot open shared object file: No such file or directory"
+      ],
+      "mpi": {
+        "rank": 0,
+        "size": 8,
+        "local_rank": 0
+      },
+      "device_policy_detail": "measured throughput (balanced) (rank 0 of 8, local rank 0 on sbrinz, 1 worker(s) on this device)",
+      "placement": {
+        "workers": 8,
+        "placement": "measured throughput (balanced)",
+        "nodes": [
+          {
+            "host": "sbrinz",
+            "ranks": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ],
+            "usable_cpus": 8,
+            "cpus_per_worker": 1,
+            "visible_devices": 8
+          }
+        ],
+        "this_worker": {
+          "host": "sbrinz",
+          "local_rank": 0,
+          "cpus": [
+            0
+          ],
+          "launcher_cpus": [
+            0
+          ],
+          "device": 0,
+          "co_tenants": 1
+        },
+        "worker_map": {
+          "0": {
+            "host": "sbrinz",
+            "local_rank": 0,
+            "cpus": [
+              0
+            ],
+            "launcher_cpus": [
+              0
+            ],
+            "device": 0,
+            "co_tenants": 1
+          },
+          "1": {
+            "host": "sbrinz",
+            "local_rank": 1,
+            "cpus": [
+              1
+            ],
+            "launcher_cpus": [
+              1
+            ],
+            "device": 1,
+            "co_tenants": 1
+          },
+          "2": {
+            "host": "sbrinz",
+            "local_rank": 2,
+            "cpus": [
+              2
+            ],
+            "launcher_cpus": [
+              2
+            ],
+            "device": 2,
+            "co_tenants": 1
+          },
+          "3": {
+            "host": "sbrinz",
+            "local_rank": 3,
+            "cpus": [
+              3
+            ],
+            "launcher_cpus": [
+              3
+            ],
+            "device": 3,
+            "co_tenants": 1
+          },
+          "4": {
+            "host": "sbrinz",
+            "local_rank": 4,
+            "cpus": [
+              4
+            ],
+            "launcher_cpus": [
+              4
+            ],
+            "device": 4,
+            "co_tenants": 1
+          },
+          "5": {
+            "host": "sbrinz",
+            "local_rank": 5,
+            "cpus": [
+              5
+            ],
+            "launcher_cpus": [
+              5
+            ],
+            "device": 5,
+            "co_tenants": 1
+          },
+          "6": {
+            "host": "sbrinz",
+            "local_rank": 6,
+            "cpus": [
+              6
+            ],
+            "launcher_cpus": [
+              6
+            ],
+            "device": 6,
+            "co_tenants": 1
+          },
+          "7": {
+            "host": "sbrinz",
+            "local_rank": 7,
+            "cpus": [
+              7
+            ],
+            "launcher_cpus": [
+              7
+            ],
+            "device": 7,
+            "co_tenants": 1
+          }
+        },
+        "measurement": {
+          "sbrinz": {
+            "steps_per_second": [
+              10887.798802228062,
+              10894.429454542349,
+              10615.484853246218,
+              10611.574904676225,
+              10852.276125971008,
+              10604.416628619854,
+              10641.102529762831,
+              10908.034843506155
+            ],
+            "devices": [
+              {
+                "device": 0,
+                "steps": 5000,
+                "seconds": 0.45923,
+                "steps_per_second": 10887.799
+              },
+              {
+                "device": 1,
+                "steps": 5000,
+                "seconds": 0.45895,
+                "steps_per_second": 10894.429
+              },
+              {
+                "device": 2,
+                "steps": 5000,
+                "seconds": 0.47101,
+                "steps_per_second": 10615.485
+              },
+              {
+                "device": 3,
+                "steps": 5000,
+                "seconds": 0.471184,
+                "steps_per_second": 10611.575
+              },
+              {
+                "device": 4,
+                "steps": 5000,
+                "seconds": 0.460733,
+                "steps_per_second": 10852.276
+              },
+              {
+                "device": 5,
+                "steps": 5000,
+                "seconds": 0.471502,
+                "steps_per_second": 10604.417
+              },
+              {
+                "device": 6,
+                "steps": 5000,
+                "seconds": 0.469876,
+                "steps_per_second": 10641.103
+              },
+              {
+                "device": 7,
+                "steps": 5000,
+                "seconds": 0.458378,
+                "steps_per_second": 10908.035
+              }
+            ],
+            "particles": 2566,
+            "warmup_steps": 50,
+            "min_seconds": 1.0,
+            "timestep_ps": 0.002,
+            "precision": "mixed",
+            "integrator": "VerletIntegrator (measurement only)"
+          }
+        },
+        "shared_devices": false,
+        "mps": {
+          "requested": false,
+          "pipe_directory": "/tmp/nvidia-mps",
+          "daemon": "not-running",
+          "verified": null,
+          "environment": {
+            "CUDA_MPS_PIPE_DIRECTORY": null,
+            "CUDA_MPS_LOG_DIRECTORY": null,
+            "CUDA_MPS_ACTIVE_THREAD_PERCENTAGE": null,
+            "CUDA_MPS_PINNED_DEVICE_MEM_LIMIT": null
+          },
+          "detail": "no control pipe in /tmp/nvidia-mps",
+          "forced": false,
+          "status": "absent"
+        }
+      }
+    },
+    "platform": "CUDA",
+    "device_index": 0,
+    "device_policy": "measured throughput (balanced) (rank 0 of 8, local rank 0 on sbrinz, 1 worker(s) on this device)",
+    "precision": "mixed",
+    "cpu_threads": null,
+    "mpi_rank": 0,
+    "mpi_size": 8,
+    "hostname": "sbrinz",
+    "owned_states": [
+      0
+    ]
+  },
+  "final_state_to_walker": [
+    0,
+    3,
+    6,
+    5,
+    2,
+    1,
+    7,
+    4
+  ],
+  "collective_variables": null,
+  "per_tau_equilibration": null
+}

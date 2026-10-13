@@ -1,0 +1,50 @@
+# replica executor, grouped mode: 8 group(s) from remd_groupfile.1
+# mpi                : rank 0/8
+# exchange rule      : built-in neighbouring
+# analysis storage   : REST2.nc
+# checkpoint         : REST2_checkpoint.nc
+# manifest           : restart_prod1.json
+#   group 0: -i _protocol.py -p built.pdb -s system_state0.xml -c eq_3.xml
+#   group 1: -i _protocol.py -p built.pdb -s system_state1.xml -c eq_3.xml
+#   group 2: -i _protocol.py -p built.pdb -s system_state2.xml -c eq_3.xml
+#   group 3: -i _protocol.py -p built.pdb -s system_state3.xml -c eq_3.xml
+#   group 4: -i _protocol.py -p built.pdb -s system_state4.xml -c eq_3.xml
+#   group 5: -i _protocol.py -p built.pdb -s system_state5.xml -c eq_3.xml
+#   group 6: -i _protocol.py -p built.pdb -s system_state6.xml -c eq_3.xml
+#   group 7: -i _protocol.py -p built.pdb -s system_state7.xml -c eq_3.xml
+# platform           : CUDA device=0 (measured throughput (balanced) (rank 0 of 8, local rank 0 on sbrinz, 1 worker(s) on this device)), precision mixed
+# this process drives: state(s) [0] of 8
+# host               : sbrinz
+# equilibration      : 50000 step(s) per state, NOT counted as production
+
+# --- replica exchange summary (the NetCDF is authoritative) ------------------
+# steps completed       : 25000000 of 25000000
+# exchanges             : 25000 (every 1000 steps = 2.0 ps)
+# whole frames          : 500 (every 50000 steps)
+# solute frames         : 25000 (every 1000 steps)
+# production per replica: 50000.0 ps
+# exchange rule         : neighbouring
+# final state->walker   : [0, 3, 6, 5, 2, 1, 7, 4]
+# NEIGHBOURING-PAIR acceptance:
+#   basis: cumulative over every committed exchange row in the authoritative NetCDF, exchanges 0-24999
+#   state 0 <-> state 1   5435/12500   0.435
+#   state 1 <-> state 2   5529/12500   0.442
+#   state 2 <-> state 3   5483/12500   0.439
+#   state 3 <-> state 4   5498/12500   0.440
+#   state 4 <-> state 5   5508/12500   0.441
+#   state 5 <-> state 6   5505/12500   0.440
+#   state 6 <-> state 7   5435/12500   0.435
+#   overall               38393/87500   0.439
+# REST2:
+#   tau ladder            0, 0.057143, 0.114286, 0.171429, 0.228571, 0.285714, 0.342857, 0.4   (8 state(s), one temperature 300.0 K, NVT)
+#   scaling               solute-solute (1-tau)^2, solute-environment 1-tau
+#   left unscaled         bonds unscaled, angles unscaled, torsions: ordinary amide omega, aromatic ring bonds, other double bonds, impropers
+#   solute region         51 atom(s), 18 unscaled central bond(s), impropers unscaled
+#   system sha256         ac65b26bbbcde4813d829dd00264c63699161a74d7cf103c45a1a84239363c8f
+#   velocities on swap    never rescaled (one beta across the ladder)
+# TIMINGS:
+#   elapsed               3229.2 s
+#   throughput            1337.80 ns/day per replica, 10702.39 ns/day aggregate over 8 state(s)
+#   per step              0.1292 ms
+# ---------------------------------------------------------------------------
+run_status: completed

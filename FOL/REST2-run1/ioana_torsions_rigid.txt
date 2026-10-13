@@ -1,0 +1,2 @@
+# i j k l k_local   # atom names | class   (k_local: per-bond symmetry, info only; symmetry is handled by the _symops.txt file)
+3 4 5 6 1   # FOL1-C2 FOL1-N1 FOL1-C3 FOL1-O3 | rigid amide-like C-N

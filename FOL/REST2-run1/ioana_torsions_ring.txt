@@ -1,0 +1,1 @@
+# i j k l k_local   # atom names | class   (k_local: per-bond symmetry, info only; symmetry is handled by the _symops.txt file)

@@ -1,0 +1,259 @@
+md-openmm build-md
+====================================================================
+
+Resolved configuration
+----------------------
+  protocol                    REST2
+  solvent                     explicit
+  timestep                    'auto' (resolved from the System's masses when the run starts)
+
+Stages
+------
+  min                         5000 iterations
+  eq_nvt_posres               50000 steps, NVT
+  eq_npt_posres               50000 steps, NPT
+  eq_npt_free                 100000 steps, NPT
+
+REST2
+-----
+  states                      8
+  tau ladder                  0.0 .. 0.4 (linear)
+  exchange every              1000 steps
+  production per state        25000000 steps
+  attempts                    25000
+  equilibration               50000 steps per state, at that state's own Hamiltonian, not production
+  ../min/resolved.config      SHARED by every run on this system, so it carries no method identity: minimisation is the same physics whichever method follows it.
+  eq/resolved.config          METHOD-NEUTRAL, exactly as `min/` is, because the stages here read the SHARED `input/eq_<k>.in` -- which carries no protocol, so that one file can serve every method. A per-run document here recorded `protocol: REST2` while the input it is compared against resolves to the default, and every preparation stage of a ladder refused with `protocol: was 'REST2', now 'cMD'`. The two can never agree, so the stored document matches the input rather than the run. Which method the run IS stays recorded at the run root and in build-md.log.
+
+Saved states
+------------
+  record                      build/REST2/scaler.yaml
+  state 0                     tau 0  build/REST2/system_state0.xml
+  state 1                     tau 0.057143  build/REST2/system_state1.xml
+  state 2                     tau 0.114286  build/REST2/system_state2.xml
+  state 3                     tau 0.171429  build/REST2/system_state3.xml
+  state 4                     tau 0.228571  build/REST2/system_state4.xml
+  state 5                     tau 0.285714  build/REST2/system_state5.xml
+  state 6                     tau 0.342857  build/REST2/system_state6.xml
+  state 7                     tau 0.4  build/REST2/system_state7.xml
+  hot region                  the whole solute (legacy)
+
+Outputs
+-------
+  ../min/min.py               min/min.py
+  eq/eq_1.py                  REST2-run1/eq/eq_1.py
+  eq/eq_2.py                  REST2-run1/eq/eq_2.py
+  eq/eq_3.py                  REST2-run1/eq/eq_3.py
+  REST2.py                    REST2-run1/REST2.py
+  ../input/min.in             input/min.in
+  ../input/eq_1.in            input/eq_1.in
+  ../input/eq_2.in            input/eq_2.in
+  ../input/eq_3.in            input/eq_3.in
+  ../input/REST2.in           input/REST2.in
+  remd_groupfile.1            REST2-run1/remd_groupfile.1
+  run.sh                      REST2-run1/run.sh
+  resolved.config             REST2-run1/resolved.config
+  ../min/resolved.config      min/resolved.config
+  ../min/run.config           min/run.config
+  eq/run.config               REST2-run1/eq/run.config
+  eq/resolved.config          REST2-run1/eq/resolved.config
+  run.config                  REST2-run1/run.config
+
+Summary
+-------
+  generated 18 files in REST2-run1
+  status: completed
+
+# ===== BEGIN md-tools machine record =====
+# schema_version: md-tools-record/2.0
+# record_type: build-md
+# status: completed
+# started_utc: '2026-09-30T14:55:23+00:00'
+# finished_utc: '2026-09-30T14:55:23+00:00'
+# command:
+# - /scratch/ipopa/software/md-stack/envs/openmm-env/bin/md-openmm
+# - build-md
+# - -odir
+# - ./REST2-run1
+# - --config
+# - REST2.config
+# environment:
+#   hostname: sbrinz
+#   platform: Linux-5.14.0-503.40.1.el9_5.x86_64-x86_64-with-glibc2.34
+#   machine: x86_64
+#   user: ipopa
+#   packages:
+#     python: 3.12.14
+#     md-tools: 0.6.2
+#     openmm: '8.6'
+#     openff-toolkit: 0.19.0
+#     openmmforcefields: 0.16.0
+#     parmed: 4.3.1
+#     rdkit: 2026.3.1
+#     ambertools: null
+#     numpy: 2.4.6
+#     pyyaml: 6.0.3
+#     openmm_build: 8.6.0.dev-c6173db
+#   md_tools_commit: 2e1aa6cf99503bb7e8b3d7a79fcb330e4b6c55ac
+# protocol: REST2
+# solvent: explicit
+# resolved_config:
+#   protocol: REST2
+#   solvent: explicit
+#   dynamics:
+#     timestep_fs: auto
+#     temperature_K: 300.0
+#     pressure_bar: 1.0
+#     friction_per_ps: 1.0
+#     barostat_interval_steps: 25
+#     restraint_kcal_per_mol_A2: 1.0
+#     tau: 0.0
+#     phase_space_printout: 0
+#     seed: 1
+#   stages:
+#     minimization_iterations: 5000
+#     restrained_nvt_steps: 50000
+#     restrained_npt_steps: 50000
+#     unrestrained_npt_steps: 100000
+#     production_steps: 2500000
+#     number_of_segments: 1
+#   reporting:
+#     crd_printout_solute: 1000
+#     crd_printout_whole: 50000
+#     info_printout: 5000
+#     checkpoint_printout: 50000
+#   collective_variables:
+#     file: null
+#     generate: null
+#     interval_steps: 0
+#   rest2:
+#     number_of_replicas: 8
+#     tau_max: 0.4
+#     backbone_scaling_list: null
+#     sidechain_scaling_list: null
+#     ligand_scaling_dict: null
+#     exchange_interval_steps: 1000
+#     number_of_exchanges: 25000
+#     equilibration_steps: 50000
+#     equilibration_per_tau: false
+#     state_trajectory: true
+#     rem_log: true
+#     neighbour_acceptance_report: true
+#   ais:
+#     number_of_paths: 100
+#     switching_steps: 50000
+#     observation_interval_steps: 2500
+#     parameter_update_interval_steps: 1
+#     lambda_schedule: linear
+#     lambda_schedule_tau0: null
+#   ais_source:
+#     trajectory: null
+#     generate: false
+#     topology: null
+#     first_frame: 0
+#     last_frame: null
+#     frame_stride: 1
+#     selection: uniform_random
+#     allow_repeated_frames: false
+#   umbrella:
+#     file: null
+# stages:
+# - tau: 0.0
+#   phase_space_interval_steps: 0
+#   timestep_fs: auto
+#   temperature_K: 300.0
+#   pressure_bar: 1.0
+#   friction_per_ps: 1.0
+#   barostat_interval_steps: 25
+#   seed: 1
+#   collective_variables: &id001
+#     file: null
+#     generate: null
+#     interval_steps: 0
+#   name: min
+#   ensemble: NVT
+#   minimization_iterations: 5000
+#   steps: 0
+#   restraint_kcal_per_mol_A2: 1.0
+#   trajectory_interval_steps: 0
+#   state_interval_steps: 0
+#   checkpoint_interval_steps: 0
+#   description: Restrained energy minimisation of the built system.
+#   file_key: min
+# - tau: 0.0
+#   phase_space_interval_steps: 0
+#   timestep_fs: auto
+#   temperature_K: 300.0
+#   pressure_bar: 1.0
+#   friction_per_ps: 1.0
+#   barostat_interval_steps: 25
+#   seed: 1
+#   collective_variables: *id001
+#   name: eq_nvt_posres
+#   ensemble: NVT
+#   steps: 50000
+#   restraint_kcal_per_mol_A2: 1.0
+#   trajectory_interval_steps: 1000
+#   whole_interval_steps: 50000
+#   state_interval_steps: 5000
+#   checkpoint_interval_steps: 50000
+#   description: 'Restrained NVT: settle the solvent around a held solute.'
+#   file_key: eq_1
+# - tau: 0.0
+#   phase_space_interval_steps: 0
+#   timestep_fs: auto
+#   temperature_K: 300.0
+#   pressure_bar: 1.0
+#   friction_per_ps: 1.0
+#   barostat_interval_steps: 25
+#   seed: 1
+#   collective_variables: *id001
+#   name: eq_npt_posres
+#   ensemble: NPT
+#   steps: 50000
+#   restraint_kcal_per_mol_A2: 1.0
+#   trajectory_interval_steps: 1000
+#   whole_interval_steps: 50000
+#   state_interval_steps: 5000
+#   checkpoint_interval_steps: 50000
+#   description: 'Restrained NPT: equilibrate the density with the solute held.'
+#   file_key: eq_2
+# - tau: 0.0
+#   phase_space_interval_steps: 0
+#   timestep_fs: auto
+#   temperature_K: 300.0
+#   pressure_bar: 1.0
+#   friction_per_ps: 1.0
+#   barostat_interval_steps: 25
+#   seed: 1
+#   collective_variables: *id001
+#   name: eq_npt_free
+#   ensemble: NPT
+#   steps: 100000
+#   restraint_kcal_per_mol_A2: 0.0
+#   trajectory_interval_steps: 1000
+#   whole_interval_steps: 50000
+#   state_interval_steps: 5000
+#   checkpoint_interval_steps: 50000
+#   description: Unrestrained NPT, the last stage before production.
+#   file_key: eq_3
+# files:
+# - ../min/min.py
+# - eq/eq_1.py
+# - eq/eq_2.py
+# - eq/eq_3.py
+# - REST2.py
+# - ../input/min.in
+# - ../input/eq_1.in
+# - ../input/eq_2.in
+# - ../input/eq_3.in
+# - ../input/REST2.in
+# - remd_groupfile.1
+# - run.sh
+# - resolved.config
+# - ../min/resolved.config
+# - ../min/run.config
+# - eq/run.config
+# - eq/resolved.config
+# - run.config
+# ===== END md-tools machine record =====

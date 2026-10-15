@@ -2,8 +2,8 @@
 
 One folder per compound, three figures each:
 
-- `<name>_clusters_overview.png` — molecule + one row per torsion: full distribution, then each
-  merged cluster group; black lines = crystal (bioactive) torsions.
+- `<name>_clusters_overview.png` — molecule + one column per torsion: full distribution in the top
+  row, then one row per merged cluster group (many torsions wrap into 2–3 bands, many groups into 2–3 side-by-side blocks, to keep ~16:9); black lines = crystal (bioactive) torsions.
 - `<name>_group_torsions.png` — all groups overlaid per torsion, with the same crystal lines.
 - `<name>_convergence.png` — number of merged groups vs cumulative simulated time.
 

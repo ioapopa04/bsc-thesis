@@ -1,0 +1,25 @@
+torsion,name,atoms,complex,complex_peak_deg,complex_mass_at_peak,water_mass_at_complex_peak,crystal_deg,complex_mass_at_crystal,water_mass_at_crystal
+t0,torsions_0,O1-C1-C2-N1,4LRH complex,-7.5,0.796,0.363,"-99.0, 79.7",0.053,0.247
+t0,torsions_0,O1-C1-C2-N1,3QL3 complex,-132.5,0.409,0.281,"-9.8, 170.7",0.288,0.367
+t1,torsions_1,C1-C2-N1-C3,4LRH complex,-137.5,0.821,0.312,-155.0,0.694,0.144
+t1,torsions_1,C1-C2-N1-C3,3QL3 complex,57.5,0.348,0.074,-144.4,0.181,0.235
+t2,torsions_2,N1-C3-C4-C5,4LRH complex,-27.5,0.704,0.241,"-15.5, 164.2",0.663,0.337
+t2,torsions_2,N1-C3-C4-C5,3QL3 complex,-172.5,0.497,0.398,"160.6, -19.2",0.372,0.306
+t3,torsions_3,C6-C7-N2-C10,4LRH complex,-172.5,0.856,0.399,"139.4, -41.2",0.156,0.156
+t3,torsions_3,C6-C7-N2-C10,3QL3 complex,-177.5,0.81,0.411,"176.4, -11.5",0.733,0.409
+t4,torsions_4,C7-N2-C10-C11,4LRH complex,-152.5,0.957,0.14,-158.4,0.939,0.162
+t4,torsions_4,C7-N2-C10-C11,3QL3 complex,67.5,0.939,0.32,79.9,0.966,0.35
+t5,torsions_5,N2-C10-C11-N3,4LRH complex,77.5,0.925,0.244,94.6,0.829,0.252
+t5,torsions_5,N2-C10-C11-N3,3QL3 complex,-92.5,0.534,0.26,6.0,0.268,0.075
+t6,torsions_6,C1-C2-C17-C18,4LRH complex,172.5,0.573,0.861,-89.5,0.263,0.043
+t6,torsions_6,C1-C2-C17-C18,3QL3 complex,177.5,0.835,0.859,-50.2,0.03,0.055
+t7,torsions_7,C2-C17-C18-C19,4LRH complex,177.5,0.873,0.565,-179.7,0.873,0.567
+t7,torsions_7,C2-C17-C18-C19,3QL3 complex,-177.5,0.641,0.567,-168.6,0.62,0.548
+t8,torsions_8,C17-C18-C19-O5,4LRH complex,12.5,0.493,0.435,"0.2, -179.8",0.471,0.469
+t8,torsions_8,C17-C18-C19-O5,3QL3 complex,-7.5,0.535,0.469,"-149.4, 30.5",0.353,0.348
+t9,torsions_rigid_9,C2-N1-C3-O3,4LRH complex,2.5,0.99,0.967,7.5,0.979,0.935
+t9,torsions_rigid_9,C2-N1-C3-O3,3QL3 complex,-2.5,0.971,0.982,-21.8,0.784,0.83
+t10,torsions_polarH_10,O1-C1-O2-H1,4LRH complex,-2.5,0.95,0.965,n/a,,
+t10,torsions_polarH_10,O1-C1-O2-H1,3QL3 complex,2.5,0.921,0.965,n/a,,
+t11,torsions_polarH_11,C18-C19-O6-H19,4LRH complex,-177.5,0.982,0.965,n/a,,
+t11,torsions_polarH_11,C18-C19-O6-H19,3QL3 complex,177.5,0.974,0.966,n/a,,

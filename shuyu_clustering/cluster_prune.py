@@ -1,15 +1,23 @@
 #!/usr/bin/env python
 """
-Terminal version of MD-tools' docs/tutorial/paracetamol/analysis/clustering.ipynb,
-run on YOUR trajectory instead of the tutorial's runs.
+Shu-Yu's SYMMETRY-FIRST torsion clustering (MD-tools main, 69c262b; tutorial
+docs/tutorial/paracetamol/analysis/symmetry-alignment.ipynb), run on YOUR trajectory, with this
+thesis' figures (clusters_overview, group_torsions, 2-D torsion plots, representatives).
 
-Same three parts as the notebook:
-  1. Clustering        t_hdbscan on the torsions (checked with allow_single_cluster True/False)
-  2. Symmetry pruning  TorsionSymmetry: which clusters are the same conformer under a
-                       permutation of chemically identical atoms -> merged groups
-  3. Summary           per-group masses, circular torsion statistics, representative frames
+Three parts, all MD-tools calls as in the tutorial:
+  1. Clustering   t_hdbscan(tors, molecule, torsion_definitions, coordinates, atom_mapping):
+                  the molecular symmetry is enumerated FIRST and built into the distance
+                  (min over relabellings), then HDBSCAN on that dense matrix, then every frame
+                  classified by an 18-of-20 neighbour vote. No merge step: a cluster is final.
+                  Labels: -2 density noise, -1 ambiguous vote.
+  2. Alignment    fit.align_all(per_cluster=True): every frame written in one labelling for the
+                  figures (each cluster aligned to its own density peak, each peak to the density
+                  peak of cluster A). Changes no label and no population.
+  3. Summary      fit.representatives() (highest vote, then symmetry-aware medoid), circular
+                  statistics on the aligned torsions, figures.
 
-Needs an MD-tools version that contains md_tools.analysis, plus scikit-learn, rdkit, pandas.
+The previous cluster-then-merge version (t_hdbscan + TorsionSymmetry) is in git history.
+Needs MD-tools main with the symmetry-first analysis (env analysis-env-main), scikit-learn, rdkit, pandas.
 
 Example (paracetamol, state-0 solute trajectory):
   python para_clustering.py \
@@ -37,10 +45,15 @@ Labelling and the bioactive reference (all optional):
                                   element + connectivity only, so torsions through a hydrogen get
                                   no line, and atoms the crystal cannot tell apart (the two O of a
                                   carboxylate) give one line per possible assignment.
-  -> clusters_overview.png        molecule on the left, one row per torsion: the full distribution,
-                                  then one panel per merged group
+  -> clusters_overview_unaligned.png  the same layout with each cluster's torsions AS STORED (not
+                                  relabelled): one conformer in two labellings shows both images
+  -> clusters_overview.png        molecule on the left; to its right one column per torsion: top row
+                                  the full distribution, then one row per cluster; many
+                                  torsions wrap into 2-3 bands, many groups into 2-3 side-by-side
+                                  blocks, to keep the figure ~16:9
 """
 import argparse
+import importlib.metadata
 import json
 import os
 import sys
@@ -53,13 +66,15 @@ import matplotlib.pyplot as plt
 import mdtraj as md
 
 try:
-    from md_tools.analysis import (t_hdbscan, load_torsion_json, load_cluster_torsion,
-                                   TorsionSymmetry, verify_atom_mapping, group_name,
-                                   representative_by_vote, strip_nonpolar_hydrogens,
-                                   draw_representative_structures)
+    import md_tools
+    from md_tools.analysis import (t_hdbscan, TorsionDefinitions, verify_atom_mapping, group_name,
+                                   strip_nonpolar_hydrogens, draw_representative_structures)
+    from md_tools.analysis import THDBSCAN
+    if not hasattr(THDBSCAN, "align_all"):
+        raise ImportError("this md_tools has no symmetry-first THDBSCAN.align_all")
 except ImportError as e:
     sys.exit(f"md_tools.analysis not available ({e}).\n"
-             "Your MD-tools version does not contain the analysis module - ask which version to install.")
+             "Needs Shu-Yu's MD-tools main (symmetry-first t_hdbscan): env analysis-env-main.")
 from rdkit import Chem
 import pandas as pd
 
@@ -280,52 +295,111 @@ def molecule_png(mol, quads, colours, size=(900, 900)):
     return drawer.GetDrawingText()
 
 
-def draw_overview(path, *, mol, names, quads, tors, aligned, masses, noise, refs, title):
-    """One figure for the whole clustering: molecule on the left; per torsion row the full
-    distribution, then each merged group, all in that torsion's colour, crystal lines on top."""
+def draw_overview(path, *, mol, names, quads, tors, aligned, masses, noise, refs, title,
+                  row_labels=None):
+    """One figure for the whole clustering: molecule on the left; to its right one column per
+    torsion and one row per population -- the full distribution first, then each merged group --
+    all in the torsion's colour, crystal lines on top. The grid is wrapped to keep the whole
+    figure near 16:9: many torsions with few groups -> the torsions wrap into 1-3 bands stacked
+    vertically (each band repeats the population rows); many groups with few torsions -> the
+    populations wrap into 1-3 blocks side by side (each block repeats the torsion columns)."""
     import io
     import matplotlib.image as mpimg
 
     colours = torsion_colours(len(names))
     groups = list(aligned)
-    ncol = 1 + len(groups)
-    nrow = len(names)
-    fig = plt.figure(figsize=(7.0 + 2.3 * ncol, 1.75 * nrow + 1.6), layout="constrained")
-    outer = fig.add_gridspec(1, 2, width_ratios=[7.0, 2.3 * ncol])
+    nrow = 1 + len(groups)
+    ntor = len(names)
+    gap, target = 0.5, 16 / 9
+
+    def size(nband, nblock, panel_h, panel_w=2.4):
+        ncol = -(-ntor // nband)            # torsion columns per band
+        rows = -(-nrow // nblock)           # population rows per block
+        grid_w = nblock * (1.3 + panel_w * ncol) + (nblock - 1) * gap
+        grid_h = nband * panel_h * rows + (nband - 1) * gap
+        mol_w = min(max(4.5, 0.2 * grid_w), max(3.0, 0.9 * grid_h))   # larger molecules get more room
+        return ncol, rows, grid_w, grid_h, mol_w
+
+    def fit(nband, nblock):
+        """Panel height (1.3-2.6 in) and, if the tallest panels are still too wide a figure, a
+        narrower panel width (2.4 down to 1.6 in), that bring this split closest to 16:9."""
+        panel_h, panel_w = 1.55, 2.4
+        for _ in range(6):   # mol_w depends on the grid size, so settle in a few passes
+            ncol, rows, grid_w, grid_h, mol_w = size(nband, nblock, panel_h, panel_w)
+            want_h = (mol_w + grid_w) / target - 1.0
+            panel_h = float(np.clip((want_h - (nband - 1) * gap) / (nband * rows), 1.3, 2.6))
+            ncol, rows, grid_w, grid_h, mol_w = size(nband, nblock, panel_h, panel_w)
+            if (mol_w + grid_w) / (grid_h + 1.0) > target:   # still too wide: narrow the panels
+                want_grid_w = target * (grid_h + 1.0) - mol_w
+                per_block = (want_grid_w - (nblock - 1) * gap) / nblock - 1.3
+                panel_w = float(np.clip(per_block / ncol, 1.6, 2.4))
+        ncol, rows, grid_w, grid_h, mol_w = size(nband, nblock, panel_h, panel_w)
+        return panel_h, panel_w, (mol_w + grid_w) / (grid_h + 1.0)
+
+    # one split direction at a time; ties go to the simpler layout (fewer splits come first)
+    splits = [(1, 1)] + [(b, 1) for b in (2, 3) if b <= ntor] + [(1, k) for k in (2, 3) if k <= nrow]
+    nband, nblock = min(splits, key=lambda bk: round(abs(np.log(fit(*bk)[2] / target)), 3))
+    panel_h, panel_w, _ = fit(nband, nblock)
+    ncol, rows, grid_w, grid_h, mol_w = size(nband, nblock, panel_h, panel_w)
+    # text scales with the figure: unchanged up to ~20 in wide, larger on big grids so it stays
+    # readable when the figure is shrunk to page width
+    fs = max(1.0, (mol_w + grid_w) / 20.0)
+    fig = plt.figure(figsize=(mol_w + grid_w, grid_h + 1.0), layout="constrained")
+    outer = fig.add_gridspec(1, 2, width_ratios=[mol_w, grid_w])
     mol_ax = fig.add_subplot(outer[0])
-    mol_ax.imshow(mpimg.imread(io.BytesIO(molecule_png(mol, quads, colours)), format="png"))
+    png = molecule_png(mol, quads, colours, size=(int(220 * mol_w), int(220 * mol_w)))
+    mol_ax.imshow(mpimg.imread(io.BytesIO(png), format="png"))
     mol_ax.axis("off")
-    mol_ax.set_title("t<k> marks the central bond of torsion k", fontsize=10)
-    grid = outer[1].subgridspec(nrow, ncol)
+    mol_ax.set_title("t<k> marks the central bond of torsion k", fontsize=10 * fs)
+    cells = outer[1].subgridspec(nband, nblock, hspace=gap / (panel_h * rows),
+                                 wspace=gap / (1.3 + panel_w * ncol))
+    grids = [[cells[b, k].subgridspec(rows, ncol) for k in range(nblock)] for b in range(nband)]
+    labels = [f"all frames\n(noise {100 * noise:.1f}%)"] + (list(row_labels) if row_labels else [
+        f"group {g}\n({100 * float(masses[i]):.1f}%)" for i, g in enumerate(groups)])
 
     edges = np.linspace(-np.pi, np.pi, 49)
-    for row, (name, colour) in enumerate(zip(names, colours)):
-        for col in range(ncol):
-            ax = fig.add_subplot(grid[row, col])
-            if col == 0:
-                values, head = tors[:, row], f"all frames (noise {100 * noise:.1f}%)"
-            else:
-                g = groups[col - 1]
-                values, head = aligned[g][:, row], f"group {g} ({100 * float(masses[col - 1]):.1f}%)"
+    for t, (name, colour) in enumerate(zip(names, colours)):
+        band, col = divmod(t, ncol)
+        for pop in range(nrow):
+            block, row = divmod(pop, rows)
+            ax = fig.add_subplot(grids[band][block][row, col])
+            values = tors[:, t] if pop == 0 else aligned[groups[pop - 1]][:, t]
             ax.hist(values, bins=edges, density=True, color=colour,
-                    alpha=0.9 if col == 0 else 0.75,
+                    alpha=0.9 if pop == 0 else 0.75,
                     histtype="stepfilled", edgecolor=colour)
-            draw_reference_lines(ax, refs, row, with_label=(row == 0 and col == 0))
+            draw_reference_lines(ax, refs, t, with_label=(pop == 0 and t == 0))
             ax.set_xlim(-np.pi, np.pi)
             ax.set_xticks([-np.pi, 0, np.pi], ["-π", "0", "π"])
             ax.set_yticks([])
-            ax.tick_params(labelsize=7)
-            if col == 0:
-                ax.set_ylabel(f"t{row}\n{name}", color=colour, fontsize=8, rotation=0,
-                              ha="right", va="center")
-                ax.set_facecolor("#f4f4f4")
+            ax.tick_params(labelsize=7 * fs)
             if row == 0:
-                ax.set_title(head, fontsize=8)
-            if row == 0 and col == 0 and refs:
-                ax.legend(fontsize=6, loc="upper left", frameon=False)
-    fig.suptitle(title, fontsize=12)
+                ax.set_title(f"t{t}\n{name}", color=colour, fontsize=8 * fs)
+            if pop == 0:
+                ax.set_facecolor("#f4f4f4")
+            if col == 0:
+                ax.set_ylabel(labels[pop], fontsize=8 * fs, rotation=0, ha="right", va="center")
+            if pop == 0 and t == 0 and refs:
+                ax.legend(fontsize=6 * fs, loc="upper left", frameon=False)
+    fig.suptitle(title, fontsize=12 * fs)
     fig.savefig(path, dpi=130)
     plt.close(fig)
+
+
+def build_fit(tors, cmd, mol, torsions, *, allow_single_cluster=True, max_frames=None):
+    """Shu-Yu's symmetry-first t_hdbscan (MD-tools main, docs/tutorial/paracetamol/analysis/
+    symmetry-alignment.ipynb): TorsionDefinitions on the build SDF, the atom mapping checked
+    against the trajectory topology, and the trajectory itself so the symmetry images of the
+    selected torsions can be recomputed. Returns (fit, mapping, why)."""
+    definitions = TorsionDefinitions(quads=tuple(torsions.values()), names=tuple(torsions),
+                                     indexing="zero-based", units="radian")
+    bonds = [(b[0].index, b[1].index) for b in cmd.topology.bonds]
+    if not bonds:
+        sys.exit("the topology has no bonds - use one with CONECT records / bonds")
+    mapping, why = verify_atom_mapping(mol, bonds, [a.element.symbol for a in cmd.topology.atoms])
+    extra = {} if max_frames is None else {"max_precomputed_frames": int(max_frames)}
+    fit = t_hdbscan(tors, molecule=mol, torsion_definitions=definitions, coordinates=cmd,
+                    atom_mapping=mapping, allow_single_cluster=allow_single_cluster, **extra).fit()
+    return fit, mapping, why
 
 
 def main():
@@ -341,13 +415,10 @@ def main():
                     help="comma-separated positions in the final torsion list to keep")
     ap.add_argument("--stride", type=int, default=1)
     ap.add_argument("--no-single-cluster", action="store_true",
-                    help="run t_hdbscan with allow_single_cluster=False (MD-tools default is True)")
-    ap.add_argument("--max-matches", type=int, default=200_000,
-                    help="cap on the symmetry (automorphism) enumeration. MD-tools' default is "
-                         "200000; molecules with several equivalent methyl/CF3 groups exceed it "
-                         "(the group grows factorially with equivalent hydrogens) and "
-                         "TorsionSymmetry refuses a truncated search. Raise it above the true "
-                         "count, e.g. 8000000, without changing the result.")
+                    help="allow_single_cluster=False (Shu-Yu's default, and this script's, is True)")
+    ap.add_argument("--max-frames", type=int, default=None,
+                    help="raise t_hdbscan's max_precomputed_frames (default 10000): the symmetry-aware "
+                         "distance is a dense N x N matrix, 8 N^2 bytes per copy, about three copies")
     ap.add_argument("--name", default=None, help="compound name for the figure titles")
     ap.add_argument("--rest2-config", default=None,
                     help="REST2.config of the run: number of replicas and tau_max for the title")
@@ -355,6 +426,9 @@ def main():
                     help="simulated time for the title (default: from the trajectory time stamps)")
     ap.add_argument("--ref-sdf", action="append", default=None,
                     help="crystal (bioactive) ligand SDF; repeatable (e.g. one per chain)")
+    ap.add_argument("--pair-2d", action="append", default=None, metavar="X,Y",
+                    help="draw the joint distribution of torsion Y (vertical axis) against torsion X "
+                         "(horizontal), 0-based positions; repeatable. Default: 3,4")
     ap.add_argument("--out", default="tutorial-clustering")
     args = ap.parse_args()
     out = os.path.abspath(args.out)
@@ -364,37 +438,51 @@ def main():
     torsions = load_torsions(args.torsions_file, args.torsion, args.use_torsions)
     names, quads = list(torsions), list(torsions.values())
     label = f"{args.name}: " if args.name else ""
+    print("md-tools", importlib.metadata.version("md-tools"), "from",
+          os.path.dirname(md_tools.__file__))
 
-    # ------------------------------------------------------------ 1. clustering
-    print("== 1. Clustering ==")
+    # ------------------------------------------------- 1. symmetry-first clustering
+    print("== 1. Symmetry-first clustering (Shu-Yu, MD-tools main) ==")
     cmd = md.load(args.traj, top=args.top, stride=args.stride)
     for name, q in torsions.items():
         print(f"  {name:8s} {q}: " + " - ".join(str(cmd.topology.atom(i)) for i in q))
     tors = md.compute_dihedrals(cmd, quads)
     print(f"{tors.shape[0]} frames, {tors.shape[1]} torsions")
-
-    asc = not args.no_single_cluster
-    print(f"allow_single_cluster = {asc}")
-    fit = t_hdbscan(tors, names=names, allow_single_cluster=asc).fit()
-    summary = fit.summary()
-    print(f"n_clusters = {summary['n_clusters']}")
-    print(f"masses     = { {k: round(v, 3) for k, v in summary['cluster_mass'].items()} }")
-    print(f"noise      = {summary['noise_mass']:.4f}")
-
-    print("\nIs one state a possible answer? (allow_single_cluster True vs False)")
-    for flag in (True, False):
-        s = t_hdbscan(tors, names=names, allow_single_cluster=flag).fit().summary()
-        print(f"  allow_single_cluster={flag!s:5s} -> {s['n_clusters']} clusters, "
-              f"excluded_by_construction={s['single_cluster_excluded_by_construction']}")
-    print("\nCaveats:")
-    for caveat in summary["caveats"]:
-        print("  -", caveat)
-
-    # ------------------------------------------------------- 2. symmetry pruning
-    print("\n== 2. Pruning by symmetry ==")
     mol = Chem.SDMolSupplier(args.sdf, removeHs=False)[0]
     if mol is None:
         sys.exit(f"RDKit could not read {args.sdf}")
+    with open(P("torsion_cv.json"), "w") as f:
+        json.dump({"schema_version": 1, "indexing": "zero-based", "units": "radian",
+                   "torsions": [{"name": n, "atoms": list(q)} for n, q in torsions.items()]},
+                  f, indent=2)
+
+    asc = not args.no_single_cluster
+    fit, mapping, why = build_fit(tors, cmd, mol, torsions, allow_single_cluster=asc,
+                                  max_frames=args.max_frames)
+    print("atom mapping:", "identity" if mapping == list(range(mol.GetNumAtoms())) else mapping)
+    print(" ", why)
+    summary = fit.summary()
+    desc = fit.descriptor_
+    sym = summary["symmetry"]
+    print(f"allow_single_cluster = {asc}; {summary['n_fit_frames']} frames fitted, "
+          f"min_cluster_size {summary['settings']['min_cluster_size']}, "
+          f"min_samples {summary['settings']['min_samples']}")
+    print(f"symmetry operations acting on the torsions: {len(desc.operations)}")
+    print("descriptor columns (selected + symmetry images):")
+    for n, q, w, o in zip(desc.names, desc.quads, desc.column_weights, desc.origin):
+        origin = "selected" if o["kind"] == "selected" else f"image of {o['image_of']}"
+        print(f"  {n:28s} {'-'.join(map(str, q)):14s} weight {w:.3f}  {origin}")
+    masses = {i: float(fit.cluster_mass_[i]) for i in range(fit.n_clusters_)}
+    noise = float(fit.unassigned_mass_)
+    print(f"n_clusters = {fit.n_clusters_}")
+    print(f"masses     = { {group_name(k): round(v, 4) for k, v in masses.items()} }")
+    print(f"density noise (-2) = {fit.noise_mass_:.4f}, ambiguous vote (-1) = "
+          f"{fit.ambiguous_mass_:.4f}, unassigned total = {noise:.4f}")
+    print("Caveats:")
+    for caveat in summary["caveats"]:
+        print("  -", caveat)
+    with open(P("summary.json"), "w") as f:
+        json.dump(summary, f, indent=2, default=str)
 
     refs = {}
     for path in (args.ref_sdf or []):
@@ -404,64 +492,34 @@ def main():
         for name, values in zip(names, refs[ref_label]):
             shown = ", ".join(f"{np.rad2deg(v):.1f}" for v in values) or "n/a (through H)"
             print(f"  {name:20s} {shown} deg")
-    bonds = [(b[0].index, b[1].index) for b in cmd.topology.bonds]
-    if not bonds:
-        sys.exit(f"{args.top} has no bonds - use a topology with CONECT records / bonds")
-    elements = [a.element.symbol for a in cmd.topology.atoms]
-    mapping, why = verify_atom_mapping(mol, bonds, elements)
-    print("atom mapping:", "identity" if mapping == list(range(mol.GetNumAtoms())) else mapping)
-    print(" ", why)
 
-    definition = {"schema_version": 1, "indexing": "zero-based", "units": "radian",
-                  "torsions": [{"name": n, "atoms": list(q)} for n, q in torsions.items()]}
-    tjson = P("torsion_cv.json")
-    with open(tjson, "w") as f:
-        json.dump(definition, f, indent=2)
+    # ------------------------- 2. one labelling for the figures (two-level Dirichlet alignment)
+    print("\n== 2. Alignment: align_all(per_cluster=True) ==")
+    al = fit.align_all(per_cluster=True)
+    groups = {group_name(c): c for c in range(fit.n_clusters_)}
+    aligned = {g: al["selected"][fit.labels_ == c] for g, c in groups.items()}
+    raw = {g: tors[fit.labels_ == c] for g, c in groups.items()}
+    print(f"reference: frame {al['reference']} (density peak of cluster A)")
+    for g, c in groups.items():
+        m = fit.labels_ == c
+        print(f"  cluster {g}: density peak frame {int(al['cluster_references'][c])}, "
+              f"relabelled {100 * float((al['operations'][m] != 0).mean()):.1f}%, "
+              f"margin < 0.1 for {100 * float((al['margin'][m] < 0.1).mean()):.1f}%")
+    reps = fit.representatives()
+    chosen = {g: int(reps[c]) for g, c in groups.items()}
 
-    torsion_idx = load_torsion_json(tjson, molecule=mol)
-    clusters = load_cluster_torsion(tors, fit.labels_, noise_label=-1, angle_unit="radian",
-                                    names=list(torsion_idx.names))
-    print("cluster labels:", clusters.cluster_labels, "| masses:", clusters.mass_table())
-
-    detector = TorsionSymmetry(mol, torsion_idx, max_matches=args.max_matches)
-    detector.fit(clusters, coordinates=cmd.xyz, atom_mapping=mapping)
-    print("operations distinct on these torsions:", len(detector.operations))
-    print("groups:", detector.cluster_groups)
-    for c in detector.comparisons:
-        if c.evidence.get("role") == "transitivity-guard":
-            continue
-        print(f"  {c.a} vs {c.b}: {c.verdict:9s} op={c.operation} "
-              f"E={c.energy if c.energy is None else round(c.energy, 4)}")
-
-    for g in range(len(detector.cluster_groups)):
-        if len(detector.cluster_groups[g]) > 1:          # only merged groups have an operation to draw
-            try:
-                detector.draw_operation_effect(group=g, output=P(f"operation_group_{g}.png"))
-            except Exception as e:
-                print(f"  (could not draw operation for group {g}: {e})")
-    for i in range(len(detector.cluster_groups)):
-        try:
-            detector.draw_sym_group(i, output=P(f"group_{i}.png"), cluster_torsions=clusters)
-        except Exception as e:
-            print(f"  (could not draw group {i}: {e})")
-
-    merged = detector.deduplicate(clusters)
-    desc = merged.describe()
-    print(json.dumps(desc, indent=2))
-    with open(P("merged_groups.json"), "w") as f:
-        json.dump(desc, f, indent=2)
-    total = sum(merged.masses.values()) + merged.noise_mass
-    print(f"populations conserved: merged masses + noise = {total:.6f}")
-
-    # ---------------------------------------------------------------- 3. summary
+    # ---------------------------------------------------------------- 3. summary + figures
     print("\n== 3. Summary ==")
-    reps = representative_by_vote(fit)
-    groups = {group_name(i): g for i, g in enumerate(detector.cluster_groups)}
-    chosen = {name: reps[members[0]] for name, members in groups.items()}
-    aligned = {name: merged.aligned[i] for i, name in enumerate(groups)}
-    for name, members in groups.items():
-        print(f"group {name}: clusters {members}  mass {merged.masses[list(groups).index(name)]:.4f}"
-              f"  representative frame {chosen[name]}")
+    for i, (g, c) in enumerate(groups.items()):
+        print(f"group {g}: cluster {c}  mass {masses[i]:.4f}  representative frame {chosen[g]}")
+    group_list = list(groups)
+    with open(P("merged_groups.json"), "w") as f:     # same file name as before, for downstream
+        json.dump({"route": summary["route"], "groups": {g: [c] for g, c in groups.items()},
+                   "masses": {g: masses[i] for i, g in enumerate(group_list)},
+                   "noise_mass": float(fit.noise_mass_), "ambiguous_mass": float(fit.ambiguous_mass_),
+                   "representatives": chosen, "alignment_reference": int(al["reference"]),
+                   "cluster_density_peaks": {g: int(al["cluster_references"][c])
+                                             for g, c in groups.items()}}, f, indent=2)
 
     ncol = min(3, len(names))
     nrow = int(np.ceil(len(names) / ncol))
@@ -471,10 +529,9 @@ def main():
     edges = np.linspace(-np.pi, np.pi, 49)
     palette = plt.get_cmap("tab10")
     for column, (axis, torsion) in enumerate(zip(axes.flat, names)):
-        for k, (name, values) in enumerate(aligned.items()):
+        for k, (g, values) in enumerate(aligned.items()):
             axis.hist(values[:, column], bins=edges, density=True, histtype="step",
-                      lw=2.0, color=palette(k),
-                      label=f"group {name} ({100 * float(merged.masses[k]):.1f}%)")
+                      lw=2.0, color=palette(k % 10), label=f"group {g} ({100 * masses[k]:.1f}%)")
         draw_reference_lines(axis, refs, column, with_label=(column == 0))
         axis.set_xlim(-np.pi, np.pi)
         axis.set_xlabel(f"{torsion} (rad)")
@@ -482,32 +539,39 @@ def main():
         if column == 0:
             axis.set_ylabel("density")
             axis.legend(fontsize=9)
-    fig.suptitle(f"{label}symmetry-aligned torsion distributions, one colour per merged group"
-                 + ("; black lines = crystal (bioactive) conformation" if refs else ""),
+    fig.suptitle(f"{label}symmetry-aligned torsion distributions (two-level alignment), one colour "
+                 "per cluster" + ("; black lines = crystal (bioactive) conformation" if refs else ""),
                  fontsize=11)
     fig.savefig(P("group_torsions.png"), dpi=150)
+    plt.close(fig)
 
-    # ------------------------------------------- 3a. everything in one figure
     n_rep, tau_max = read_rest2_config(args.rest2_config)
     duration = args.duration_ns if args.duration_ns is not None else simulated_ns(cmd, args.stride)
     run_info = [f"{duration:g} ns" if duration else None,
                 f"{n_rep} replicas" if n_rep else None,
                 f"τ_max {tau_max}" if tau_max is not None else None,
                 f"stride {args.stride}, {tors.shape[0]} frames"]
-    title = (f"{args.name or 'ligand'} — REST2 " + ", ".join(x for x in run_info if x)
-             + f"\n{len(groups)} merged groups, noise {100 * merged.noise_mass:.1f}%"
-             + ("; black lines = crystal (bioactive) conformation" if refs else ""))
+    head = f"{args.name or 'ligand'} — REST2 " + ", ".join(x for x in run_info if x)
+    crystal = "; black lines = crystal (bioactive) conformation" if refs else ""
+    unassigned = (f"unassigned {100 * noise:.1f}% (density noise {100 * fit.noise_mass_:.1f}%, "
+                  f"ambiguous {100 * fit.ambiguous_mass_:.1f}%)")
     draw_overview(P("clusters_overview.png"), mol=mol, names=names, quads=quads, tors=tors,
-                  aligned=aligned, masses=merged.masses, noise=merged.noise_mass,
-                  refs=refs, title=title)
+                  aligned=aligned, masses=masses, noise=noise, refs=refs,
+                  title=f"{head}\n{len(groups)} symmetry-first clusters, {unassigned}{crystal}")
 
-    # ------------------------------------------------- 3b. 2-D torsion marginals
-    # The joint distribution of two chosen torsions, which a pair of 1-D histograms
-    # cannot show: correlated torsions draw a ridge, independent ones a cross. Panel 0
-    # is the whole ensemble (raw torsions); the rest are per merged group (symmetry-
-    # aligned, same as the 1-D figure above), each labelled with its population.
-    ix, iy = 3, 4                      # "torsion 3" and "torsion 4" (0-based positions)
-    if len(names) > max(ix, iy):
+    # The same overview with each cluster's torsions AS STORED (no relabelling): a cluster that
+    # holds one conformer in two labellings shows both images here (e.g. peaks shifted by pi).
+    draw_overview(P("clusters_overview_unaligned.png"), mol=mol, names=names, quads=quads,
+                  tors=tors, aligned=raw, masses=masses, noise=noise, refs=refs,
+                  title=f"{head}\n{len(groups)} symmetry-first clusters, torsions AS STORED "
+                        f"(not relabelled), {unassigned}{crystal}")
+
+    # ------------------------------------------------- 2-D torsion marginals
+    pairs = [tuple(int(v) for v in p.split(",")) for p in (args.pair_2d or ["3,4"])]
+    for ix, iy in pairs:               # 0-based torsion positions: x axis, y axis
+        if len(names) <= max(ix, iy):
+            print(f"  (skipping 2-D plot {ix},{iy}: only {len(names)} torsions)")
+            continue
         panels = 1 + len(groups)
         ncol2 = min(3, panels)
         nrow2 = int(np.ceil(panels / ncol2))
@@ -526,21 +590,22 @@ def main():
             axis.set_ylabel(f"{names[iy]} (rad)")
 
         _hex2d(axes2.flat[0], tors[:, ix], tors[:, iy], "all frames")
-        for k, (name, values) in enumerate(aligned.items()):
+        for k, (g, values) in enumerate(aligned.items()):
             _hex2d(axes2.flat[k + 1], values[:, ix], values[:, iy],
-                   f"group {name} ({100 * float(merged.masses[k]):.1f}%)")
-        fig2.suptitle(f"{label}joint distribution: {names[ix]} vs {names[iy]}", fontsize=11)
+                   f"group {g} ({100 * masses[k]:.1f}%)")
+        fig2.suptitle(f"{label}joint distribution: {names[iy]} as a function of {names[ix]}", fontsize=11)
         fig2.savefig(P(f"torsions_{ix}_{iy}_2d.png"), dpi=150)
+        plt.close(fig2)
 
     rows = []
-    for i, (name, members) in enumerate(groups.items()):
-        values = aligned[name]
-        row = {"cluster_id": name, "original_clusters": ",".join(str(m) for m in members)}
+    for i, (g, c) in enumerate(groups.items()):
+        values = aligned[g]
+        row = {"cluster_id": g, "original_clusters": str(c)}
         for column, torsion in enumerate(names):
             row[f"{torsion}_avg"] = np.rad2deg(circular_mean(values[:, column]))
             row[f"{torsion}_std"] = np.rad2deg(circular_std(values[:, column]))
         row["n_samples"] = int(values.shape[0])
-        row["mass"] = float(merged.masses[i])
+        row["mass"] = masses[i]
         rows.append(row)
     df = pd.DataFrame(rows).round(3)
     print(df.to_string(index=False))
@@ -552,8 +617,8 @@ def main():
         print(f"{info['n_atoms_drawn']} atoms drawn, superposed: {info['aligned']}")
     except Exception as e:
         print(f"  (could not draw representatives: {e})")
-    for name, frame in chosen.items():
-        cmd[frame].save_pdb(P(f"representative_{name}.pdb"))
+    for g, frame in chosen.items():
+        cmd[frame].save_pdb(P(f"representative_{g}.pdb"))
     print(f"\nAll outputs in {out}/")
 
 

@@ -2,10 +2,10 @@
 """
 Convergence of the Shu-Yu clustering with simulated time.
 
-Re-runs exactly the clustering of cluster_prune.py (t_hdbscan on the torsions, then
-TorsionSymmetry pruning into merged groups) on CUMULATIVE windows 0-5, 0-10, 0-15 ... ns of the
+Re-runs exactly the clustering of cluster_prune.py (Shu-Yu's symmetry-first t_hdbscan: symmetry
+built into the distance, no merge step) on CUMULATIVE windows 0-5, 0-10, 0-15 ... ns of the
 state-0 trajectory and plots the number of clusters against the window end. The run is called
-converged once --plateau consecutive windows (default 3) give the same number of merged groups.
+converged once --plateau consecutive windows (default 3) give the same number of clusters.
 
 Windows are cut on the trajectory's own time stamps. Several --traj segments (e.g. REST2-run1
 then REST2-run1-ext1) are concatenated in the order given; a segment whose clock restarts is
@@ -36,11 +36,8 @@ import mdtraj as md
 import pandas as pd
 from rdkit import Chem
 
-from md_tools.analysis import (t_hdbscan, load_torsion_json, load_cluster_torsion,
-                               TorsionSymmetry, verify_atom_mapping)
-
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from cluster_prune import load_torsions, read_rest2_config, simulated_ns  # noqa: E402
+from cluster_prune import build_fit, load_torsions, read_rest2_config, simulated_ns  # noqa: E402
 
 
 def load_segments(paths, top, stride):
@@ -76,9 +73,8 @@ def main():
     ap.add_argument("--use-torsions", default=None)
     ap.add_argument("--stride", type=int, default=1)
     ap.add_argument("--no-single-cluster", action="store_true")
-    ap.add_argument("--max-matches", type=int, default=200_000)
-    ap.add_argument("--no-symmetry", action="store_true",
-                    help="count raw HDBSCAN clusters only (skip TorsionSymmetry pruning)")
+    ap.add_argument("--max-frames", type=int, default=None,
+                    help="raise t_hdbscan's max_precomputed_frames (default 10000)")
     ap.add_argument("--step-ns", type=float, default=5.0, help="window increment (ns)")
     ap.add_argument("--plateau", type=int, default=3,
                     help="consecutive windows with the same count that define convergence")
@@ -102,37 +98,24 @@ def main():
     print(f"{cmd.n_frames} frames, {len(names)} torsions, {total_ns:g} ns -> {len(ends)} windows")
 
     asc = not args.no_single_cluster
-    if not args.no_symmetry:
-        mol = Chem.SDMolSupplier(args.sdf, removeHs=False)[0]
-        bonds = [(b[0].index, b[1].index) for b in cmd.topology.bonds]
-        elements = [a.element.symbol for a in cmd.topology.atoms]
-        mapping, why = verify_atom_mapping(mol, bonds, elements)
-        print("atom mapping:", why)
-        tjson = P("torsion_cv.json")
-        with open(tjson, "w") as f:
-            json.dump({"schema_version": 1, "indexing": "zero-based", "units": "radian",
-                       "torsions": [{"name": n, "atoms": list(q)} for n, q in torsions.items()]},
-                      f, indent=2)
-        torsion_idx = load_torsion_json(tjson, molecule=mol)
+    mol = Chem.SDMolSupplier(args.sdf, removeHs=False)[0]
+    with open(P("torsion_cv.json"), "w") as f:
+        json.dump({"schema_version": 1, "indexing": "zero-based", "units": "radian",
+                   "torsions": [{"name": n, "atoms": list(q)} for n, q in torsions.items()]},
+                  f, indent=2)
 
     rows = []
     for end in ends:
         sel = time_ns <= end + 1e-6 if end < ends[-1] else np.ones(len(time_ns), bool)
-        fit = t_hdbscan(tors[sel], names=names, allow_single_cluster=asc).fit()
-        s = fit.summary()
+        fit, _, why = build_fit(tors[sel], cmd[np.flatnonzero(sel)], mol, torsions,
+                                allow_single_cluster=asc, max_frames=args.max_frames)
         row = {"t_ns": float(end), "n_frames": int(sel.sum()),
-               "n_clusters_hdbscan": int(s["n_clusters"]), "noise": float(s["noise_mass"])}
-        if args.no_symmetry or s["n_clusters"] < 2:
-            row["n_groups"] = row["n_clusters_hdbscan"]
-        else:
-            clusters = load_cluster_torsion(tors[sel], fit.labels_, noise_label=-1,
-                                            angle_unit="radian", names=list(torsion_idx.names))
-            detector = TorsionSymmetry(mol, torsion_idx, max_matches=args.max_matches)
-            detector.fit(clusters, coordinates=cmd.xyz[sel], atom_mapping=mapping)
-            row["n_groups"] = len(detector.cluster_groups)
+               "n_groups": int(fit.n_clusters_), "noise": float(fit.unassigned_mass_),
+               "density_noise": float(fit.noise_mass_), "ambiguous": float(fit.ambiguous_mass_)}
         rows.append(row)
-        print(f"  0-{end:g} ns: {row['n_frames']:6d} frames  {row['n_clusters_hdbscan']:3d} clusters"
-              f"  -> {row['n_groups']:3d} merged groups  noise {100 * row['noise']:.1f}%", flush=True)
+        print(f"  0-{end:g} ns: {row['n_frames']:6d} frames  {row['n_groups']:3d} clusters"
+              f"  unassigned {100 * row['noise']:.1f}% (noise {100 * row['density_noise']:.1f}%,"
+              f" ambiguous {100 * row['ambiguous']:.1f}%)", flush=True)
 
     df = pd.DataFrame(rows)
     counts = df["n_groups"].tolist()
@@ -160,11 +143,7 @@ def main():
         ax.axvspan(df.t_ns[k - args.plateau + 1] - args.step_ns / 2,
                    df.t_ns[k] + args.step_ns / 2, color="#2ca02c", alpha=0.15,
                    label=f"first {args.plateau} equal windows")
-    if not args.no_symmetry and (df.n_clusters_hdbscan != df.n_groups).any():
-        ax.plot(df.t_ns, df.n_clusters_hdbscan, "o--", color="0.6", ms=4,
-                label="HDBSCAN clusters (before symmetry pruning)")
-    ax.plot(df.t_ns, df.n_groups, "o-", color="#1f77b4", lw=2,
-            label="clusters" if args.no_symmetry else "merged groups (after symmetry pruning)")
+    ax.plot(df.t_ns, df.n_groups, "o-", color="#1f77b4", lw=2, label="symmetry-first clusters")
     ax.set_xlabel("simulated time, cumulative window 0 - t (ns)")
     ax.set_ylabel("number of clusters")
     ax.set_xticks(df.t_ns)
@@ -174,7 +153,7 @@ def main():
     ax.grid(alpha=0.3)
     noise_ax = ax.twinx()
     noise_ax.plot(df.t_ns, 100 * df.noise, "s:", color="#d62728", ms=3, alpha=0.7)
-    noise_ax.set_ylabel("noise (%)", color="#d62728")
+    noise_ax.set_ylabel("unassigned (%)", color="#d62728")
     noise_ax.tick_params(axis="y", colors="#d62728")
     noise_ax.set_ylim(0, max(50, 100 * df.noise.max() * 1.15))
     ax.legend(fontsize=8, loc="upper left")

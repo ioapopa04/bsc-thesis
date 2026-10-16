@@ -10,10 +10,10 @@ import sys
 import numpy as np
 import mdtraj as md
 
-sys.path.insert(0, "/scratch/ipopa/bsc-thesis/ioana")
+sys.path.insert(0, "/scratch/ipopa/thesis/bsc-thesis/ioana")
 import symtools as st
 
-ROOT = "/scratch/ipopa/FOLn-REST2-50ns"
+ROOT = "/scratch/ipopa/thesis/FOLn-REST2-50ns"
 HERE = f"{ROOT}/REST2-run1"
 TOP = f"{ROOT}/build/built.solute.pdb"
 TRAJ = f"{HERE}/solute_state0_prod1.nc"

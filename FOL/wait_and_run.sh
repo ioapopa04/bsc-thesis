@@ -6,7 +6,7 @@
 # unknown length, so this must outlive any single tool call.
 set -uo pipefail
 
-ROOT=/scratch/ipopa/FOLn-REST2-50ns
+ROOT=/scratch/ipopa/thesis/FOLn-REST2-50ns
 RUN="$ROOT/REST2-run1"
 LOG="$ROOT/wait_and_run.log"
 POLL=60            # seconds between GPU checks
@@ -39,7 +39,7 @@ done
 echo "=== $(date -Is) all 8 GPUs free -> launching REST2 50 ns ==="
 cd "$RUN" || { echo "FATAL: no run dir $RUN"; exit 1; }
 
-source /scratch/ipopa/folenv.sh
+source /scratch/ipopa/thesis/folenv.sh
 micromamba activate openmm-env
 export CUDA_DEVICE_ORDER=PCI_BUS_ID
 export CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7

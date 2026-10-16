@@ -4,13 +4,13 @@
 # cumulative window = first N*500 solute frames, --stride 5, --no-single-cluster.
 set -uo pipefail
 
-ROOT=/scratch/ipopa/FOLn-REST2-50ns
+ROOT=/scratch/ipopa/thesis/FOLn-REST2-50ns
 cd "$ROOT" || exit 1
 
-source /scratch/ipopa/folenv.sh
+source /scratch/ipopa/thesis/folenv.sh
 micromamba activate analysis-env
 
-SC=/scratch/ipopa/bsc-thesis/shuyu/cluster_prune.py
+SC=/scratch/ipopa/thesis/bsc-thesis/shuyu/cluster_prune.py
 OUT=fol-clustering-shuyu-nosingle
 
 for ns in 60 70 80 90 100; do

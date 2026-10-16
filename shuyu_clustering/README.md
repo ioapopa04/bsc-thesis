@@ -87,7 +87,7 @@ number of groups. Several `--traj` segments (run1, ext1, …) are concatenated i
 
 `run_windows.sh` / `run_windows_labels.sh` in the run directory re-run the series of
 cumulative windows (10…100 ns) with the same settings, into subfolders `10ns/ … 100ns/`.
-They call this script as `/scratch/ipopa/bsc-thesis/shuyu/cluster_prune.py`.
+They call this script as `/scratch/ipopa/thesis/bsc-thesis/shuyu/cluster_prune.py`.
 
 With the earlier cluster-then-merge version, the 100 ns state-0 window on the FOL run gave **2 clusters (A, B) and ~87.5 % noise**
 (≈13 % of conformations clustered). Compare against Ioana's protocol (`../ioana/`) for a

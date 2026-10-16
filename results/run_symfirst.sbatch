@@ -7,7 +7,7 @@
 #SBATCH --cpus-per-task=8
 #SBATCH --mem=48G
 #SBATCH --time=24:00:00
-#SBATCH --output=/scratch/ipopa/bsc-thesis/results/logs/%x-%A_%a.out
+#SBATCH --output=/scratch/ipopa/thesis/bsc-thesis/results/logs/%x-%A_%a.out
 # Shu-Yu's SYMMETRY-FIRST clustering (MD-tools main 69c262b, env analysis-env-main) with this
 # thesis' figures: shuyu_clustering/cluster_prune.py + cluster_convergence.py. Same inputs as the
 # previous analyses (state 0, torsion files, stride, windows, crystal refs), but Shu-Yu's defaults
@@ -23,10 +23,10 @@ export MAMBA_ROOT_PREFIX=/scratch/ipopa/software/md-stack
 eval "$(/scratch/ipopa/software/md-stack/bin/micromamba shell hook -s bash)"
 micromamba activate analysis-env-main
 export OMP_NUM_THREADS=${SLURM_CPUS_PER_TASK:-8}
-SHUYU=/scratch/ipopa/bsc-thesis/shuyu_clustering
-CRYSTAL=/scratch/ipopa/bsc-thesis/crystal
-FOLV4=/scratch/ipopa/FOL-REST2-v4
-FOLD=/scratch/ipopa/FOL-complex-REST2
+SHUYU=/scratch/ipopa/thesis/bsc-thesis/shuyu_clustering
+CRYSTAL=/scratch/ipopa/thesis/bsc-thesis/crystal
+FOLV4=/scratch/ipopa/thesis/FOL-REST2-v4
+FOLD=/scratch/ipopa/thesis/FOL-complex-REST2
 PAIRS=(--pair-2d 5,3 --pair-2d 4,3 --pair-2d 2,3)
 
 fol_args() {   # fol_args <water-root> <torsion-dir>
@@ -35,10 +35,10 @@ fol_args() {   # fol_args <water-root> <torsion-dir>
         --torsions-file "$2/torsions_polarH.txt" --stride 5)
 }
 case ${SLURM_ARRAY_TASK_ID} in
-0) NAME=paracetamol-v4; ROOT=/scratch/ipopa/PARA-REST2-v4; TRAJ=REST2-run1/solute_state0_prod1.nc
+0) NAME=paracetamol-v4; ROOT=/scratch/ipopa/thesis/PARA-REST2-v4; TRAJ=REST2-run1/solute_state0_prod1.nc
    ARGS=(--sdf build/TYL.sdf --top build/built.solute.pdb --stride 1); REFS=(); EXTRA=(); STEP=0.5
    CFG=REST2.config ;;
-1) NAME=paracetamol; ROOT=/scratch/ipopa/REST2-PARA; TRAJ=REST2-run1/solute_state0_prod1.nc
+1) NAME=paracetamol; ROOT=/scratch/ipopa/thesis/REST2-PARA; TRAJ=REST2-run1/solute_state0_prod1.nc
    ARGS=(--sdf build/TYL.sdf --top build/built.solute.pdb --stride 1); REFS=(); EXTRA=(); STEP=0.5
    CFG=REST2.config ;;
 2) NAME=folic-acid-v4-water; ROOT=$FOLV4/water; TRAJ=REST2-run1/solute_state0_prod1.nc
@@ -48,7 +48,7 @@ case ${SLURM_ARRAY_TASK_ID} in
    NAME=folic-acid-v4-$S-complex; ROOT=$FOLV4/$S/analysis-shuyu; TRAJ=FOL_state0_prod1.nc
    fol_args "$FOLV4/water" "$FOLV4/water/REST2-run1"; CFG=../REST2.config; STEP=5; EXTRA=("${PAIRS[@]}")
    REFS=(--ref-sdf "$CRYSTAL/fol_${S}_A.sdf") ;;
-5) NAME=folic-acid; ROOT=/scratch/ipopa/FOLn-REST2-50ns; TRAJ=REST2-run1/solute_state0_prod1.nc
+5) NAME=folic-acid; ROOT=/scratch/ipopa/thesis/FOLn-REST2-50ns; TRAJ=REST2-run1/solute_state0_prod1.nc
    fol_args "$ROOT" "$ROOT/REST2-run1"; CFG=REST2.config; STEP=5; EXTRA=("${PAIRS[@]}")
    REFS=(--ref-sdf "$CRYSTAL/fol_4LRH_A.sdf" --ref-sdf "$CRYSTAL/fol_3QL3_A.sdf") ;;
 6|7) S=$([ "$SLURM_ARRAY_TASK_ID" = 6 ] && echo 4LRH || echo 3QL3)

@@ -73,6 +73,10 @@ def main():
     ap.add_argument("--use-torsions", default=None)
     ap.add_argument("--stride", type=int, default=1)
     ap.add_argument("--no-single-cluster", action="store_true")
+    ap.add_argument("--max-matches", type=int, default=None,
+                    help="cap on the symmetry (automorphism) enumeration (MD-tools default 200000); "
+                         "molecules with several methyl/CF3 groups exceed it and the fit refuses an "
+                         "incomplete search -- raise it, e.g. 8000000")
     ap.add_argument("--max-frames", type=int, default=None,
                     help="raise t_hdbscan's max_precomputed_frames (default 10000)")
     ap.add_argument("--step-ns", type=float, default=5.0, help="window increment (ns)")
@@ -108,7 +112,8 @@ def main():
     for end in ends:
         sel = time_ns <= end + 1e-6 if end < ends[-1] else np.ones(len(time_ns), bool)
         fit, _, why = build_fit(tors[sel], cmd[np.flatnonzero(sel)], mol, torsions,
-                                allow_single_cluster=asc, max_frames=args.max_frames)
+                                allow_single_cluster=asc, max_frames=args.max_frames,
+                                max_matches=args.max_matches)
         row = {"t_ns": float(end), "n_frames": int(sel.sum()),
                "n_groups": int(fit.n_clusters_), "noise": float(fit.unassigned_mass_),
                "density_noise": float(fit.noise_mass_), "ambiguous": float(fit.ambiguous_mass_)}

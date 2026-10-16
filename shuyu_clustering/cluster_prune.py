@@ -385,7 +385,8 @@ def draw_overview(path, *, mol, names, quads, tors, aligned, masses, noise, refs
     plt.close(fig)
 
 
-def build_fit(tors, cmd, mol, torsions, *, allow_single_cluster=True, max_frames=None):
+def build_fit(tors, cmd, mol, torsions, *, allow_single_cluster=True, max_frames=None,
+              max_matches=None):
     """Shu-Yu's symmetry-first t_hdbscan (MD-tools main, docs/tutorial/paracetamol/analysis/
     symmetry-alignment.ipynb): TorsionDefinitions on the build SDF, the atom mapping checked
     against the trajectory topology, and the trajectory itself so the symmetry images of the
@@ -397,6 +398,8 @@ def build_fit(tors, cmd, mol, torsions, *, allow_single_cluster=True, max_frames
         sys.exit("the topology has no bonds - use one with CONECT records / bonds")
     mapping, why = verify_atom_mapping(mol, bonds, [a.element.symbol for a in cmd.topology.atoms])
     extra = {} if max_frames is None else {"max_precomputed_frames": int(max_frames)}
+    if max_matches is not None:
+        extra["max_matches"] = int(max_matches)
     fit = t_hdbscan(tors, molecule=mol, torsion_definitions=definitions, coordinates=cmd,
                     atom_mapping=mapping, allow_single_cluster=allow_single_cluster, **extra).fit()
     return fit, mapping, why
@@ -416,6 +419,10 @@ def main():
     ap.add_argument("--stride", type=int, default=1)
     ap.add_argument("--no-single-cluster", action="store_true",
                     help="allow_single_cluster=False (Shu-Yu's default, and this script's, is True)")
+    ap.add_argument("--max-matches", type=int, default=None,
+                    help="cap on the symmetry (automorphism) enumeration (MD-tools default 200000); "
+                         "molecules with several methyl/CF3 groups exceed it and the fit refuses an "
+                         "incomplete search -- raise it, e.g. 8000000")
     ap.add_argument("--max-frames", type=int, default=None,
                     help="raise t_hdbscan's max_precomputed_frames (default 10000): the symmetry-aware "
                          "distance is a dense N x N matrix, 8 N^2 bytes per copy, about three copies")
@@ -458,7 +465,7 @@ def main():
 
     asc = not args.no_single_cluster
     fit, mapping, why = build_fit(tors, cmd, mol, torsions, allow_single_cluster=asc,
-                                  max_frames=args.max_frames)
+                                  max_frames=args.max_frames, max_matches=args.max_matches)
     print("atom mapping:", "identity" if mapping == list(range(mol.GetNumAtoms())) else mapping)
     print(" ", why)
     summary = fit.summary()

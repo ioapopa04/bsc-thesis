@@ -1,0 +1,103 @@
+{
+  "name": "paracetamol-v4",
+  "molecule": "CC(=O)Nc1ccc(O)cc1",
+  "replicate0": {
+    "traj": "/scratch/ipopa/thesis/PARA-REST2-v4/REST2-run1/solute_state0_prod1.nc",
+    "stride": 1,
+    "frames": 5000,
+    "allow_single_cluster": true,
+    "n_clusters": 2,
+    "cluster_masses": {
+      "A": 0.527,
+      "B": 0.4626
+    },
+    "unassigned_mass": 0.0104
+  },
+  "torsions": {
+    "omega": [
+      0,
+      1,
+      3,
+      4
+    ],
+    "aryl": [
+      1,
+      3,
+      4,
+      5
+    ],
+    "phenol": [
+      6,
+      7,
+      8,
+      17
+    ]
+  },
+  "candidates": {
+    "n_embedded": 4,
+    "n_converged": 4,
+    "n_stereo_ok": 4,
+    "n_eligible": 4,
+    "mmff_min_kcal_mol": -12.320322169983688,
+    "per_cluster": {
+      "A": 1,
+      "B": 3
+    }
+  },
+  "settings": {
+    "package_sdf": "/scratch/ipopa/thesis/PARA-REST2-v4/build/parameter/molecule.sdf",
+    "start_sdf": "/scratch/ipopa/thesis/PARA-REST2-v4/build/parameter/TYL.sdf",
+    "traj": "/scratch/ipopa/thesis/PARA-REST2-v4/REST2-run1/solute_state0_prod1.nc",
+    "top": "/scratch/ipopa/thesis/PARA-REST2-v4/build/built.solute.pdb",
+    "torsion": null,
+    "torsions_file": null,
+    "stride": 1,
+    "no_single_cluster": false,
+    "max_frames": null,
+    "n_embed": 300,
+    "seed": 20261017,
+    "prune_rms": 0.1,
+    "max_iters": 2000,
+    "energy_window": 25.0,
+    "n_pick": 3,
+    "min_distance": 0.1,
+    "name": "paracetamol-v4",
+    "out": "/scratch/ipopa/thesis/bsc-thesis/replicates/paracetamol-v4"
+  },
+  "starts": [
+    {
+      "replicate": 0,
+      "row": 0,
+      "conf_id": null,
+      "mmff_kcal_mol": null,
+      "mmff_above_min": null,
+      "cluster": "B",
+      "cluster_mass_rep0": 0.4626,
+      "d_to_rep0": 0.0,
+      "why": "original start (replicate 0)",
+      "torsions_deg": {
+        "omega": 180.0,
+        "aryl": 180.0,
+        "phenol": 180.0
+      },
+      "sdf": "starts/rep0.sdf"
+    },
+    {
+      "replicate": 1,
+      "row": 2,
+      "conf_id": 1,
+      "mmff_kcal_mol": -11.453744586452386,
+      "mmff_above_min": 0.8665775835313028,
+      "cluster": "A",
+      "cluster_mass_rep0": 0.527,
+      "d_to_rep0": 1.9999999996932958,
+      "why": "first start in cluster A, farthest from the chosen",
+      "torsions_deg": {
+        "omega": 180.0,
+        "aryl": -0.0,
+        "phenol": 180.0
+      },
+      "sdf": "starts/rep1.sdf"
+    }
+  ]
+}

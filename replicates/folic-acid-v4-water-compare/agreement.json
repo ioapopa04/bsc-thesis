@@ -1,0 +1,257 @@
+{
+  "name": "folic-acid-v4-water",
+  "replicates": [
+    "rep0",
+    "rep1",
+    "rep2",
+    "rep3"
+  ],
+  "frames_per_replicate": [
+    10000,
+    10000,
+    10000,
+    10000
+  ],
+  "stride": 5,
+  "ns_per_used_frame": 0.01,
+  "fit": {
+    "n_clusters": 2,
+    "resampling": 10000,
+    "allow_single_cluster": false,
+    "pooled_masses": {
+      "A": 0.116,
+      "B": 0.112525,
+      "unassigned": 0.771475
+    }
+  },
+  "per_cluster": {
+    "A": {
+      "masses": {
+        "rep0": 0.1326,
+        "rep1": 0.1031,
+        "rep2": 0.113,
+        "rep3": 0.1153
+      },
+      "block_se": {
+        "rep0": 0.0067867518003828595,
+        "rep1": 0.008189017035029295,
+        "rep2": 0.014362276978251045,
+        "rep3": 0.011573245007343445
+      },
+      "max_minus_min": 0.0295,
+      "spread_over_2se": 0.7261957862458421
+    },
+    "B": {
+      "masses": {
+        "rep0": 0.1032,
+        "rep1": 0.1234,
+        "rep2": 0.1045,
+        "rep3": 0.119
+      },
+      "block_se": {
+        "rep0": 0.004170131892398609,
+        "rep1": 0.008334266614405852,
+        "rep2": 0.007720103626247512,
+        "rep3": 0.010266450214168478
+      },
+      "max_minus_min": 0.020199999999999996,
+      "spread_over_2se": 0.6956424412527646
+    },
+    "unassigned": {
+      "masses": {
+        "rep0": 0.7642,
+        "rep1": 0.7735,
+        "rep2": 0.7825,
+        "rep3": 0.7657
+      },
+      "block_se": {
+        "rep0": 0.005684628395946382,
+        "rep1": 0.011966620241321288,
+        "rep2": 0.012656026232589749,
+        "rep3": 0.015726251937445233
+      },
+      "max_minus_min": 0.018299999999999983,
+      "spread_over_2se": 0.4114157062720931
+    }
+  },
+  "pairs": {
+    "rep0-rep1": {
+      "js_labels_bits": 0.0020057930789519384,
+      "js_torsions_bits": {
+        "torsions_0": 0.0018244727833092267,
+        "torsions_1": 0.0013309663985763636,
+        "torsions_2": 0.0017581938251675262,
+        "torsions_3": 0.003112542166242248,
+        "torsions_4": 0.0028831510357616376,
+        "torsions_5": 0.0011884521513311208,
+        "torsions_6": 0.0014848475988494926,
+        "torsions_7": 0.003263041360590407,
+        "torsions_8": 0.002428324652258393,
+        "torsions_rigid_9": 0.0003314846891218329
+      }
+    },
+    "rep0-rep2": {
+      "js_labels_bits": 0.0006457844964248127,
+      "js_torsions_bits": {
+        "torsions_0": 0.002089572533361165,
+        "torsions_1": 0.0040170691209669845,
+        "torsions_2": 0.004243654481853328,
+        "torsions_3": 0.00224322453922685,
+        "torsions_4": 0.002057326541274629,
+        "torsions_5": 0.003361430201170147,
+        "torsions_6": 0.001997643475634081,
+        "torsions_7": 0.00532651690165287,
+        "torsions_8": 0.0032828183500287584,
+        "torsions_rigid_9": 0.0002998813304402829
+      }
+    },
+    "rep0-rep3": {
+      "js_labels_bits": 0.0008418828586055019,
+      "js_torsions_bits": {
+        "torsions_0": 0.0006772125842110716,
+        "torsions_1": 0.0018152859879593695,
+        "torsions_2": 0.0030025845955521163,
+        "torsions_3": 0.0019816134288117813,
+        "torsions_4": 0.00211099454555636,
+        "torsions_5": 0.0010453889388949776,
+        "torsions_6": 0.0015343967107609257,
+        "torsions_7": 0.003699495396205362,
+        "torsions_8": 0.003335875305712031,
+        "torsions_rigid_9": 0.0008676330727321903
+      }
+    },
+    "rep1-rep2": {
+      "js_labels_bits": 0.0007483819092954538,
+      "js_torsions_bits": {
+        "torsions_0": 0.003157042769515616,
+        "torsions_1": 0.0033213190257562687,
+        "torsions_2": 0.0022555052676893365,
+        "torsions_3": 0.0022973958079174277,
+        "torsions_4": 0.002443486954736812,
+        "torsions_5": 0.004929592617416107,
+        "torsions_6": 0.0024949387660785265,
+        "torsions_7": 0.0022885074469505967,
+        "torsions_8": 0.002232919366711477,
+        "torsions_rigid_9": 0.00037293025523227005
+      }
+    },
+    "rep1-rep3": {
+      "js_labels_bits": 0.00028899211320416963,
+      "js_torsions_bits": {
+        "torsions_0": 0.0015178744597426216,
+        "torsions_1": 0.0012368687100858195,
+        "torsions_2": 0.0012840741348432625,
+        "torsions_3": 0.0023230145914669873,
+        "torsions_4": 0.0013898809752827472,
+        "torsions_5": 0.001855208949538078,
+        "torsions_6": 0.0019215430355339095,
+        "torsions_7": 0.0014720242681437912,
+        "torsions_8": 0.0018729936369730664,
+        "torsions_rigid_9": 0.0009547256592153189
+      }
+    },
+    "rep2-rep3": {
+      "js_labels_bits": 0.0004136402082163303,
+      "js_torsions_bits": {
+        "torsions_0": 0.0026341745100724634,
+        "torsions_1": 0.002889654954288997,
+        "torsions_2": 0.0013270106192354032,
+        "torsions_3": 0.0011665654300999828,
+        "torsions_4": 0.0019248558768327742,
+        "torsions_5": 0.003231675221379936,
+        "torsions_6": 0.0021436009063984717,
+        "torsions_7": 0.0014843196676128348,
+        "torsions_8": 0.001211874037167268,
+        "torsions_rigid_9": 0.0010220494554625226
+      }
+    }
+  },
+  "start": {
+    "rep0": {
+      "first_frame_cluster": "unassigned",
+      "frames_before_first_change": 1,
+      "ns_before_first_change": 0.01,
+      "fraction_in_start_cluster_first_10pct": 0.763
+    },
+    "rep1": {
+      "first_frame_cluster": "unassigned",
+      "frames_before_first_change": 6,
+      "ns_before_first_change": 0.06,
+      "fraction_in_start_cluster_first_10pct": 0.809
+    },
+    "rep2": {
+      "first_frame_cluster": "unassigned",
+      "frames_before_first_change": 9,
+      "ns_before_first_change": 0.09,
+      "fraction_in_start_cluster_first_10pct": 0.765
+    },
+    "rep3": {
+      "first_frame_cluster": "unassigned",
+      "frames_before_first_change": 24,
+      "ns_before_first_change": 0.24,
+      "fraction_in_start_cluster_first_10pct": 0.742
+    }
+  },
+  "torsions": {
+    "torsions_0": [
+      0,
+      1,
+      3,
+      4
+    ],
+    "torsions_1": [
+      1,
+      3,
+      4,
+      5
+    ],
+    "torsions_2": [
+      1,
+      3,
+      27,
+      28
+    ],
+    "torsions_3": [
+      4,
+      5,
+      7,
+      8
+    ],
+    "torsions_4": [
+      9,
+      10,
+      13,
+      14
+    ],
+    "torsions_5": [
+      10,
+      13,
+      14,
+      15
+    ],
+    "torsions_6": [
+      13,
+      14,
+      15,
+      16
+    ],
+    "torsions_7": [
+      3,
+      27,
+      28,
+      29
+    ],
+    "torsions_8": [
+      27,
+      28,
+      29,
+      30
+    ],
+    "torsions_rigid_9": [
+      3,
+      4,
+      5,
+      6
+    ]
+  }
+}

@@ -1,0 +1,6 @@
+row,conf_id,mmff_kcal_mol,converged,stereo_ok,eligible,cluster,d_to_rep0,d_to_nearest_start,chosen_as,omega_deg,aryl_deg,phenol_deg
+0,start,,,True,,B,0.0,0.0,rep0,180.0,180.0,180.0
+1,0,-12.320,True,True,True,B,0.000,0.000,,180.0,180.0,180.0
+2,1,-11.454,True,True,True,A,2.000,0.000,rep1,180.0,-0.0,180.0
+3,2,-12.320,True,True,True,B,0.000,0.000,,180.0,0.0,0.0
+4,3,-12.320,True,True,True,B,0.000,0.000,,180.0,180.0,180.0

@@ -1,0 +1,105 @@
+{
+  "name": "paracetamol-v4",
+  "replicates": [
+    "rep0",
+    "rep1"
+  ],
+  "frames_per_replicate": [
+    5000,
+    5000
+  ],
+  "stride": 1,
+  "ns_per_used_frame": 0.002,
+  "fit": {
+    "n_clusters": 2,
+    "resampling": false,
+    "allow_single_cluster": true,
+    "pooled_masses": {
+      "A": 0.518,
+      "B": 0.4738,
+      "unassigned": 0.0082
+    }
+  },
+  "per_cluster": {
+    "A": {
+      "masses": {
+        "rep0": 0.462,
+        "rep1": 0.574
+      },
+      "block_se": {
+        "rep0": 0.014078352176302454,
+        "rep1": 0.030885271570766554
+      },
+      "max_minus_min": 0.11199999999999993,
+      "spread_over_2se": 1.2820991279198208
+    },
+    "B": {
+      "masses": {
+        "rep0": 0.5262,
+        "rep1": 0.4214
+      },
+      "block_se": {
+        "rep0": 0.015206577524216301,
+        "rep1": 0.031587339235839416
+      },
+      "max_minus_min": 0.1048,
+      "spread_over_2se": 1.1730141325779966
+    },
+    "unassigned": {
+      "masses": {
+        "rep0": 0.0118,
+        "rep1": 0.0046
+      },
+      "block_se": {
+        "rep0": 0.004442971978304611,
+        "rep1": 0.0009797958971132711
+      },
+      "max_minus_min": 0.0072,
+      "spread_over_2se": 0.5729463126713074
+    }
+  },
+  "pairs": {
+    "rep0-rep1": {
+      "js_labels_bits": 0.009744391741023737,
+      "js_torsions_bits": {
+        "omega": 0.002690608172419026,
+        "aryl": 0.010258765626938176,
+        "phenol": 0.0026714753187721185
+      }
+    }
+  },
+  "start": {
+    "rep0": {
+      "first_frame_cluster": "B",
+      "frames_before_first_change": 4,
+      "ns_before_first_change": 0.008,
+      "fraction_in_start_cluster_first_10pct": 0.354
+    },
+    "rep1": {
+      "first_frame_cluster": "A",
+      "frames_before_first_change": 20,
+      "ns_before_first_change": 0.04,
+      "fraction_in_start_cluster_first_10pct": 0.46
+    }
+  },
+  "torsions": {
+    "omega": [
+      0,
+      1,
+      3,
+      4
+    ],
+    "aryl": [
+      1,
+      3,
+      4,
+      5
+    ],
+    "phenol": [
+      6,
+      7,
+      8,
+      17
+    ]
+  }
+}

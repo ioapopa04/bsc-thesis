@@ -1,0 +1,212 @@
+{
+  "name": "folic-acid-v4-water",
+  "molecule": "Nc1nc(=O)c2nc(CNc3ccc(C(=O)N[C@@H](CCC(=O)[O-])C(=O)[O-])cc3)cnc2[nH]1",
+  "replicate0": {
+    "traj": "/scratch/ipopa/thesis/FOL-REST2-v4/water/REST2-run1/solute_state0_prod1.nc",
+    "stride": 5,
+    "frames": 10000,
+    "allow_single_cluster": false,
+    "n_clusters": 3,
+    "cluster_masses": {
+      "A": 0.131,
+      "B": 0.0417,
+      "C": 0.0176
+    },
+    "unassigned_mass": 0.8097
+  },
+  "torsions": {
+    "torsions_0": [
+      0,
+      1,
+      3,
+      4
+    ],
+    "torsions_1": [
+      1,
+      3,
+      4,
+      5
+    ],
+    "torsions_2": [
+      1,
+      3,
+      27,
+      28
+    ],
+    "torsions_3": [
+      4,
+      5,
+      7,
+      8
+    ],
+    "torsions_4": [
+      9,
+      10,
+      13,
+      14
+    ],
+    "torsions_5": [
+      10,
+      13,
+      14,
+      15
+    ],
+    "torsions_6": [
+      13,
+      14,
+      15,
+      16
+    ],
+    "torsions_7": [
+      3,
+      27,
+      28,
+      29
+    ],
+    "torsions_8": [
+      27,
+      28,
+      29,
+      30
+    ],
+    "torsions_rigid_9": [
+      3,
+      4,
+      5,
+      6
+    ]
+  },
+  "candidates": {
+    "n_embedded": 119,
+    "n_converged": 119,
+    "n_stereo_ok": 119,
+    "n_eligible": 74,
+    "mmff_min_kcal_mol": 94.27869078752582,
+    "per_cluster": {
+      "noise": 112,
+      "A": 7
+    }
+  },
+  "settings": {
+    "package_sdf": "/scratch/ipopa/thesis/FOL-REST2-v4/packages/FOL/molecule.sdf",
+    "start_sdf": "/scratch/ipopa/thesis/FOL-REST2-v4/water/build/FOL.sdf",
+    "traj": "/scratch/ipopa/thesis/FOL-REST2-v4/water/REST2-run1/solute_state0_prod1.nc",
+    "top": "/scratch/ipopa/thesis/FOL-REST2-v4/water/build/built.solute.pdb",
+    "torsion": null,
+    "torsions_file": [
+      "/scratch/ipopa/thesis/FOL-REST2-v4/water/REST2-run1/torsions.txt",
+      "/scratch/ipopa/thesis/FOL-REST2-v4/water/REST2-run1/torsions_rigid.txt",
+      "/scratch/ipopa/thesis/FOL-REST2-v4/water/REST2-run1/torsions_polarH.txt"
+    ],
+    "stride": 5,
+    "no_single_cluster": true,
+    "max_frames": null,
+    "n_embed": 300,
+    "seed": 20261017,
+    "prune_rms": 0.5,
+    "max_iters": 2000,
+    "energy_window": 25.0,
+    "n_pick": 3,
+    "min_distance": 0.1,
+    "name": "folic-acid-v4-water",
+    "out": "/scratch/ipopa/thesis/bsc-thesis/replicates/folic-acid-v4-water"
+  },
+  "starts": [
+    {
+      "replicate": 0,
+      "row": 0,
+      "conf_id": null,
+      "mmff_kcal_mol": null,
+      "mmff_above_min": null,
+      "cluster": "noise",
+      "cluster_mass_rep0": null,
+      "d_to_rep0": 0.0,
+      "why": "original start (replicate 0)",
+      "torsions_deg": {
+        "torsions_0": 175.1,
+        "torsions_1": -146.1,
+        "torsions_2": 170.0,
+        "torsions_3": 25.3,
+        "torsions_4": 179.0,
+        "torsions_5": -179.9,
+        "torsions_6": -2.3,
+        "torsions_7": -174.9,
+        "torsions_8": -10.4,
+        "torsions_rigid_9": -1.1
+      },
+      "sdf": "starts/rep0.sdf"
+    },
+    {
+      "replicate": 1,
+      "row": 72,
+      "conf_id": 71,
+      "mmff_kcal_mol": 118.5088194677133,
+      "mmff_above_min": 24.230128680187477,
+      "cluster": "A",
+      "cluster_mass_rep0": 0.131,
+      "d_to_rep0": 3.713971278932067,
+      "why": "first start in cluster A, farthest from the chosen",
+      "torsions_deg": {
+        "torsions_0": -21.4,
+        "torsions_1": -133.0,
+        "torsions_2": 173.9,
+        "torsions_3": 149.1,
+        "torsions_4": 10.4,
+        "torsions_5": 96.5,
+        "torsions_6": 120.7,
+        "torsions_7": 179.8,
+        "torsions_8": 173.7,
+        "torsions_rigid_9": -7.0
+      },
+      "sdf": "starts/rep1.sdf"
+    },
+    {
+      "replicate": 2,
+      "row": 1,
+      "conf_id": 0,
+      "mmff_kcal_mol": 114.56822702156941,
+      "mmff_above_min": 20.289536234043595,
+      "cluster": "noise",
+      "cluster_mass_rep0": null,
+      "d_to_rep0": 4.4473008404069585,
+      "why": "farthest point (every reachable cluster covered); cluster noise",
+      "torsions_deg": {
+        "torsions_0": -5.8,
+        "torsions_1": -85.8,
+        "torsions_2": -70.9,
+        "torsions_3": -144.8,
+        "torsions_4": 149.6,
+        "torsions_5": -84.5,
+        "torsions_6": -98.7,
+        "torsions_7": -90.3,
+        "torsions_8": -94.1,
+        "torsions_rigid_9": -7.5
+      },
+      "sdf": "starts/rep2.sdf"
+    },
+    {
+      "replicate": 3,
+      "row": 9,
+      "conf_id": 8,
+      "mmff_kcal_mol": 114.87372895276508,
+      "mmff_above_min": 20.59503816523926,
+      "cluster": "noise",
+      "cluster_mass_rep0": null,
+      "d_to_rep0": 3.9820570638334813,
+      "why": "farthest point (every reachable cluster covered); cluster noise",
+      "torsions_deg": {
+        "torsions_0": 171.5,
+        "torsions_1": -85.5,
+        "torsions_2": -70.3,
+        "torsions_3": -30.7,
+        "torsions_4": 28.3,
+        "torsions_5": 85.2,
+        "torsions_6": 99.6,
+        "torsions_7": -89.7,
+        "torsions_8": 79.4,
+        "torsions_rigid_9": -12.2
+      },
+      "sdf": "starts/rep3.sdf"
+    }
+  ]
+}

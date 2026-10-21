@@ -1,0 +1,7 @@
+# i j k l   # atom names | class
+1 2 3 4   # L041-C2 L041-C3 L041-S1 L041-O1 | rotatable 
+2 3 6 7   # L041-C3 L041-S1 L041-N1 L041-C4 | rotatable 
+3 6 7 8   # L041-S1 L041-N1 L041-C4 L041-C5 | rotatable 
+7 8 9 10   # L041-C4 L041-C5 L041-N2 L041-C6 | rotatable 
+0 29 30 31   # L041-C1 L041-C20 L041-C21 L041-C22 | rotatable 
+29 30 31 32   # L041-C20 L041-C21 L041-C22 L041-C23 | rotatable 

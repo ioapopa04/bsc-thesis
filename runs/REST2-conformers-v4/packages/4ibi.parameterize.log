@@ -1,0 +1,277 @@
+md-openmm build-top --parameterize
+====================================================================
+
+Command
+-------
+  input                       4ibi.input.sdf
+  config                      4ibi.parameterize.config
+  package directory           /scratch/ipopa/thesis/REST2-conformers-v4/packages/4ibi
+  residue name                L01
+
+Resolved configuration
+----------------------
+  solute.ligand_forcefield    sage-2.2.1   (default)
+  solute.ligand_charge_method am1bcc   (default)
+  solute.compound_id          None   (default)
+  solute.parameters           search   (default)
+  coordinates                 read from the SDF, used as given; protonation: Open Babel 3.2.1 at pH 7.4: net charge +0 -> -2; 2 heavy atom(s) changed
+
+Parameters
+----------
+  package                     LOCAL-XYQJDZQSXLXEJQ/param_7e3df7b8bebe   (created)
+  charges                     am1bcc / am1bcc by ambertools-sqm
+  force field                 openff-2.2.1
+
+Outputs
+-------
+  L01.pdb                     /scratch/ipopa/thesis/REST2-conformers-v4/packages/4ibi/L01.pdb
+  L01.sdf                     /scratch/ipopa/thesis/REST2-conformers-v4/packages/4ibi/L01.sdf
+  L01.xml                     /scratch/ipopa/thesis/REST2-conformers-v4/packages/4ibi/L01.xml
+  metadata.json               /scratch/ipopa/thesis/REST2-conformers-v4/packages/4ibi/metadata.json
+  molecule.sdf                /scratch/ipopa/thesis/REST2-conformers-v4/packages/4ibi/molecule.sdf
+  parameter.config            /scratch/ipopa/thesis/REST2-conformers-v4/packages/4ibi/parameter.config
+  parameters.ffxml            /scratch/ipopa/thesis/REST2-conformers-v4/packages/4ibi/parameters.ffxml
+  re-read check               LOCAL-XYQJDZQSXLXEJQ/param_7e3df7b8bebe verifies in place  OK
+
+Summary
+-------
+  LOCAL-XYQJDZQSXLXEJQ/param_7e3df7b8bebe written to /scratch/ipopa/thesis/REST2-conformers-v4/packages/4ibi
+  status: completed
+
+# ===== BEGIN md-tools machine record =====
+# schema_version: md-tools-record/2.0
+# record_type: build-top
+# status: completed
+# started_utc: '2026-10-15T15:55:39+00:00'
+# finished_utc: '2026-10-15T15:56:32+00:00'
+# command:
+# - /scratch/ipopa/software/md-stack/envs/openmm-env-protonation/bin/md-openmm
+# - build-top
+# - --parameterize
+# - -i
+# - 4ibi.input.sdf
+# - --resname
+# - L01
+# - --config
+# - 4ibi.parameterize.config
+# - -op
+# - 4ibi/L01.pdb
+# - -os
+# - 4ibi/L01.xml
+# - -log
+# - 4ibi.parameterize.log
+# environment:
+#   hostname: sbrinz2
+#   platform: Linux-5.14.0-503.40.1.el9_5.x86_64-x86_64-with-glibc2.34
+#   machine: x86_64
+#   user: ipopa
+#   packages:
+#     python: 3.12.15
+#     md-tools: 0.6.4
+#     openmm: '8.6'
+#     openff-toolkit: 0.19.0
+#     openmmforcefields: 0.16.0
+#     parmed: 4.3.1
+#     rdkit: 2026.3.1
+#     ambertools: null
+#     numpy: 2.5.4
+#     pyyaml: 6.0.3
+#     openmm_build: 8.6.0.dev-c6173db
+#   md_tools_commit: b3603e0746e0d08e3eabfa7942737c1249a89856
+# mode: parameterize
+# input:
+#   path: 4ibi.input.sdf
+#   bytes: 4741
+#   sha256: e966385f8e156f9cdcf14bcc3317ef7a9721ae1dbc16882cbcc137b6162496b6
+# resolved_config:
+#   constraints:
+#     hydrogen_mass_amu: null
+#     rigid_water: true
+#     type: HBonds
+#   engine: openmm
+#   engine_version: 8.6.0
+#   forcefield:
+#     protein: null
+#     water: amber14/tip3p.xml
+#     ligand: openff-2.2.1
+#     ligand_charge_method: am1bcc
+#   protonation:
+#     histidine_proximity_angstrom: 5.0
+#     ligand_method: openbabel
+#     method: openmm
+#     near_ph_window: 1.0
+#     overrides: []
+#     ph: 7.4
+#   schema_version: 1
+#   solute:
+#     kind: ligand
+#     ligand_charge_method: am1bcc
+#     ligand_forcefield: sage-2.2.1
+#     peptide: false
+#   solvent:
+#     box_shape: dodecahedron
+#     cutoff_nm: 1.0
+#     ionic_strength_molar: 0.15
+#     model: TIP3P
+#     negative_ion: Cl-
+#     padding_nm: 1.5
+#     positive_ion: Na+
+#   solvation: explicit
+# stated_keys:
+#   solute:
+#   - kind
+#   - aliases
+#   protonation:
+#   - ligand_method
+#   - ph
+# interpretation:
+#   route: parameterize
+#   residue_name: L01
+#   input_format: sdf
+#   coordinates: 'read from the SDF, used as given; protonation: Open Babel 3.2.1 at
+#     pH 7.4: net charge +0 -> -2; 2 heavy atom(s) changed'
+# ligand_packages:
+#   packages:
+#   - reference: LOCAL-XYQJDZQSXLXEJQ/param_7e3df7b8bebe
+#     compound_id: LOCAL-XYQJDZQSXLXEJQ
+#     aliases:
+#     - 4ibi
+#     parameter_id: param_7e3df7b8bebe
+#     template_name: MDT_param_7e3df7b8bebe
+#     residue_name: L01
+#     package_sha256: 9597e6d905a8812ecc0fbd5ecd8985f292ef690a9d4e25e980992559b1039e45
+#     parameter_digest: c04d2aaf70962f1af9d50451270b552be06d2888f55142ce878e35063d3bf3a3
+#     chemical_state_digest: 7b86e3b91f26dd36611690430859e165faa9625b12c0ac4bb6b6518981246016
+#     forcefield: openff-2.2.1
+#     charge_method: am1bcc
+#     charge_backend_id: ambertools-sqm
+#     charge_backend_recorded: true
+#     net_formal_charge: -2
+#     n_atoms: 51
+#     path: 4ibi
+#   attached:
+#     reference: LOCAL-XYQJDZQSXLXEJQ/param_7e3df7b8bebe
+#     compound_id: LOCAL-XYQJDZQSXLXEJQ
+#     aliases:
+#     - 4ibi
+#     parameter_id: param_7e3df7b8bebe
+#     template_name: MDT_param_7e3df7b8bebe
+#     residue_name: L01
+#     package_sha256: 97798885e87f6e3c8fd97b3bf0746b795efff3cd1f05cb66631fa19df21dcc2d
+#     parameter_digest: c04d2aaf70962f1af9d50451270b552be06d2888f55142ce878e35063d3bf3a3
+#     chemical_state_digest: 7b86e3b91f26dd36611690430859e165faa9625b12c0ac4bb6b6518981246016
+#     forcefield: openff-2.2.1
+#     charge_method: am1bcc
+#     charge_backend_id: ambertools-sqm
+#     charge_backend_recorded: true
+#     net_formal_charge: -2
+#     n_atoms: 51
+#     how: created
+#     search:
+#       decision: parameterise
+#       matched: null
+#       considered:
+#       - reference: CHEMBL112/param_e932f4c4f371
+#         root: /scratch/ipopa/md-data/parameters/ligands
+#         matched: false
+#         compared:
+#           topology: a different heavy-atom skeleton (CC(O)NC1CCC(O)CC1 is not OC(O)C1CCCC(N2C(O)C(O)C(C(O)C3CCCC(C(F)(F)F)C3)C2C2CC(Cl)C3OCOC3C2)C1)
+#         notes: []
+#       request:
+#         schema_version: md-tools-ligand-criteria/2
+#         topology:
+#           skeleton_smiles: OC(O)C1CCCC(N2C(O)C(O)C(C(O)C3CCCC(C(F)(F)F)C3)C2C2CC(Cl)C3OCOC3C2)C1
+#           skeleton_digest: 9bae3cf0187722be5205520afc8c6d4abdaab5a0feda992b838be40fc61a7b99
+#           standard_inchikey_skeleton: XYQJDZQSXLXEJQ
+#           n_heavy_atoms: 38
+#         protonation:
+#           digest: 7b86e3b91f26dd36611690430859e165faa9625b12c0ac4bb6b6518981246016
+#           fixed_h_inchikey: XYQJDZQSXLXEJQ-KOWIVLHMNA-L
+#           net_formal_charge: -2
+#           canonical_smiles: '[H]c1c([H])c(C(=O)[O-])c([H])c(N2C(=O)C([O-])=C(C(=O)c3c([H])c([H])c([H])c(C(F)(F)F)c3[H])[C@]2([H])c2c([H])c(Cl)c3c(c2[H])OC([H])([H])O3)c1[H]'
+#         charges:
+#           method: am1bcc
+#           scheme: am1bcc
+#           backend_id: ambertools-sqm
+#           backend_recorded: true
+#           model: null
+#         forcefield:
+#           family: smirnoff
+#           resource: openff-2.2.1
+#     matched_on: null
+#     copied_to: ligands/LOCAL-XYQJDZQSXLXEJQ/param_7e3df7b8bebe
+#     charges_generated_in_this_build: true
+#     stated_aliases_not_applied: []
+#     prepared_atom_for_package_atom:
+#     - 0
+#     - 1
+#     - 2
+#     - 3
+#     - 4
+#     - 5
+#     - 6
+#     - 7
+#     - 8
+#     - 9
+#     - 10
+#     - 11
+#     - 12
+#     - 13
+#     - 14
+#     - 15
+#     - 16
+#     - 17
+#     - 18
+#     - 19
+#     - 20
+#     - 21
+#     - 22
+#     - 23
+#     - 24
+#     - 25
+#     - 26
+#     - 27
+#     - 28
+#     - 29
+#     - 30
+#     - 31
+#     - 32
+#     - 33
+#     - 34
+#     - 35
+#     - 36
+#     - 37
+#     - 38
+#     - 39
+#     - 40
+#     - 41
+#     - 42
+#     - 43
+#     - 44
+#     - 45
+#     - 46
+#     - 47
+#     - 48
+#     - 49
+#     - 50
+#     prepared_files_rewritten_in_package_order: true
+#   placed_in: 4ibi
+# registration: null
+# outputs:
+#   package:
+#     directory: 4ibi
+#     reference: LOCAL-XYQJDZQSXLXEJQ/param_7e3df7b8bebe
+#     package_sha256: 9597e6d905a8812ecc0fbd5ecd8985f292ef690a9d4e25e980992559b1039e45
+#   molecule_pdb:
+#     path: L01.pdb
+#     bytes: 4837
+#     sha256: 9ac82b7aa0db5af69bac9a9eed5ad25425c29233e9d68a161723aadd49986594
+#   system_xml:
+#     path: L01.xml
+#     bytes: 61930
+#     sha256: aecb03d414e761f9da3876613be282202101d4a3556d2014c93d13b3f1cd15ec
+#   molecule_sdf:
+#     path: L01.sdf
+#     bytes: 4593
+#     sha256: 0d52763880699472c5e2d9628363030a9c6311065e0de56825543dc3f92a5d9f
+# ===== END md-tools machine record =====

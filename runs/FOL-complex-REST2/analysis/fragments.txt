@@ -1,0 +1,28 @@
+3QL3/REST2-run1: 25000 frames; RMSD (A) per 5 ns block
+block(ns)    pteridine  pABA+linker    glutamate
+  0-5              0.96         1.62         6.44
+  5-10             1.13         2.49         8.69
+ 10-15             1.18         2.35         9.17
+ 15-20             1.08         2.48         8.78
+ 20-25             2.91         3.77        11.30
+ 25-30             3.07         4.34        12.47
+ 30-35             2.84         4.41        12.63
+ 35-40             2.97         4.49        12.51
+ 40-45             3.04         4.62        12.91
+ 45-50             3.68         4.76        12.92
+Arg57 NH1/NH2/NE - FOL O1/O2 (alpha-COOH): min dist per 5 ns block (A): 10.0 12.9 13.4 12.8 15.4 16.5 17.2 16.3 17.0 17.0   crystal 2.8
+Asp27 OD1/OD2 - FOL N5/N7 (pterin N1/NA2... package names): min dist per 5 ns block (A): 2.8 2.8 2.8 2.8 2.8 2.8 2.8 2.8 2.8 2.8   crystal 2.6
+NAP (any heavy atom) - FOL pteridine: min dist per 5 ns block (A): 3.5 3.4 3.4 3.4 4.4 4.5 4.2 4.4 4.5 4.9   crystal 3.2
+
+4LRH/REST2-run1: 25000 frames; RMSD (A) per 5 ns block
+block(ns)    pteridine  pABA+linker    glutamate
+  0-5              0.52         0.88         1.91
+  5-10             0.51         0.81         1.83
+ 10-15             0.53         0.88         2.23
+ 15-20             0.54         0.94         2.34
+ 20-25             0.54         1.08         2.73
+ 25-30             0.55         1.17         3.15
+ 30-35             0.60         1.06         3.14
+ 35-40             0.59         1.04         3.16
+ 40-45             0.54         1.00         3.13
+ 45-50             0.69         1.44         2.46

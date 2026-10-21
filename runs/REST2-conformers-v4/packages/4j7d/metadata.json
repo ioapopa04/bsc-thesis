@@ -1,0 +1,574 @@
+{
+  "artifacts": {
+    "molecule.sdf": {
+      "bytes": 5972,
+      "sha256": "5fcbf407ff793603a64c00b75e3ce5d35dbb70b17a0c7db9c71f530163f72a09"
+    },
+    "parameters.ffxml": {
+      "bytes": 107847,
+      "sha256": "3bd0d6386deb7eac14d2bf18ccf26afcc0ad0ede95f33e7c75e7774f517e62fb"
+    }
+  },
+  "atom_identity": "atom i is the i-th atom block of molecule.sdf; names are its MDT_ATOM_NAMES property and the residue template's atom names",
+  "atoms": [
+    {
+      "element": "C",
+      "formal_charge": 0,
+      "index": 0,
+      "name": "C1",
+      "partial_charge_e": -0.11823510447761192
+    },
+    {
+      "element": "C",
+      "formal_charge": 0,
+      "index": 1,
+      "name": "C2",
+      "partial_charge_e": -0.10198510447761192
+    },
+    {
+      "element": "C",
+      "formal_charge": 0,
+      "index": 2,
+      "name": "C3",
+      "partial_charge_e": -0.12478510447761192
+    },
+    {
+      "element": "C",
+      "formal_charge": 0,
+      "index": 3,
+      "name": "C4",
+      "partial_charge_e": 0.10551489552238807
+    },
+    {
+      "element": "C",
+      "formal_charge": 0,
+      "index": 4,
+      "name": "C5",
+      "partial_charge_e": -0.11358510447761193
+    },
+    {
+      "element": "N",
+      "formal_charge": 1,
+      "index": 5,
+      "name": "N1",
+      "partial_charge_e": -0.3705851044776119
+    },
+    {
+      "element": "C",
+      "formal_charge": 0,
+      "index": 6,
+      "name": "C6",
+      "partial_charge_e": 0.5154148955223881
+    },
+    {
+      "element": "C",
+      "formal_charge": 0,
+      "index": 7,
+      "name": "C7",
+      "partial_charge_e": -0.2828851044776119
+    },
+    {
+      "element": "C",
+      "formal_charge": 0,
+      "index": 8,
+      "name": "C8",
+      "partial_charge_e": -0.05398510447761193
+    },
+    {
+      "element": "C",
+      "formal_charge": 0,
+      "index": 9,
+      "name": "C9",
+      "partial_charge_e": -0.16098510447761194
+    },
+    {
+      "element": "C",
+      "formal_charge": 0,
+      "index": 10,
+      "name": "C10",
+      "partial_charge_e": 0.05071489552238807
+    },
+    {
+      "element": "C",
+      "formal_charge": 0,
+      "index": 11,
+      "name": "C11",
+      "partial_charge_e": -0.02668510447761193
+    },
+    {
+      "element": "C",
+      "formal_charge": 0,
+      "index": 12,
+      "name": "C12",
+      "partial_charge_e": -0.09175210447761192
+    },
+    {
+      "element": "C",
+      "formal_charge": 0,
+      "index": 13,
+      "name": "C13",
+      "partial_charge_e": -0.09175210447761192
+    },
+    {
+      "element": "C",
+      "formal_charge": 0,
+      "index": 14,
+      "name": "C14",
+      "partial_charge_e": -0.09175210447761192
+    },
+    {
+      "element": "C",
+      "formal_charge": 0,
+      "index": 15,
+      "name": "C15",
+      "partial_charge_e": -0.21298510447761193
+    },
+    {
+      "element": "C",
+      "formal_charge": 0,
+      "index": 16,
+      "name": "C16",
+      "partial_charge_e": 0.21311489552238808
+    },
+    {
+      "element": "O",
+      "formal_charge": 0,
+      "index": 17,
+      "name": "O1",
+      "partial_charge_e": -0.3648851044776119
+    },
+    {
+      "element": "C",
+      "formal_charge": 0,
+      "index": 18,
+      "name": "C17",
+      "partial_charge_e": 0.13341489552238806
+    },
+    {
+      "element": "C",
+      "formal_charge": 0,
+      "index": 19,
+      "name": "C18",
+      "partial_charge_e": -0.13708510447761194
+    },
+    {
+      "element": "N",
+      "formal_charge": 0,
+      "index": 20,
+      "name": "N2",
+      "partial_charge_e": -0.3546851044776119
+    },
+    {
+      "element": "C",
+      "formal_charge": 0,
+      "index": 21,
+      "name": "C19",
+      "partial_charge_e": 0.10551489552238807
+    },
+    {
+      "element": "C",
+      "formal_charge": 0,
+      "index": 22,
+      "name": "C20",
+      "partial_charge_e": -0.12478510447761192
+    },
+    {
+      "element": "C",
+      "formal_charge": 0,
+      "index": 23,
+      "name": "C21",
+      "partial_charge_e": -0.10198510447761192
+    },
+    {
+      "element": "C",
+      "formal_charge": 0,
+      "index": 24,
+      "name": "C22",
+      "partial_charge_e": -0.11823510447761192
+    },
+    {
+      "element": "C",
+      "formal_charge": 0,
+      "index": 25,
+      "name": "C23",
+      "partial_charge_e": 0.037914895522388074
+    },
+    {
+      "element": "Cl",
+      "formal_charge": 0,
+      "index": 26,
+      "name": "Cl1",
+      "partial_charge_e": -0.04988510447761193
+    },
+    {
+      "element": "C",
+      "formal_charge": 0,
+      "index": 27,
+      "name": "C24",
+      "partial_charge_e": -0.11823510447761192
+    },
+    {
+      "element": "C",
+      "formal_charge": 0,
+      "index": 28,
+      "name": "C25",
+      "partial_charge_e": -0.10198510447761192
+    },
+    {
+      "element": "C",
+      "formal_charge": 0,
+      "index": 29,
+      "name": "C26",
+      "partial_charge_e": -0.11358510447761193
+    },
+    {
+      "element": "C",
+      "formal_charge": 0,
+      "index": 30,
+      "name": "C27",
+      "partial_charge_e": -0.10198510447761192
+    },
+    {
+      "element": "C",
+      "formal_charge": 0,
+      "index": 31,
+      "name": "C28",
+      "partial_charge_e": -0.11823510447761192
+    },
+    {
+      "element": "C",
+      "formal_charge": 0,
+      "index": 32,
+      "name": "C29",
+      "partial_charge_e": 0.037914895522388074
+    },
+    {
+      "element": "Cl",
+      "formal_charge": 0,
+      "index": 33,
+      "name": "Cl2",
+      "partial_charge_e": -0.04988510447761193
+    },
+    {
+      "element": "H",
+      "formal_charge": 0,
+      "index": 34,
+      "name": "H1",
+      "partial_charge_e": 0.16251489552238807
+    },
+    {
+      "element": "H",
+      "formal_charge": 0,
+      "index": 35,
+      "name": "H2",
+      "partial_charge_e": 0.13476489552238807
+    },
+    {
+      "element": "H",
+      "formal_charge": 0,
+      "index": 36,
+      "name": "H3",
+      "partial_charge_e": 0.06704789552238807
+    },
+    {
+      "element": "H",
+      "formal_charge": 0,
+      "index": 37,
+      "name": "H4",
+      "partial_charge_e": 0.06704789552238807
+    },
+    {
+      "element": "H",
+      "formal_charge": 0,
+      "index": 38,
+      "name": "H5",
+      "partial_charge_e": 0.06704789552238807
+    },
+    {
+      "element": "H",
+      "formal_charge": 0,
+      "index": 39,
+      "name": "H6",
+      "partial_charge_e": 0.3412148955223881
+    },
+    {
+      "element": "H",
+      "formal_charge": 0,
+      "index": 40,
+      "name": "H7",
+      "partial_charge_e": 0.14101489552238805
+    },
+    {
+      "element": "H",
+      "formal_charge": 0,
+      "index": 41,
+      "name": "H8",
+      "partial_charge_e": 0.16401489552238807
+    },
+    {
+      "element": "H",
+      "formal_charge": 0,
+      "index": 42,
+      "name": "H9",
+      "partial_charge_e": 0.04727089552238807
+    },
+    {
+      "element": "H",
+      "formal_charge": 0,
+      "index": 43,
+      "name": "H10",
+      "partial_charge_e": 0.04727089552238807
+    },
+    {
+      "element": "H",
+      "formal_charge": 0,
+      "index": 44,
+      "name": "H11",
+      "partial_charge_e": 0.04727089552238807
+    },
+    {
+      "element": "H",
+      "formal_charge": 0,
+      "index": 45,
+      "name": "H12",
+      "partial_charge_e": 0.04727089552238807
+    },
+    {
+      "element": "H",
+      "formal_charge": 0,
+      "index": 46,
+      "name": "H13",
+      "partial_charge_e": 0.04727089552238807
+    },
+    {
+      "element": "H",
+      "formal_charge": 0,
+      "index": 47,
+      "name": "H14",
+      "partial_charge_e": 0.04727089552238807
+    },
+    {
+      "element": "H",
+      "formal_charge": 0,
+      "index": 48,
+      "name": "H15",
+      "partial_charge_e": 0.04727089552238807
+    },
+    {
+      "element": "H",
+      "formal_charge": 0,
+      "index": 49,
+      "name": "H16",
+      "partial_charge_e": 0.04727089552238807
+    },
+    {
+      "element": "H",
+      "formal_charge": 0,
+      "index": 50,
+      "name": "H17",
+      "partial_charge_e": 0.04727089552238807
+    },
+    {
+      "element": "H",
+      "formal_charge": 0,
+      "index": 51,
+      "name": "H18",
+      "partial_charge_e": 0.16801489552238807
+    },
+    {
+      "element": "H",
+      "formal_charge": 0,
+      "index": 52,
+      "name": "H19",
+      "partial_charge_e": 0.07221489552238808
+    },
+    {
+      "element": "H",
+      "formal_charge": 0,
+      "index": 53,
+      "name": "H20",
+      "partial_charge_e": 0.07221489552238808
+    },
+    {
+      "element": "H",
+      "formal_charge": 0,
+      "index": 54,
+      "name": "H21",
+      "partial_charge_e": 0.06038189552238807
+    },
+    {
+      "element": "H",
+      "formal_charge": 0,
+      "index": 55,
+      "name": "H22",
+      "partial_charge_e": 0.06038189552238807
+    },
+    {
+      "element": "H",
+      "formal_charge": 0,
+      "index": 56,
+      "name": "H23",
+      "partial_charge_e": 0.06038189552238807
+    },
+    {
+      "element": "H",
+      "formal_charge": 0,
+      "index": 57,
+      "name": "H24",
+      "partial_charge_e": 0.3412148955223881
+    },
+    {
+      "element": "H",
+      "formal_charge": 0,
+      "index": 58,
+      "name": "H25",
+      "partial_charge_e": 0.13476489552238807
+    },
+    {
+      "element": "H",
+      "formal_charge": 0,
+      "index": 59,
+      "name": "H26",
+      "partial_charge_e": 0.16251489552238807
+    },
+    {
+      "element": "H",
+      "formal_charge": 0,
+      "index": 60,
+      "name": "H27",
+      "partial_charge_e": 0.16251489552238807
+    },
+    {
+      "element": "H",
+      "formal_charge": 0,
+      "index": 61,
+      "name": "H28",
+      "partial_charge_e": 0.13476489552238807
+    },
+    {
+      "element": "H",
+      "formal_charge": 0,
+      "index": 62,
+      "name": "H29",
+      "partial_charge_e": 0.06704789552238807
+    },
+    {
+      "element": "H",
+      "formal_charge": 0,
+      "index": 63,
+      "name": "H30",
+      "partial_charge_e": 0.06704789552238807
+    },
+    {
+      "element": "H",
+      "formal_charge": 0,
+      "index": 64,
+      "name": "H31",
+      "partial_charge_e": 0.06704789552238807
+    },
+    {
+      "element": "H",
+      "formal_charge": 0,
+      "index": 65,
+      "name": "H32",
+      "partial_charge_e": 0.13476489552238807
+    },
+    {
+      "element": "H",
+      "formal_charge": 0,
+      "index": 66,
+      "name": "H33",
+      "partial_charge_e": 0.16251489552238807
+    }
+  ],
+  "charges": {
+    "backend": "AmberTools sqm",
+    "backend_id": "ambertools-sqm",
+    "conformer": "generated by the OpenFF toolkit for the charge calculation",
+    "method": "am1bcc",
+    "scheme": "am1bcc",
+    "source": "generated"
+  },
+  "chemical_state": {
+    "canonical_smiles": "[H]c1c([H])c([C@@]2(C([H])([H])[H])N([H])C(c3c([H])c([H])c(C(C([H])([H])[H])(C([H])([H])[H])C([H])([H])[H])c([H])c3OC([H])([H])C([H])([H])[H])=[N+]([H])[C@]2(c2c([H])c([H])c(Cl)c([H])c2[H])C([H])([H])[H])c([H])c([H])c1Cl",
+    "digest": "92d2f37be0f4858bfaacf9b2485c70fa51752a72c14e8ac9568cf1f782609a49",
+    "fixed_h_inchi": "InChI=1/C29H32Cl2N2O/c1-7-34-25-18-21(27(2,3)4)12-17-24(25)26-32-28(5,19-8-13-22(30)14-9-19)29(6,33-26)20-10-15-23(31)16-11-20/h8-18H,7H2,1-6H3,(H,32,33)/p+1/t28-,29+/fC29H33Cl2N2O/h32-33H/q+1",
+    "fixed_h_inchikey": "OOVOROVEJRZNDO-GDTUEVNYNA-O",
+    "formula": "C29H33Cl2N2O+",
+    "n_atoms": 67,
+    "n_heavy_atoms": 34,
+    "net_formal_charge": 1,
+    "scheme": "md-tools-chemical-state/1",
+    "standard_inchikey": "OOVOROVEJRZNDO-ISILISOKSA-O"
+  },
+  "compound": {
+    "aliases": [
+      "4j7d"
+    ],
+    "id": "LOCAL-OOVOROVEJRZNDO",
+    "residue_name": "L03"
+  },
+  "forcefield": {
+    "family": "smirnoff",
+    "resource": "openff-2.2.1"
+  },
+  "identity_scheme": "parameter_id = 'param_' + sha256(canonical_json({'chemical_state': <state digest>, 'parameters': <parameter digest>}))[:12]",
+  "net_partial_charge_e": 1.000000000000001,
+  "nonbonded_conventions": {
+    "combining_rule": "lorentz-berthelot",
+    "coulomb14scale": 0.8333333333333334,
+    "exclusions": "1-2 and 1-3 pairs excluded; 1-4 pairs as the listed exceptions",
+    "ffxml_normalisation": {
+      "coulomb14scale_normalised_to": "0.8333333333333334",
+      "source_coulomb14scale": "0.8333333333"
+    },
+    "lj14scale": 0.5
+  },
+  "parameter_digest": "680354a0395d787f9c1b691b764287459add24ce1c86d1f78471a20082d486e9",
+  "parameter_id": "param_1c6a32983073",
+  "parameter_table_schema": "md-tools-ligand-parameters/1",
+  "provenance": {
+    "created_utc": "2026-10-15T15:56:16+00:00",
+    "route": "generated",
+    "source": {
+      "input": "4j7d.input.sdf",
+      "input_sha256": "904c5967b4ae4869d4d161008964d78432212a3456e8e2d685f5ba18bf893385"
+    }
+  },
+  "readable_copies": {
+    "L03.pdb": {
+      "bytes": 6229,
+      "sha256": "ebb2f7d7cd0a625ac10033dee24a23945ae08e47f96f489e48153a04fa7ef7f7"
+    },
+    "L03.sdf": {
+      "bytes": 5972,
+      "sha256": "5fcbf407ff793603a64c00b75e3ce5d35dbb70b17a0c7db9c71f530163f72a09"
+    },
+    "L03.xml": {
+      "bytes": 79915,
+      "sha256": "f92f8575a6717112197401b001f7d1eec152e473dd9f450692212df590fee05e"
+    }
+  },
+  "schema_version": "md-tools-ligand-package/1",
+  "software": {
+    "ambertools": null,
+    "md-tools": "0.6.4",
+    "numpy": "2.5.4",
+    "openff-nagl-models": "2026.9.0",
+    "openff-toolkit": "0.19.0",
+    "openmm": "8.6",
+    "openmm_build": "8.6.0.dev-c6173db",
+    "openmmforcefields": "0.16.0",
+    "parmed": "4.3.1",
+    "python": "3.12.15",
+    "pyyaml": "6.0.3",
+    "rdkit": "2026.3.1"
+  },
+  "supported_force_terms": [
+    "NonbondedForce",
+    "HarmonicBondForce",
+    "HarmonicAngleForce",
+    "PeriodicTorsionForce"
+  ],
+  "template_name": "MDT_param_1c6a32983073"
+}

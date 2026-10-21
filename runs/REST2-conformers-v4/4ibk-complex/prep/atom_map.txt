@@ -1,0 +1,3 @@
+# 1 carboxylic acid(s) in the package: C1(=O2)-O1H
+# C1: C=O OAD->O2 1.257 A,  C-OH OAA->O1 1.258 A
+atom_map: {OAA: O1, CAT: C1, OAD: O2, CBA: C2, CAI: C3, CAH: C4, CAJ: C5, CBC: C6, NBH: N1, CAW: C7, OAC: O3, CAV: C8, OAE: O4, CAX: C9, CAU: C10, OAB: O5, CBE: C11, SAS: S1, CAY: C12, CL1: Cl1, CAK: C13, CAL: C14, CBG: C15, CBB: C16, CAM: C17, CAZ: C18, CL2: Cl2, CBF: C19, CBD: C20, CAO: C21, OAQ: O6, CAP: C22, OAR: O7, CAN: C23}

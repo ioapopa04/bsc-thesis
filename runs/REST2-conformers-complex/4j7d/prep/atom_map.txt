@@ -1,0 +1,2 @@
+# package N-H nitrogen: ['N2']; crystal N1 (C2-N1 1.388 A, single) carries the H
+atom_map: {C43: C1, C42: C2, C41: C3, C4: C4, C47: C5, N3: N1, C2: C6, C21: C7, C22: C8, C23: C9, C24: C10, C30: C11, C32: C12, C31: C13, C33: C14, C25: C15, C26: C16, O27: O1, C28: C17, C29: C18, N1: N2, C5: C19, C51: C20, C56: C21, C55: C22, C54: C23, CL5: Cl1, C53: C24, C52: C25, C57: C26, C46: C27, C45: C28, C44: C29, CL4: Cl2}

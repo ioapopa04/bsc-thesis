@@ -1,0 +1,15 @@
+- [MD-tools / OpenMM env](md-tools-openmm-env.md) — scratch paths, activation, and the CUDA 13.0 pin
+- [Folic acid REST2 workflow](fol-rest2-workflow.md) — dataset layout, the solute traj/top pairing, and why the clustering thresholds mislead
+- [Bound folic-acid conformations vs clusters](fol-bound-confs-clusters.md) — 4LRH/3QL3 land nearest to noise, not in any cluster; the crystal→topology mapping method
+- [bsc-thesis two protocols](bsc-thesis-protocols.md) — shuyu/ vs ioana/, two incompatible select_torsions.py, split env requirement, and the 100 ns cluster counts
+- [REST2-conformers dataset](rest2-conformers-dataset.md) — 5-ligand REST2 run_all.sh launcher, 6-replica/30 ns design, and the GPU-wait default
+- [FOL complex REST2](fol-complex-rest2-plan.md) — 4LRH/3QL3 bound runs: water FOL package reused (no reparam!), 10 rungs τ0.4, done (jobs 8050/8051); 3QL3 Glu tail leaves Arg57
+- [Always use Slurm](slurm-always.md) — launch all jobs via sbatch/srun after `module load slurm/slurm/24.11`; never on the login node
+- [REST2-conformers complex](rest2-conformers-complex.md) — 5 ligands in their proteins: water packages reused, 40 ns, 6 reps τ0.4 (tests passed), production jobs 8928-8932
+- [MD-tools protonation branch](md-tools-protonation-branch.md) — pending update: install only after the queue is empty; env name collides with openmm-env; COO-/amide-scaling breaks comparability
+- [Folate REST2 v4](fol-rest2-v4.md) — rerun water/4LRH/3QL3 with Shu-Yu branch (COO-, amide scaled) in openmm-env-protonation; FOL-REST2-v4, jobs 11474-11476
+- [Symmetry-first clustering port](symfirst-clustering.md) — shuyu_clustering now uses Shu-Yu's main t_hdbscan (env analysis-env-main); run_symfirst.sbatch jobs 11530/11532
+- [Thesis folder layout](thesis-folder.md) — all thesis runs + bsc-thesis repo live under /scratch/ipopa/thesis/ since 2026-10-15; envs/md-data stay outside
+- [Small molecules REST2 v4](rest2-conformers-v4.md) — 4ibi/4ibk/4j7d re-protonated (−2/−2/+1) → new runs in thesis/REST2-conformers-v4; 5mwh/5ov8 unchanged → only new clustering
+- [Folate REST2 MACE](fol-rest2-mace.md) — Shu-Yu's bespoke System XML transplanted into builds; 3H tautomer ≠ earlier runs; water 11621/11625 done; complexes resubmitted 12614-12617 (11622/11623 died exit 53)
+- [REST2 start-conformer replicates](rest2-replicates.md) — pick_starts.py; PARA rep1 + FOL rep1-3 in thesis/REST2-replicates; jobs 12622-12626; compared (folate agrees, paracetamol 46 vs 57 %)

@@ -1,0 +1,6 @@
+# i j k l   # atom names | class
+2 3 5 6   # L031-C3 L031-C4 L031-N1 L031-C6 | ring 
+3 5 6 7   # L031-C4 L031-N1 L031-C6 L031-C7 | ring 
+5 6 20 21   # L031-N1 L031-C6 L031-N2 L031-C19 | ring 
+6 20 21 3   # L031-C6 L031-N2 L031-C19 L031-C4 | ring 
+20 21 3 2   # L031-N2 L031-C19 L031-C4 L031-C3 | ring 

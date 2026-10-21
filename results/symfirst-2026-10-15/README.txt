@@ -9,7 +9,8 @@ Shu-Yu's symmetry-first clustering (MD-tools main 69c262b), 2026-10-15
                  molecules. 5mwh and 5ov8 have the SAME protomer under the new pH model, so their
                  runs here are also the current ones (no v4 rerun needed).
 3_mace-bespoke/  folate with Shu-Yu's MACE-OMOL bespoke parameters (3H-pterin tautomer, -2, REST2 v4):
-                 FOL-REST2-mace (water done; 4LRH / 3QL3 waiting for GPUs).
+                 FOL-REST2-mace (water, 4LRH, 3QL3 all done; jobs 11621/12614/12615).
+                 3QL3: 1 dominant cluster (86 %) + 1 % (nosingle), 13 % noise; 4LRH: 9 clusters (nosingle) / 1 at 61 %.
 
 *_clusters_overview_symfirst-nosingle.png  allow_single_cluster=False (use these; same setting as earlier analyses)
 *_clusters_overview_symfirst.png           allow_single_cluster=True, Shu-Yu's default (folate collapses to 1 cluster)

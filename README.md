@@ -20,5 +20,8 @@ Shared, protocol-independent early-stage files (ligand candidate filtering and c
 generation) sit at the top level: `filter.py`, `conformer_generation_from_SMILES.py`,
 `conformers/`, `easy_candidates.csv`, `rotbonds_histogram.png`.
 
+**Moving to a new machine: see `SETUP.md`** (software, paths, Slurm, workflow). Run inputs are in
+`runs/`, environment specs in `envs/`, project notes in `docs/notes/`, results in `results/`.
+
 See the per-folder READMEs for the exact commands and required environment
 (`source folenv.sh` then `micromamba activate analysis-env`).

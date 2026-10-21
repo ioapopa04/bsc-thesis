@@ -1,0 +1,3 @@
+# i j k l   # atom names | class
+2 1 0 38   # L011-O2 L011-C1 L011-O1 L011-H1 | polar-H O-H
+9 11 12 42   # L011-C7 L011-C8 L011-O4 L011-H5 | polar-H O-H

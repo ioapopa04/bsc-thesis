@@ -1,0 +1,6 @@
+# i j k l   # atom names | class
+8 9 10 11   # L051-C5 L051-N2 L051-C6 L051-C7 | ring 
+9 10 11 12   # L051-N2 L051-C6 L051-C7 L051-C8 | ring 
+10 11 12 13   # L051-C6 L051-C7 L051-C8 L051-C9 | ring 
+11 12 13 9   # L051-C7 L051-C8 L051-C9 L051-N2 | ring 
+12 13 9 8   # L051-C8 L051-C9 L051-N2 L051-C5 | ring 

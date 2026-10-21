@@ -1,0 +1,9 @@
+srun: job 11609 queued and waiting for resources
+srun: job 11609 has been allocated resources
+49 MACE atoms, 49 v4 atoms, 0 graph matches
+Traceback (most recent call last):
+  File "/scratch/ipopa/thesis/FOL-REST2-mace/scripts/compare_params.py", line 24, in <module>
+    m = matches[0]                                   # m[mace_idx] = v4_idx
+        ~~~~~~~^^^
+IndexError: tuple index out of range
+srun: error: sbrinz2: task 0: Exited with exit code 1

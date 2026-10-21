@@ -1,0 +1,12 @@
+/scratch/ipopa/thesis/FOL-REST2-mace/4LRH/REST2-run1: 25000 frames; RMSD (A) per 5 ns block
+block(ns)    pteridine  pABA+linker    glutamate
+  0-5              2.84         2.29         3.22
+  5-10             3.24         2.64         4.40
+ 10-15             3.31         2.58         3.72
+ 15-20             3.31         2.68         4.18
+ 20-25             3.22         2.71         4.40
+ 25-30             3.17         2.72         4.04
+ 30-35             3.19         2.77         4.40
+ 35-40             3.09         2.76         3.66
+ 40-45             3.16         2.82         4.15
+ 45-50             3.14         2.77         3.70

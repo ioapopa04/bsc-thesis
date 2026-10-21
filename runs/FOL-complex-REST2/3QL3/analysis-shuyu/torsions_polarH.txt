@@ -1,0 +1,3 @@
+# i j k l   # atom names | class
+0 1 2 32   # FOL1-O1 FOL1-C1 FOL1-O2 FOL1-H1 | polar-H O-H
+28 29 31 50   # FOL1-C18 FOL1-C19 FOL1-O6 FOL1-H19 | polar-H O-H

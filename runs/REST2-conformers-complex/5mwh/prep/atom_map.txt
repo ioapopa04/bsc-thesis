@@ -1,0 +1,2 @@
+# 0 carboxylic acid(s) in the package: 
+atom_map: {CAI: C1, CAK: C2, CAX: C3, SBH: S1, OAH: O1, OAG: O2, NAT: N1, CAW: C4, CAY: C5, NBE: N2, CAQ: C6, CAO: C7, OAU: O3, CAP: C8, CAR: C9, CAN: C10, CBC: C11, CBB: C12, CAM: C13, NBF: N3, CAC: C14, CAZ: C15, OAE: O4, CBA: C16, OAF: O5, NBG: N4, CAD: C17, CAL: C18, CAJ: C19, CAV: C20, CAS: C21, CBD: C22, CAA: C23, CAB: C24}

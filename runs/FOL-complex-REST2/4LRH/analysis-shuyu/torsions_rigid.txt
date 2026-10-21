@@ -1,0 +1,2 @@
+# i j k l   # atom names | class
+3 4 5 6   # FOL1-C2 FOL1-N1 FOL1-C3 FOL1-O3 | rigid amide-like C-N

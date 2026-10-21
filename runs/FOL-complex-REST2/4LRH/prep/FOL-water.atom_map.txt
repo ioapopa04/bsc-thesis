@@ -1,0 +1,4 @@
+# 2 carboxylic acid(s) in the package: C1(=O1)-O2H, C19(=O5)-O6H
+# C1: C=O O1->O1 1.220 A,  C-OH O2->O2 1.346 A
+# C19: C=O OE1->O5 1.218 A,  C-OH OE2->O6 1.347 A
+atom_map: {O1: O1, CT: C1, O2: O2, CA: C2, N: N1, C: C3, O: O3, C11: C4, C12: C5, C13: C6, C14: C7, C15: C8, C16: C9, N10: N2, C9: C10, C6: C11, N5: N3, C4A: C12, C8A: C13, N8: N4, C7: C14, N1: N5, C2: C15, N3: N6, C4: C16, O4: O4, NA2: N7, CB: C17, CG: C18, CD: C19, OE1: O5, OE2: O6}

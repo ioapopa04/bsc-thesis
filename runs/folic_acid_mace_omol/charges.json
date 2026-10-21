@@ -1,0 +1,406 @@
+{
+  "molecule": "folic_acid_pH7.4",
+  "input_smiles": "Nc1nc2ncc(CNc3ccc(cc3)C(=O)N[C@@H](CCC(=O)[O-])C(=O)[O-])nc2c(=O)[nH]1",
+  "mapped_smiles": "[N:1]([C:2]1=[N:3][c:4]2[n:5][c:6]([H:35])[c:7]([C:8]([N:9]([c:10]3[c:11]([H:39])[c:12]([H:40])[c:13]([C:16](=[O:17])[N:18]([C@@:19]([C:20]([C:21]([C:22](=[O:23])[O-:24])([H:47])[H:48])([H:45])[H:46])([C:25](=[O:26])[O-:27])[H:44])[H:43])[c:14]([H:41])[c:15]3[H:42])[H:38])([H:36])[H:37])[n:28][c:29]2[C:30](=[O:31])[N:32]1[H:49])([H:33])[H:34]",
+  "atom_index_convention": "index i is map index i+1 in mapped_smiles; also the atom order of molecule.sdf",
+  "method": "am1bcc",
+  "backend": "AmberToolsToolkitWrapper (antechamber/sqm, AmberTools 26.0)",
+  "conformer": "1 RDKit ETKDG conformer via openff-toolkit generate_conformers (randomSeed=1), saved in molecule.sdf",
+  "symmetrised": "averaged over RDKit CanonicalRankAtoms(breakTies=False) classes",
+  "max_abs_symmetrisation_change": 2.7755575615628914e-17,
+  "total_charge": -2.0,
+  "atoms": [
+    {
+      "index": 0,
+      "map_index": 1,
+      "element": "N",
+      "symmetry_class": 41,
+      "am1bcc_raw": -0.8768,
+      "charge": -0.8768
+    },
+    {
+      "index": 1,
+      "map_index": 2,
+      "element": "C",
+      "symmetry_class": 30,
+      "am1bcc_raw": 0.6498,
+      "charge": 0.6498
+    },
+    {
+      "index": 2,
+      "map_index": 3,
+      "element": "N",
+      "symmetry_class": 23,
+      "am1bcc_raw": -0.7157,
+      "charge": -0.7157
+    },
+    {
+      "index": 3,
+      "map_index": 4,
+      "element": "C",
+      "symmetry_class": 32,
+      "am1bcc_raw": 0.546,
+      "charge": 0.546
+    },
+    {
+      "index": 4,
+      "map_index": 5,
+      "element": "N",
+      "symmetry_class": 24,
+      "am1bcc_raw": -0.615,
+      "charge": -0.615
+    },
+    {
+      "index": 5,
+      "map_index": 6,
+      "element": "C",
+      "symmetry_class": 31,
+      "am1bcc_raw": 0.3549,
+      "charge": 0.3549
+    },
+    {
+      "index": 6,
+      "map_index": 7,
+      "element": "C",
+      "symmetry_class": 34,
+      "am1bcc_raw": 0.24329999999999996,
+      "charge": 0.2433
+    },
+    {
+      "index": 7,
+      "map_index": 8,
+      "element": "C",
+      "symmetry_class": 45,
+      "am1bcc_raw": 0.13549999999999998,
+      "charge": 0.1355
+    },
+    {
+      "index": 8,
+      "map_index": 9,
+      "element": "N",
+      "symmetry_class": 43,
+      "am1bcc_raw": -0.6976,
+      "charge": -0.6976
+    },
+    {
+      "index": 9,
+      "map_index": 10,
+      "element": "C",
+      "symmetry_class": 40,
+      "am1bcc_raw": 0.07159999999999998,
+      "charge": 0.0716
+    },
+    {
+      "index": 10,
+      "map_index": 11,
+      "element": "C",
+      "symmetry_class": 37,
+      "am1bcc_raw": -0.18200000000000002,
+      "charge": -0.182
+    },
+    {
+      "index": 11,
+      "map_index": 12,
+      "element": "C",
+      "symmetry_class": 35,
+      "am1bcc_raw": -0.07900000000000001,
+      "charge": -0.079
+    },
+    {
+      "index": 12,
+      "map_index": 13,
+      "element": "C",
+      "symmetry_class": 39,
+      "am1bcc_raw": -0.14560000000000003,
+      "charge": -0.1456
+    },
+    {
+      "index": 13,
+      "map_index": 14,
+      "element": "C",
+      "symmetry_class": 35,
+      "am1bcc_raw": -0.07900000000000001,
+      "charge": -0.079
+    },
+    {
+      "index": 14,
+      "map_index": 15,
+      "element": "C",
+      "symmetry_class": 37,
+      "am1bcc_raw": -0.18200000000000002,
+      "charge": -0.182
+    },
+    {
+      "index": 15,
+      "map_index": 16,
+      "element": "C",
+      "symmetry_class": 27,
+      "am1bcc_raw": 0.6607,
+      "charge": 0.6607
+    },
+    {
+      "index": 16,
+      "map_index": 17,
+      "element": "O",
+      "symmetry_class": 18,
+      "am1bcc_raw": -0.6561,
+      "charge": -0.6561
+    },
+    {
+      "index": 17,
+      "map_index": 18,
+      "element": "N",
+      "symmetry_class": 44,
+      "am1bcc_raw": -0.4859,
+      "charge": -0.4859
+    },
+    {
+      "index": 18,
+      "map_index": 19,
+      "element": "C",
+      "symmetry_class": 48,
+      "am1bcc_raw": -0.03730000000000002,
+      "charge": -0.0373
+    },
+    {
+      "index": 19,
+      "map_index": 20,
+      "element": "C",
+      "symmetry_class": 47,
+      "am1bcc_raw": -0.07540000000000001,
+      "charge": -0.0754
+    },
+    {
+      "index": 20,
+      "map_index": 21,
+      "element": "C",
+      "symmetry_class": 46,
+      "am1bcc_raw": -0.19040000000000004,
+      "charge": -0.1904
+    },
+    {
+      "index": 21,
+      "map_index": 22,
+      "element": "C",
+      "symmetry_class": 28,
+      "am1bcc_raw": 0.9086,
+      "charge": 0.9086
+    },
+    {
+      "index": 22,
+      "map_index": 23,
+      "element": "O",
+      "symmetry_class": 19,
+      "am1bcc_raw": -0.8753,
+      "charge": -0.8753
+    },
+    {
+      "index": 23,
+      "map_index": 24,
+      "element": "O",
+      "symmetry_class": 21,
+      "am1bcc_raw": -0.8753,
+      "charge": -0.8753
+    },
+    {
+      "index": 24,
+      "map_index": 25,
+      "element": "C",
+      "symmetry_class": 29,
+      "am1bcc_raw": 0.9186,
+      "charge": 0.9186
+    },
+    {
+      "index": 25,
+      "map_index": 26,
+      "element": "O",
+      "symmetry_class": 20,
+      "am1bcc_raw": -0.8513,
+      "charge": -0.8513
+    },
+    {
+      "index": 26,
+      "map_index": 27,
+      "element": "O",
+      "symmetry_class": 22,
+      "am1bcc_raw": -0.8513,
+      "charge": -0.8513
+    },
+    {
+      "index": 27,
+      "map_index": 28,
+      "element": "N",
+      "symmetry_class": 25,
+      "am1bcc_raw": -0.574,
+      "charge": -0.574
+    },
+    {
+      "index": 28,
+      "map_index": 29,
+      "element": "C",
+      "symmetry_class": 33,
+      "am1bcc_raw": 0.18049999999999997,
+      "charge": 0.1805
+    },
+    {
+      "index": 29,
+      "map_index": 30,
+      "element": "C",
+      "symmetry_class": 26,
+      "am1bcc_raw": 0.622,
+      "charge": 0.622
+    },
+    {
+      "index": 30,
+      "map_index": 31,
+      "element": "O",
+      "symmetry_class": 17,
+      "am1bcc_raw": -0.5965,
+      "charge": -0.5965
+    },
+    {
+      "index": 31,
+      "map_index": 32,
+      "element": "N",
+      "symmetry_class": 42,
+      "am1bcc_raw": -0.5094,
+      "charge": -0.5094
+    },
+    {
+      "index": 32,
+      "map_index": 33,
+      "element": "H",
+      "symmetry_class": 5,
+      "am1bcc_raw": 0.4043,
+      "charge": 0.4043
+    },
+    {
+      "index": 33,
+      "map_index": 34,
+      "element": "H",
+      "symmetry_class": 5,
+      "am1bcc_raw": 0.4043,
+      "charge": 0.4043
+    },
+    {
+      "index": 34,
+      "map_index": 35,
+      "element": "H",
+      "symmetry_class": 0,
+      "am1bcc_raw": 0.06409999999999999,
+      "charge": 0.0641
+    },
+    {
+      "index": 35,
+      "map_index": 36,
+      "element": "H",
+      "symmetry_class": 10,
+      "am1bcc_raw": 0.06969999999999998,
+      "charge": 0.0697
+    },
+    {
+      "index": 36,
+      "map_index": 37,
+      "element": "H",
+      "symmetry_class": 10,
+      "am1bcc_raw": 0.06969999999999998,
+      "charge": 0.0697
+    },
+    {
+      "index": 37,
+      "map_index": 38,
+      "element": "H",
+      "symmetry_class": 8,
+      "am1bcc_raw": 0.3798,
+      "charge": 0.3798
+    },
+    {
+      "index": 38,
+      "map_index": 39,
+      "element": "H",
+      "symmetry_class": 3,
+      "am1bcc_raw": 0.12149999999999998,
+      "charge": 0.1215
+    },
+    {
+      "index": 39,
+      "map_index": 40,
+      "element": "H",
+      "symmetry_class": 1,
+      "am1bcc_raw": 0.18799999999999997,
+      "charge": 0.188
+    },
+    {
+      "index": 40,
+      "map_index": 41,
+      "element": "H",
+      "symmetry_class": 1,
+      "am1bcc_raw": 0.18799999999999997,
+      "charge": 0.188
+    },
+    {
+      "index": 41,
+      "map_index": 42,
+      "element": "H",
+      "symmetry_class": 3,
+      "am1bcc_raw": 0.12149999999999998,
+      "charge": 0.1215
+    },
+    {
+      "index": 42,
+      "map_index": 43,
+      "element": "H",
+      "symmetry_class": 9,
+      "am1bcc_raw": 0.3105,
+      "charge": 0.3105
+    },
+    {
+      "index": 43,
+      "map_index": 44,
+      "element": "H",
+      "symmetry_class": 16,
+      "am1bcc_raw": 0.06669999999999998,
+      "charge": 0.0667
+    },
+    {
+      "index": 44,
+      "map_index": 45,
+      "element": "H",
+      "symmetry_class": 14,
+      "am1bcc_raw": 0.04669999999999998,
+      "charge": 0.0467
+    },
+    {
+      "index": 45,
+      "map_index": 46,
+      "element": "H",
+      "symmetry_class": 14,
+      "am1bcc_raw": 0.04669999999999998,
+      "charge": 0.0467
+    },
+    {
+      "index": 46,
+      "map_index": 47,
+      "element": "H",
+      "symmetry_class": 12,
+      "am1bcc_raw": 0.02319999999999998,
+      "charge": 0.0232
+    },
+    {
+      "index": 47,
+      "map_index": 48,
+      "element": "H",
+      "symmetry_class": 12,
+      "am1bcc_raw": 0.02319999999999998,
+      "charge": 0.0232
+    },
+    {
+      "index": 48,
+      "map_index": 49,
+      "element": "H",
+      "symmetry_class": 7,
+      "am1bcc_raw": 0.3315,
+      "charge": 0.3315
+    }
+  ]
+}

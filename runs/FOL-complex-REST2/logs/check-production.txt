@@ -1,0 +1,59 @@
+srun: job 8527 queued and waiting for resources
+srun: job 8527 has been allocated resources
+=========== 4LRH
+acceptance (completed run)
+  [0, 1]  tau 0.000-0.044   7217/12500  0.577
+  [1, 2]  tau 0.044-0.089   7124/12500  0.570
+  [2, 3]  tau 0.089-0.133   7056/12500  0.564
+  [3, 4]  tau 0.133-0.178   6895/12500  0.552
+  [4, 5]  tau 0.178-0.222   6958/12500  0.557
+  [5, 6]  tau 0.222-0.267   6919/12500  0.554
+  [6, 7]  tau 0.267-0.311   6831/12500  0.546
+  [7, 8]  tau 0.311-0.356   6778/12500  0.542
+  [8, 9]  tau 0.356-0.400   6772/12500  0.542
+  overall 0.556
+
+binding: 32 FOL heavy atoms, superposed on 207 CA
+  state 0 (25000 frames, 49998 ps)
+    FOL RMSD to crystal (A)  mean 1.64  last 1.23  max 4.49
+    FOL COM shift (A)        mean 0.66  last 0.36  max 2.66
+    protein CA RMSD (A)        mean 1.32  last 1.12  max 2.62
+  state 5 (25000 frames, 49998 ps)
+    FOL RMSD to crystal (A)  mean 2.41  last 1.11  max 5.44
+    FOL COM shift (A)        mean 1.03  last 0.48  max 3.85
+    protein CA RMSD (A)        mean 1.28  last 1.92  max 2.48
+  state 9 (25000 frames, 49998 ps)
+    FOL RMSD to crystal (A)  mean 3.02  last 3.41  max 5.92
+    FOL COM shift (A)        mean 1.50  last 2.07  max 4.53
+    protein CA RMSD (A)        mean 1.27  last 1.12  max 2.45
+=========== 3QL3
+acceptance (completed run)
+  [0, 1]  tau 0.000-0.044   6518/12500  0.521
+  [1, 2]  tau 0.044-0.089   6516/12500  0.521
+  [2, 3]  tau 0.089-0.133   6744/12500  0.540
+  [3, 4]  tau 0.133-0.178   6848/12500  0.548
+  [4, 5]  tau 0.178-0.222   7032/12500  0.563
+  [5, 6]  tau 0.222-0.267   7073/12500  0.566
+  [6, 7]  tau 0.267-0.311   7007/12500  0.561
+  [7, 8]  tau 0.311-0.356   6947/12500  0.556
+  [8, 9]  tau 0.356-0.400   7014/12500  0.561
+  overall 0.5484355555555556
+
+binding: 32 FOL heavy atoms, superposed on 159 CA
+  state 0 (25000 frames, 49998 ps)
+    FOL RMSD to crystal (A)  mean 6.57  last 8.80  max 9.67
+    FOL COM shift (A)        mean 3.89  last 5.23  max 6.48
+    protein CA RMSD (A)        mean 0.93  last 0.90  max 1.40
+  state 5 (25000 frames, 49998 ps)
+    FOL RMSD to crystal (A)  mean 5.37  last 6.89  max 9.53
+    FOL COM shift (A)        mean 3.15  last 4.44  max 6.49
+    protein CA RMSD (A)        mean 0.90  last 0.92  max 1.56
+  state 9 (25000 frames, 49998 ps)
+    FOL RMSD to crystal (A)  mean 4.19  last 7.27  max 9.02
+    FOL COM shift (A)        mean 2.47  last 4.13  max 6.85
+    protein CA RMSD (A)        mean 0.88  last 0.86  max 1.56
+=========== 3QL3 NADP+
+  state 0 (25000 frames, 49998 ps)
+    NAP RMSD to crystal (A)  mean 1.18  last 0.70  max 2.72
+    NAP COM shift (A)        mean 0.54  last 0.07  max 1.67
+    protein CA RMSD (A)        mean 0.93  last 0.90  max 1.40

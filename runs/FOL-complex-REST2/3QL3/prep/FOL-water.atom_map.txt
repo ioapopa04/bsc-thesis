@@ -1,0 +1,2 @@
+# 2 carboxylic acid(s) in the package: C1(=O1)-O2H, C19(=O5)-O6H
+no graph match puts every hydroxyl on the longer C-O bond

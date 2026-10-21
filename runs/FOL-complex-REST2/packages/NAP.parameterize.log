@@ -1,0 +1,299 @@
+md-openmm build-top --parameterize
+====================================================================
+
+Command
+-------
+  input                       NAP.sdf
+  config                      NAP.parameterize.config
+  package directory           /scratch/ipopa/FOL-complex-REST2/packages/NAP
+  residue name                NAP
+
+Resolved configuration
+----------------------
+  solute.ligand_forcefield    sage-2.2.1   (default)
+  solute.ligand_charge_method nagl   (set)
+  solute.compound_id          None   (default)
+  solute.parameters           search   (default)
+  coordinates                 read from the SDF, used as given
+
+Parameters
+----------
+  package                     LOCAL-XJLXINKUBYWONI/param_fdf8e3e322a5   (created)
+  charges                     nagl / openff-gnn-am1bcc-1.0.0.pt by openff-nagl
+  force field                 openff-2.2.1
+
+Outputs
+-------
+  NAP.pdb                     /scratch/ipopa/FOL-complex-REST2/packages/NAP/NAP.pdb
+  NAP.sdf                     /scratch/ipopa/FOL-complex-REST2/packages/NAP/NAP.sdf
+  NAP.xml                     /scratch/ipopa/FOL-complex-REST2/packages/NAP/NAP.xml
+  metadata.json               /scratch/ipopa/FOL-complex-REST2/packages/NAP/metadata.json
+  molecule.sdf                /scratch/ipopa/FOL-complex-REST2/packages/NAP/molecule.sdf
+  parameter.config            /scratch/ipopa/FOL-complex-REST2/packages/NAP/parameter.config
+  parameters.ffxml            /scratch/ipopa/FOL-complex-REST2/packages/NAP/parameters.ffxml
+  re-read check               LOCAL-XJLXINKUBYWONI/param_fdf8e3e322a5 verifies in place  OK
+
+Summary
+-------
+  LOCAL-XJLXINKUBYWONI/param_fdf8e3e322a5 written to /scratch/ipopa/FOL-complex-REST2/packages/NAP
+  status: completed
+
+# ===== BEGIN md-tools machine record =====
+# schema_version: md-tools-record/2.0
+# record_type: build-top
+# status: completed
+# started_utc: '2026-10-08T08:32:14+00:00'
+# finished_utc: '2026-10-08T08:32:21+00:00'
+# command:
+# - /scratch/ipopa/software/md-stack/envs/openmm-env/bin/md-openmm
+# - build-top
+# - --parameterize
+# - -i
+# - NAP.sdf
+# - --resname
+# - NAP
+# - --config
+# - NAP.parameterize.config
+# - -op
+# - NAP/NAP.pdb
+# - -os
+# - NAP/NAP.xml
+# - -log
+# - NAP.parameterize.log
+# environment:
+#   hostname: sbrinz
+#   platform: Linux-5.14.0-503.40.1.el9_5.x86_64-x86_64-with-glibc2.34
+#   machine: x86_64
+#   user: ipopa
+#   packages:
+#     python: 3.12.14
+#     md-tools: 0.6.2
+#     openmm: '8.6'
+#     openff-toolkit: 0.19.0
+#     openmmforcefields: 0.16.0
+#     parmed: 4.3.1
+#     rdkit: 2026.3.1
+#     ambertools: null
+#     numpy: 2.4.6
+#     pyyaml: 6.0.3
+#     openmm_build: 8.6.0.dev-c6173db
+#   md_tools_commit: 2e1aa6cf99503bb7e8b3d7a79fcb330e4b6c55ac
+# mode: parameterize
+# input:
+#   path: NAP.sdf
+#   bytes: 6236
+#   sha256: 258be65dfd44c1233d118118b2789043051ad84674eaac9a94b1417bf159fd25
+# resolved_config:
+#   constraints:
+#     hydrogen_mass_amu: null
+#     rigid_water: true
+#     type: HBonds
+#   engine: openmm
+#   engine_version: 8.6.0
+#   forcefield:
+#     protein: null
+#     water: amber14/tip3p.xml
+#     ligand: openff-2.2.1
+#     ligand_charge_method: nagl
+#   protonation:
+#     histidine_proximity_angstrom: 5.0
+#     method: openmm
+#     near_ph_window: 1.0
+#     overrides: []
+#     ph: 7.0
+#   schema_version: 1
+#   solute:
+#     kind: ligand
+#     ligand_charge_method: nagl
+#     ligand_forcefield: sage-2.2.1
+#     peptide: false
+#   solvent:
+#     box_shape: dodecahedron
+#     cutoff_nm: 1.0
+#     ionic_strength_molar: 0.15
+#     model: TIP3P
+#     negative_ion: Cl-
+#     padding_nm: 1.5
+#     positive_ion: Na+
+#   solvation: explicit
+# stated_keys:
+#   solute:
+#   - kind
+#   - ligand_charge_method
+#   - aliases
+# interpretation:
+#   route: parameterize
+#   residue_name: NAP
+#   input_format: sdf
+#   coordinates: read from the SDF, used as given
+# ligand_packages:
+#   packages:
+#   - reference: LOCAL-XJLXINKUBYWONI/param_fdf8e3e322a5
+#     compound_id: LOCAL-XJLXINKUBYWONI
+#     aliases:
+#     - NADP+
+#     - nadp_plus
+#     parameter_id: param_fdf8e3e322a5
+#     template_name: MDT_param_fdf8e3e322a5
+#     residue_name: NAP
+#     package_sha256: 3f74afcf6967b08f8536f94c34226e9b78243c3e7b2cf49067b0f85a07212bcb
+#     parameter_digest: c08e97a509dc963c5fbbae796015e10370336a9624bd6c76de351261472deec3
+#     chemical_state_digest: 1077c9c3b59ba53ed89ec6e7c82dabdd42a07b58f3aa0133b4e78b7c509cbd1f
+#     forcefield: openff-2.2.1
+#     charge_method: nagl
+#     charge_backend_id: openff-nagl
+#     charge_backend_recorded: true
+#     net_formal_charge: -3
+#     n_atoms: 73
+#     path: NAP
+#   attached:
+#     reference: LOCAL-XJLXINKUBYWONI/param_fdf8e3e322a5
+#     compound_id: LOCAL-XJLXINKUBYWONI
+#     aliases:
+#     - NADP+
+#     - nadp_plus
+#     parameter_id: param_fdf8e3e322a5
+#     template_name: MDT_param_fdf8e3e322a5
+#     residue_name: NAP
+#     package_sha256: e93e6fefdeb42b50cde972b1c41c6a7978d883f44fd5351d608893f0e3b1618f
+#     parameter_digest: c08e97a509dc963c5fbbae796015e10370336a9624bd6c76de351261472deec3
+#     chemical_state_digest: 1077c9c3b59ba53ed89ec6e7c82dabdd42a07b58f3aa0133b4e78b7c509cbd1f
+#     forcefield: openff-2.2.1
+#     charge_method: nagl
+#     charge_backend_id: openff-nagl
+#     charge_backend_recorded: true
+#     net_formal_charge: -3
+#     n_atoms: 73
+#     how: created
+#     search:
+#       decision: parameterise
+#       matched: null
+#       considered:
+#       - reference: CHEMBL112/param_e932f4c4f371
+#         root: /scratch/ipopa/md-data/parameters/ligands
+#         matched: false
+#         compared:
+#           topology: a different heavy-atom skeleton (CC(O)NC1CCC(O)CC1 is not NC(O)C1CCCN(C2OC(COP(O)(O)OP(O)(O)OCC3OC(N4CNC5C(N)NCNC54)C(OP(O)(O)O)C3O)C(O)C2O)C1)
+#         notes: []
+#       request:
+#         schema_version: md-tools-ligand-criteria/2
+#         topology:
+#           skeleton_smiles: NC(O)C1CCCN(C2OC(COP(O)(O)OP(O)(O)OCC3OC(N4CNC5C(N)NCNC54)C(OP(O)(O)O)C3O)C(O)C2O)C1
+#           skeleton_digest: 1e519d0b502b3502a340be81be5e2d0a27645e80b80e4ca5418d122990ede88a
+#           standard_inchikey_skeleton: XJLXINKUBYWONI
+#           n_heavy_atoms: 48
+#         protonation:
+#           digest: 1077c9c3b59ba53ed89ec6e7c82dabdd42a07b58f3aa0133b4e78b7c509cbd1f
+#           fixed_h_inchikey: XJLXINKUBYWONI-SEVZDBERNA-K
+#           net_formal_charge: -3
+#           canonical_smiles: '[H]O[C@@]1([H])[C@@]([H])(OP(=O)([O-])[O-])[C@]([H])(n2c([H])nc3c(N([H])[H])nc([H])nc32)O[C@]1([H])C([H])([H])O[P@@](=O)([O-])O[P@@](=O)([O-])OC([H])([H])[C@@]1([H])O[C@@]([H])([n+]2c([H])c([H])c([H])c(C(=O)N([H])[H])c2[H])[C@]([H])(O[H])[C@]1([H])O[H]'
+#         charges:
+#           method: nagl
+#           scheme: openff-gnn-am1bcc-1.0.0.pt
+#           backend_id: openff-nagl
+#           backend_recorded: true
+#           model:
+#             name: openff-gnn-am1bcc-1.0.0.pt
+#             sha256: 7981e7f5b0b1e424c9e10a40d9e7606d96dcd3dd2b095cb4eeff6829f92238ee
+#         forcefield:
+#           family: smirnoff
+#           resource: openff-2.2.1
+#     matched_on: null
+#     copied_to: ligands/LOCAL-XJLXINKUBYWONI/param_fdf8e3e322a5
+#     charges_generated_in_this_build: true
+#     stated_aliases_not_applied: []
+#     prepared_atom_for_package_atom:
+#     - 0
+#     - 1
+#     - 2
+#     - 3
+#     - 4
+#     - 5
+#     - 6
+#     - 7
+#     - 8
+#     - 9
+#     - 10
+#     - 11
+#     - 12
+#     - 13
+#     - 14
+#     - 15
+#     - 16
+#     - 17
+#     - 18
+#     - 19
+#     - 20
+#     - 21
+#     - 22
+#     - 23
+#     - 24
+#     - 25
+#     - 26
+#     - 27
+#     - 28
+#     - 29
+#     - 30
+#     - 31
+#     - 32
+#     - 33
+#     - 34
+#     - 35
+#     - 36
+#     - 37
+#     - 38
+#     - 39
+#     - 40
+#     - 41
+#     - 42
+#     - 43
+#     - 44
+#     - 45
+#     - 46
+#     - 47
+#     - 48
+#     - 49
+#     - 50
+#     - 51
+#     - 52
+#     - 53
+#     - 54
+#     - 55
+#     - 56
+#     - 57
+#     - 58
+#     - 59
+#     - 60
+#     - 61
+#     - 62
+#     - 63
+#     - 64
+#     - 65
+#     - 66
+#     - 67
+#     - 68
+#     - 69
+#     - 70
+#     - 71
+#     - 72
+#     prepared_files_rewritten_in_package_order: false
+#   placed_in: NAP
+# registration: null
+# outputs:
+#   package:
+#     directory: NAP
+#     reference: LOCAL-XJLXINKUBYWONI/param_fdf8e3e322a5
+#     package_sha256: 3f74afcf6967b08f8536f94c34226e9b78243c3e7b2cf49067b0f85a07212bcb
+#   molecule_pdb:
+#     path: NAP.pdb
+#     bytes: 6851
+#     sha256: 91d0828b8db5c99d9739042f3d4c596c4551ea9f8af70ecaa814e3560dfdb188
+#   system_xml:
+#     path: NAP.xml
+#     bytes: 89588
+#     sha256: a2c586b155092563a17bc3e9ec14a1b6fd7b355604781c749fa861b497939424
+#   molecule_sdf:
+#     path: NAP.sdf
+#     bytes: 6523
+#     sha256: 05f34fa98323769ce8e248407609820e327abecc2e2d74d5f369a241192d02c1
+# ===== END md-tools machine record =====

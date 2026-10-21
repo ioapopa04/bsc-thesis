@@ -1,0 +1,243 @@
+srun: job 11561 queued and waiting for resources
+srun: job 11561 has been allocated resources
+[17:54:06] Can't kekulize mol.  Unkekulized atoms: 3 7
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] Can't kekulize mol.  Unkekulized atoms: 3 7
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] Can't kekulize mol.  Unkekulized atoms: 3 7
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] Can't kekulize mol.  Unkekulized atoms: 3 7
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] Can't kekulize mol.  Unkekulized atoms: 3 7
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] Can't kekulize mol.  Unkekulized atoms: 3 7
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] Can't kekulize mol.  Unkekulized atoms: 3 7
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] Can't kekulize mol.  Unkekulized atoms: 3 7
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] Can't kekulize mol.  Unkekulized atoms: 2 32
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] Can't kekulize mol.  Unkekulized atoms: 2 32
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] Can't kekulize mol.  Unkekulized atoms: 2 32
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] Can't kekulize mol.  Unkekulized atoms: 2 32
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+[17:54:06] non kekulizable aromatic bond being treated as bond order 1
+4ibi (L01) O=C(O)c1cccc(N2C(=O)C(O)=C(C(=O)c3cccc(C(F)(F)F)c3)[C@@H]2c2cc(Cl)c3c(c2)OCO3)c1  net +0
+   pH 7.4: Open Babel 3.2.1 at pH 7.4: net charge +0 -> -2; 2 heavy atom(s) changed
+           -> O=C([O-])c1cccc(N2C(=O)C([O-])=C(C(=O)c3cccc(C(F)(F)F)c3)[C@@H]2c2cc(Cl)c3c(c2)OCO3)c1  changes [{'heavy_atom': 0, 'element': 'O', 'formal_charge': [0, -1], 'n_hydrogens': [1, 0]}, {'heavy_atom': 12, 'element': 'O', 'formal_charge': [0, -1], 'n_hydrogens': [1, 0]}]
+   pH 7.0: Open Babel 3.2.1 at pH 7.0: net charge +0 -> -2; 2 heavy atom(s) changed
+           -> O=C([O-])c1cccc(N2C(=O)C([O-])=C(C(=O)c3cccc(C(F)(F)F)c3)[C@@H]2c2cc(Cl)c3c(c2)OCO3)c1  changes [{'heavy_atom': 0, 'element': 'O', 'formal_charge': [0, -1], 'n_hydrogens': [1, 0]}, {'heavy_atom': 12, 'element': 'O', 'formal_charge': [0, -1], 'n_hydrogens': [1, 0]}]
+4ibk (L02) O=C(O)c1cccc(N2C(=O)C(O)=C(C(=O)c3ccc(Cl)s3)[C@@H]2c2cc(Cl)c3c(c2)OCO3)c1  net +0
+   pH 7.4: Open Babel 3.2.1 at pH 7.4: net charge +0 -> -2; 2 heavy atom(s) changed
+           -> O=C([O-])c1cccc(N2C(=O)C([O-])=C(C(=O)c3ccc(Cl)s3)[C@@H]2c2cc(Cl)c3c(c2)OCO3)c1  changes [{'heavy_atom': 0, 'element': 'O', 'formal_charge': [0, -1], 'n_hydrogens': [1, 0]}, {'heavy_atom': 12, 'element': 'O', 'formal_charge': [0, -1], 'n_hydrogens': [1, 0]}]
+   pH 7.0: Open Babel 3.2.1 at pH 7.0: net charge +0 -> -2; 2 heavy atom(s) changed
+           -> O=C([O-])c1cccc(N2C(=O)C([O-])=C(C(=O)c3ccc(Cl)s3)[C@@H]2c2cc(Cl)c3c(c2)OCO3)c1  changes [{'heavy_atom': 0, 'element': 'O', 'formal_charge': [0, -1], 'n_hydrogens': [1, 0]}, {'heavy_atom': 12, 'element': 'O', 'formal_charge': [0, -1], 'n_hydrogens': [1, 0]}]
+4j7d (L03) CCOc1cc(C(C)(C)C)ccc1C1=N[C@@](C)(c2ccc(Cl)cc2)[C@@](C)(c2ccc(Cl)cc2)N1  net +0
+   pH 7.4: Open Babel 3.2.1 at pH 7.4: net charge +0 -> +1; 1 heavy atom(s) changed
+           -> CCOc1cc(C(C)(C)C)ccc1C1=[NH+][C@@](C)(c2ccc(Cl)cc2)[C@@](C)(c2ccc(Cl)cc2)N1  changes [{'heavy_atom': 5, 'element': 'N', 'formal_charge': [0, 1], 'n_hydrogens': [0, 1]}]
+   pH 7.0: Open Babel 3.2.1 at pH 7.0: net charge +0 -> +1; 1 heavy atom(s) changed
+           -> CCOc1cc(C(C)(C)C)ccc1C1=[NH+][C@@](C)(c2ccc(Cl)cc2)[C@@](C)(c2ccc(Cl)cc2)N1  changes [{'heavy_atom': 5, 'element': 'N', 'formal_charge': [0, 1], 'n_hydrogens': [0, 1]}]
+5mwh (L04) CC(C)Cc1ccc(S(=O)(=O)Nc2cc3c(cc2N2CCOCC2)n(C)c(=O)c(=O)n3C)cc1  net +0
+   pH 7.4: Open Babel 3.2.1 at pH 7.4: no change
+   pH 7.0: Open Babel 3.2.1 at pH 7.0: no change
+5ov8 (L05) CC(C)Cc1ccc(S(=O)(=O)Nc2cc3c(cc2N2CCCC2)n(C)c(=O)c(=O)n3C)cc1  net +0
+   pH 7.4: Open Babel 3.2.1 at pH 7.4: no change
+   pH 7.0: Open Babel 3.2.1 at pH 7.0: no change

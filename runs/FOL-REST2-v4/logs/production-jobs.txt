@@ -1,0 +1,3 @@
+water 11474, 4LRH 11475, 3QL3 11476
+resubmitted excluding sbrinz1 (GPU driver/MPS init failure there, 2026-10-14): 4LRH 11481, 3QL3 11482 (11475 failed, 11476 cancelled)
+analysis 3QL3 + rmsd: 11489 (after 11482)

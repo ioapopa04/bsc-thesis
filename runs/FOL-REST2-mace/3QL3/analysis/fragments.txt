@@ -1,0 +1,15 @@
+/scratch/ipopa/thesis/FOL-REST2-mace/3QL3/REST2-run1: 25000 frames; RMSD (A) per 5 ns block
+block(ns)    pteridine  pABA+linker    glutamate
+  0-5              0.70         0.97         2.05
+  5-10             0.64         1.56         3.16
+ 10-15             0.61         1.94         6.32
+ 15-20             0.75         2.76         7.98
+ 20-25             0.76         2.75         8.04
+ 25-30             0.75         3.44        10.79
+ 30-35             0.73         3.60        11.22
+ 35-40             0.73         2.95         9.80
+ 40-45             0.76         3.74        12.33
+ 45-50             0.78         2.55         9.28
+Arg57 NH1/NH2/NE - FOL O4/O5 (alpha-COOH): min dist per 5 ns block (A): 2.8 3.5 9.5 12.2 12.1 13.0 13.4 11.7 16.1 13.5   crystal 2.8
+Asp27 OD1/OD2 - FOL N2/N1 (pterin N5/NA2... package names): min dist per 5 ns block (A): 2.8 2.8 2.8 2.8 2.8 2.8 2.8 2.8 2.8 2.8   crystal 2.6
+NAP (any heavy atom) - FOL pteridine: min dist per 5 ns block (A): 3.4 3.3 3.3 3.4 3.3 3.4 3.3 3.4 3.4 3.3   crystal 3.2

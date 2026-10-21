@@ -1,0 +1,11 @@
+water 11621
+4LRH 11622
+3QL3 11623
+ana water 11625
+ana 4LRH 11626
+ana 3QL3+rmsd 11627
+resubmit 2026-10-17 (11622/11623 died at start, exit 53, sbrinz1 /scratch issue)
+4LRH 12614
+3QL3 12615
+ana 4LRH 12616
+ana 3QL3+rmsd 12617

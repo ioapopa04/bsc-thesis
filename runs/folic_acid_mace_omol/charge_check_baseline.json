@@ -1,0 +1,10 @@
+{
+  "max_abs_diff_e": 0.0,
+  "library_charge_ids": [
+    "lib-folic_acid_pH7.4"
+  ],
+  "n_library_matches": 32,
+  "atoms_covered_by_library_charges": 49,
+  "passed": true,
+  "force_field_source": "openff_unconstrained-2.2.1.offxml"
+}
